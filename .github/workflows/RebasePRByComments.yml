@@ -73,11 +73,11 @@ jobs:
           git config merge.lemontree.driver "echo Do nothing, manual merge required"
       
       # download Lemontree.Automation on a runner and setup the license
+      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
       - uses: LieberLieber/setup-LemonTree.Automation@v5
         id: GetLTA
         with:
           License: ${{secrets.LTALICENSE}} 
-      #ExeLocation &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}"
       
       - name: Rebase repository
         id: Rebase

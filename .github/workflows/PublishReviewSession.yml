@@ -1,0 +1,375 @@
+# Copyright (c) LieberLieber GmbH & Robert Bosch GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Publish review session to PR
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+      - review_requested
+
+# Sets permissions of the GITHUB_TOKEN for the workflow
+permissions:
+  contents: write        # Required to checkout code and push to svg branch
+  pull-requests: write   # Required to comment on pull requests
+  issues: write         # Required to comment on issues (PR comments are issue comments)
+
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session
+  
+jobs:
+  publishReviewSession:
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: windows-latest
+    timeout-minutes: 15
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+          
+      - name: Get relevant commit IDs
+        id: CommitIds
+        run: |
+          git fetch
+          $baseId = git merge-base origin/$env:GITHUB_BASE_REF origin/$env:GITHUB_HEAD_REF
+          Write-Output "baseCommitId=$baseId" >> $env:GITHUB_OUTPUT
+          $sourceId = git show-ref --hash origin/$env:GITHUB_HEAD_REF
+          Write-Output "sourceCommitId=$sourceId" >> $env:GITHUB_OUTPUT
+          $targetId = git show-ref --hash origin/$env:GITHUB_BASE_REF
+          Write-Output "targetCommitId=$targetId" >> $env:GITHUB_OUTPUT
+          Write-Output "target branch: $env:GITHUB_BASE_REF"
+          Write-Output "source branch: $env:GITHUB_HEAD_REF"
+          Write-Output "target commit: $targetId"
+          Write-Output "source commit: $sourceId"
+          $gitCommitId = $sourceId
+          Write-Output "CommitID=$gitCommitId" >>$env:GITHUB_OUTPUT
+          Write-Output "base commit: $baseId"
+
+      - name: Create sessionfile name
+        id: session_file
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const repoName = context.payload.pull_request.base.repo.name
+            const prNumber = context.payload.pull_request.number
+            const baseSHA = '${{steps.CommitIds.outputs.targetCommitId}}'
+            const headSHA = '${{steps.CommitIds.outputs.sourceCommitId}}'
+            const filename = [repoName, 'PR', prNumber, baseSHA, headSHA].join('-') + '.ltsfs'
+            console.log(`Filename will be: ${filename}`)
+            return filename
+
+      - name: Download base-commit file
+        id: baseDownload
+        run: |
+          git fetch origin ${{steps.CommitIds.outputs.baseCommitId}}
+          $pointer = git cat-file blob ${{steps.CommitIds.outputs.baseCommitId}}:${{env.ModelName}}
+          $sha = ($pointer[1] -split(":"))[1]
+          if($sha -ne $null){
+            $shaPart1 = $sha.Substring(0,2)
+            $shaPart2 = $sha.Substring(2,2)
+            Write-Output "Model SHA: $sha"
+            git cat-file --filters ${{steps.CommitIds.outputs.baseCommitId}}:${{env.ModelName}} | Out-Null
+            copy ".git\lfs\objects\$shaPart1\$shaPart2\$sha" "base_${{env.ModelName}}"
+            Write-Output "result=downloaded" >> $env:GITHUB_OUTPUT
+          }
+          else{
+            Write-Output "result=notFound" >> $env:GITHUB_OUTPUT
+          }
+          
+      - name: Post new model comment to PR
+        if: steps.baseDownload.outputs.result == 'notFound'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Model not found on base commit / fork-off point`
+            })
+            
+      - name: Download source branch head file
+        if: steps.baseDownload.outputs.result == 'downloaded'
+        id: headDownload
+        run: |
+          git fetch origin $env:GITHUB_HEAD_REF
+          $pointer = git cat-file blob ${{steps.CommitIds.outputs.sourceCommitId}}:${{env.ModelName}}
+          $sha = ($pointer[1] -split(":"))[1]
+          $shaPart1 = $sha.Substring(0,2)
+          $shaPart2 = $sha.Substring(2,2)
+          Write-Output "Model SHA: $sha"
+          git cat-file --filters ${{steps.CommitIds.outputs.sourceCommitId}}":${{env.ModelName}}" | Out-Null
+          copy ".git\lfs\objects\$shaPart1\$shaPart2\$sha" "head_${{env.ModelName}}"
+      
+      # download Lemontree.Automation on a runner and setup the license
+      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
+      - name: GetLTA
+        uses: LieberLieber/setup-LemonTree.Automation@v5
+        id: GetLTA
+        with:
+          License: ${{secrets.LTALICENSE}} 
+    
+      - name: Publish Model Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ModelFiles
+          path: .\*.qeax
+          retention-days: 2
+
+      - name: Check for merge conflicts
+        if: steps.baseDownload.outputs.result == 'downloaded'
+        id: mergeCheck
+        run: |
+          Write-Output "****"
+          Write-Output "${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}"
+          Write-Output "****"
+          &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" merge --base base_${{env.ModelName}} --theirs ${{env.ModelName}} --mine head_${{env.ModelName}} --dryrun --sfs ${{ steps.session_file.outputs.result }} --abortOnConflict true
+          Write-Output "result=$LASTEXITCODE" >> $env:GITHUB_OUTPUT
+          Write-Output "Return code: $LASTEXITCODE"
+          if($LASTEXITCODE -eq 0){
+            Write-Output "No merge conflicts, setting message"
+            Write-Output "message=:heavy_check_mark: **No merge conflicts in model**\n\n" >> $env:GITHUB_OUTPUT
+          }
+          elseif($LASTEXITCODE -eq 2){
+            Write-Output "Internal Error when diffing. Please report such errors to support@lieberlieber.com"
+            exit 2
+          }
+          elseif($LASTEXITCODE -eq 3){
+            Write-Output "Merge conflicts, setting message"
+            Write-Output "message=:x: **Please resolve merge conflicts in model first**\n\n" >> $env:GITHUB_OUTPUT
+            exit 0
+          }
+          elseif($LASTEXITCODE -eq 6){
+            Write-Output "Licensing issue of LemonTree.Automation"
+          }
+          else{
+            Write-Output "Unknown error"
+          }    
+       
+      - name: Create review session file
+        id: checkSession
+        run: |
+          $Message = "${{ steps.mergeCheck.outputs.message }}"
+          $sfsfilename ="${{ steps.session_file.outputs.result }}"
+          $mergecheckresult = ${{ steps.mergeCheck.outputs.result}}
+          if ($mergecheckresult  -eq 0)
+          {
+            $output = &'${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}' diff --theirs base_${{env.ModelName}} --mine head_${{env.ModelName}} --sfs ${{ steps.session_file.outputs.result }} --DiffReportFilename DiffReport.xml --ReportIncludeDiagrams
+            Write-Output $output
+            ForEach ($line in $($output -split "`r`n"))
+            {
+                if ($line.EndsWith('Found 0 different elements.'))
+                {
+                  Write-Output "No differences we don't need to publish the session file."
+                  $Message = ":heavy_check_mark: **Model is identical!**"
+                  $sfsfilename =""; 
+                }                
+            }
+          }
+          
+          $xmlFilePath = "DiffReport.xml"
+          [xml]$xmlContent = Get-Content -Path $xmlFilePath
+          
+          # Define the XML namespaces
+          $ns = New-Object Xml.XmlNamespaceManager $xmlContent.NameTable
+          $ns.AddNamespace("ns", "http://www.lieberlieber.com")
+
+          $modifiedElementOutput=""
+
+          $removedElements = $xmlContent.SelectNodes("//ns:package[@name='SystemArchitecture']/ns:classifier/ns:element[@diffState='Removed']", $ns) 
+          foreach ($removedElement in $removedElements){
+            if($removedElement.name){
+              $modifiedElementOutput += ":heavy_minus_sign:"+$removedElement.name+"\n"
+            }
+          }
+
+          $modifedElements = $xmlContent.SelectNodes("//ns:package[@name='SystemArchitecture']/ns:classifier/ns:element[@diffState='Modified']", $ns) 
+          foreach ($modifiedElement in $modifedElements){
+            if($modifiedElement.name){
+              $modifiedElementOutput += ":zap:"+$modifiedElement.name+"\n"
+            }
+          }
+
+          $newElements = $xmlContent.SelectNodes("//ns:package[@name='SystemArchitecture']/ns:classifier/ns:element[@diffState='New']", $ns) 
+          foreach ($newElement in $newElements){
+            if($newElement.name){
+              $modifiedElementOutput += ":heavy_plus_sign:"+$newElement.name+"\n"
+            }
+          }
+          
+          $Message = $Message +"\n\n Modified Elements in SystemArchitecture:\n\n$modifiedElementOutput"
+
+          # Add diagram count to the message for PR comment
+          $diagramPictures = $xmlContent.SelectNodes('//ns:diagramPictures/ns:diagramPicture', $ns)
+          $Message = $Message +"\n\nFound $($diagramPictures.Count) Diagrams."
+
+          Write-Output "$Message"
+          Write-Output "SfsFileName=$sfsfilename" >> $env:GITHUB_OUTPUT
+          Write-Output "message=$Message" >> $env:GITHUB_OUTPUT
+          exit 0
+
+      - name: Process SVG diagrams
+        if: steps.baseDownload.outputs.result == 'downloaded' && steps.mergeCheck.outputs.result == 0
+        id: processSvgs
+        run: |
+          # Read the DiffReport.xml to extract diagram information
+          $xmlFilePath = "DiffReport.xml"
+          [xml]$xmlContent = Get-Content -Path $xmlFilePath
+          
+          # Define the XML namespaces
+          $ns = New-Object Xml.XmlNamespaceManager $xmlContent.NameTable
+          $ns.AddNamespace("ns", "http://www.lieberlieber.com")
+
+          # Select all diagramPicture elements using the defined namespace
+          $diagramPictures = $xmlContent.SelectNodes('//ns:diagramPictures/ns:diagramPicture', $ns)
+          
+          # Output the count of found elements
+          Write-Host "Found $($diagramPictures.Count) Diagrams."
+          Write-Output "Processing $($diagramPictures.Count) diagrams for SVG export"
+          
+          # Store current branch name before switching to svg branch
+          $originalBranch = git branch --show-current
+          Write-Output "Current branch: $originalBranch"
+          
+          # Configure git user for commits
+          git config user.name 'LemonTree.Automation'
+          git config user.email 'support@lieberlieber.com'
+          
+          # Checkout svg branch before writing SVG files
+          git fetch origin
+          if (-not (git branch --list svg)) {
+              git checkout --orphan svg
+              git rm -rf .
+          } else {
+              git checkout svg
+          }
+          git pull origin svg || Write-Host "svg branch does not exist remotely yet."
+
+          $svgFiles = @()
+          $svgInfo = @()
+          $svgLinksMarkdown = ""
+          
+          foreach ($diagramPicture in $diagramPictures) {
+              $diagramGuid = $diagramPicture.guid
+              if($diagramGuid){
+                  $cdata_b = $diagramPicture.diagramPictureB.InnerText
+                  if (![string]::IsNullOrEmpty($cdata_b)) {
+                      $qualifiedName = $diagramPicture.diagramPictureB.qualifiedName
+                      Write-Output "Processing diagram: $qualifiedName"
+                      $fileGuid = $diagramGuid.Replace('{','').Replace('}','')
+                      $filename = "$fileGuid.svg"
+                      Write-Output "$qualifiedName ==> $filename"
+                      $cdata_b | %{[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))}|Set-Content -Encoding UTF8 -Path $filename
+                      $svgFiles += $filename
+                      $svgInfo += @{ Name = $qualifiedName; File = $filename }
+                  }
+              }
+          }
+
+          # Commit all SVGs together to orphan branch 'svg'
+          if ($svgFiles.Count -gt 0) {
+              git add *.svg
+              git commit -m "Add SVG files for diagrams - PR ${{ github.event.pull_request.number }}"
+              $svgCommitId = git rev-parse HEAD
+              git push origin svg
+
+              Write-Output "Pushed $($svgFiles.Count) SVG files to svg branch (commit: $svgCommitId)"
+
+              # Build GitHub raw links for all SVGs using the same commit id
+              $repo = "${{ github.repository }}"
+              foreach ($svg in $svgInfo) {
+                  $svgUrl = "https://github.com/$repo/blob/$svgCommitId/$($svg.File)?raw=true"
+                  # Escape the diagram name to avoid GitHub Actions output format issues
+                  $safeName = $svg.Name -replace '[^\w\s\-\.]', '_'
+                  $svgLinksMarkdown += "\n\n$safeName\n\n [![SVG]($svgUrl)]($svgUrl)"
+              }
+          } else {
+              Write-Output "No SVG files to process"
+          }
+
+          # Return to the original branch
+          if (![string]::IsNullOrEmpty($originalBranch)) {
+              Write-Output "Returning to original branch: $originalBranch"
+              git checkout $originalBranch
+              
+              # Clean up any SVG files that might have been created in the main branch
+              if (Test-Path "*.svg") {
+                  Remove-Item "*.svg" -Force
+                  Write-Output "Cleaned up SVG files from main branch"
+              }
+          }
+          
+          # Use proper PowerShell syntax to set multiline output
+          $svgLinksEscaped = $svgLinksMarkdown -replace "`n", "%0A" -replace "`r", "%0D"
+          Write-Output "svgLinksMarkdown=$svgLinksEscaped" >> $env:GITHUB_OUTPUT
+          Write-Output "svgCount=$($svgFiles.Count)" >> $env:GITHUB_OUTPUT
+
+      - name: Upload Session
+        id: uploadSession
+        if: steps.baseDownload.outputs.result == 'downloaded'
+        run: |
+          $sessionFileName = "${{ steps.checkSession.outputs.SfsFileName }}"
+          $sfsFileNameLinks =""
+          if ([string]::IsNullOrEmpty($sessionFileName))
+          {
+            Write-Output "Nothing to upload"
+          }
+          else
+          {
+            $targetUrl = "${{env.ReviewSessionURL}}/${{ steps.session_file.outputs.result }}"
+            Write-Output "Uploading $sessionFileName to Nexus: $targetUrl"
+            while (Test-Path Alias:curl) {Remove-Item Alias:curl} #remove the alias binding from curl to Invoke-WebRequest
+            curl "-u${{secrets.NEXUSAUTHENTICATION}}" -T $sessionFileName $targetUrl
+ 
+            $sfsFileNameLinks += "\nReview Changes with LemonTree:"
+            $sfsFileNameLinks +="[Desktop]($targetUrl)/"
+            $sfsFileNameLinks +="[Web](https://lemontree2.4biz-94523.k8s.nextlayer.at/web?sessionAutoStart=true&sessionFromUrl=$targetUrl)"
+            $sfsFileNameLinks +="\nInstall [LemonTree 3.3+](https://www.lieberlieber.com/lemontree/en/) to open the Review Session file."
+          }
+          
+          Write-Output "SfsFileNameLinks=$sfsFileNameLinks" >> $env:GITHUB_OUTPUT
+
+      - name: Archive Session Files
+        if: steps.baseDownload.outputs.result == 'downloaded'
+        uses: actions/upload-artifact@v4
+        with:
+          name: Review Session File
+          path: ${{ steps.session_file.outputs.result }}
+          retention-days: 2
+
+      - name: Archive DiffReport.xml
+        uses: actions/upload-artifact@v4
+        with:
+                name: DiffReport
+                path: .\*.xml
+                retention-days: 2
+
+      - name: Create PR comment
+        if: steps.baseDownload.outputs.result == 'downloaded'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const message = `${{ steps.checkSession.outputs.message }}`;
+            const sessionLinks = `${{ steps.uploadSession.outputs.SfsFileNameLinks }}`;
+            const svgLinks = `${{ steps.processSvgs.outputs.svgLinksMarkdown }}`;
+            
+            const fullMessage = message + sessionLinks + svgLinks;
+            
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: fullMessage
+            })

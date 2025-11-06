@@ -23,13 +23,14 @@ jobs:
         with:
           lfs: true
           fetch-depth: 0      
-          
+     
+      # download Lemontree.Automation on a runner and setup the license
+      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
       - name: GetLTA
         uses: LieberLieber/setup-LemonTree.Automation@v5
         id: GetLTA
         with:
           License: ${{secrets.LTALICENSE}}
-
       - name: ConsistencyCheck
         run: |
           &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" ConsistencyCheck --Model ${{env.ModelName}}
