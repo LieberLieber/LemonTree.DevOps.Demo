@@ -10,8 +10,7 @@ on:
     types: [created]
     
 env:
-  ModelName: LemonTree.DevOps.Demo
-  ModelExtension: qeax
+  ModelName: LemonTree.DevOps.Demo.qeax
   GitHubProjectRoot: https://github.com/LieberLieber/LemonTree.DevOps.Demo
 
 jobs:
@@ -100,13 +99,13 @@ jobs:
           
           while($LASTEXITCODE -ne 0) {
               $basecommit = git merge-base HEAD REBASE_HEAD
-              $command = 'git cat-file blob {0}:${{env.ModelName}}.${{env.ModelExtension}} | git lfs smudge > ${{env.ModelName}}_base.${{env.ModelExtension}} & exit' -f $basecommit
+              $command = 'git cat-file blob {0}:${{env.ModelName}} | git lfs smudge > base_${{env.ModelName}} & exit' -f $basecommit
               #this is required to get rid of the line feeds in the basecommit string
               &$gitcmd $command
-              &$gitcmd "git cat-file blob HEAD:${{env.ModelName}}.${{env.ModelExtension}} | git lfs smudge > ${{env.ModelName}}_mine.${{env.ModelExtension}} & exit"
-              &$gitcmd "git cat-file blob REBASE_HEAD:${{env.ModelName}}.${{env.ModelExtension}} | git lfs smudge > ${{env.ModelName}}_theirs.${{env.ModelExtension}} & exit"
+              &$gitcmd "git cat-file blob HEAD:${{env.ModelName}} | git lfs smudge > mine_${{env.ModelName}} & exit"
+              &$gitcmd "git cat-file blob REBASE_HEAD:${{env.ModelName}} | git lfs smudge > theirs_${{env.ModelName}} & exit"
             
-              &$lta merge --Base ${{env.ModelName}}_base.${{env.ModelExtension}} --Theirs ${{env.ModelName}}_theirs.${{env.ModelExtension}} --Mine ${{env.ModelName}}_mine.${{env.ModelExtension}} --out ${{env.ModelName}}.${{env.ModelExtension}}
+              &$lta merge --Base base_${{env.ModelName}} --Theirs theirs_${{env.ModelName}} --Mine mine_${{env.ModelName}} --out ${{env.ModelName}}
           
               if($LASTEXITCODE -eq 0){
                 Write-Output "No merge conflicts, setting message"
@@ -133,11 +132,11 @@ jobs:
                 exit 1
               }
               
-              git add ${{env.ModelName}}.${{env.ModelExtension}}
+              git add ${{env.ModelName}}
               
-              Remove-Item -Path ${{env.ModelName}}_base.${{env.ModelExtension}}
-              Remove-Item -Path ${{env.ModelName}}_theirs.${{env.ModelExtension}}
-              Remove-Item -Path ${{env.ModelName}}_mine.${{env.ModelExtension}}
+              Remove-Item -Path base_${{env.ModelName}}
+              Remove-Item -Path theirs_${{env.ModelName}}
+              Remove-Item -Path mine_${{env.ModelName}}
               
               git rebase --continue
           }
@@ -148,9 +147,9 @@ jobs:
         if: failure()
         run: |
          try{
-           Remove-Item -Path ${{env.ModelName}}_base.${{env.ModelExtension}}
-           Remove-Item -Path ${{env.ModelName}}_theirs.${{env.ModelExtension}}
-           Remove-Item -Path ${{env.ModelName}}_mine.${{env.ModelExtension}}
+           Remove-Item -Path base_${{env.ModelName}}
+           Remove-Item -Path theirs_${{env.ModelName}}
+           Remove-Item -Path mine_${{env.ModelName}}
            git rebase --abort
          }
          catch{}
