@@ -19,6 +19,17 @@ In complex engineering landscapes, particularly when you’re working with SysML
 In short: this repository demonstrates how to **bring DevOps to MBSE** by integrating GitHub, Enterprise Architect models, and LemonTree’s automation capabilities — turning what used to be a manual, fragmented workflow into a continuous, model-aware pipeline.
 
 Whether you’re a systems engineer, enterprise architect, or DevOps practitioner exploring how to include models in your engineering lifecycle — this demo is a launchpad to explore, adapt, and scale model-based DevOps in your organization.
+
+## Social Preview Image
+
+A custom social preview image is available at `.github/social-preview.png` (1280×640px). This image features LemonTree and Enterprise Architect branding with a DevOps theme.
+
+**To set as repository social preview:**
+1. Go to your repository on GitHub
+2. Navigate to **Settings** → **General**
+3. Scroll to the **Social preview** section
+4. Click **Edit** and upload `.github/social-preview.png`
+
 ## Prerequisites
 
 If you fork this Repo and want to run the LemonTree.Automation examples you need to set an "LTALICENSE" Secret for Actions containing a valid License to be obtained from LieberLieber.
