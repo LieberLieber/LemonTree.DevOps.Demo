@@ -1,0 +1,107 @@
+# Copyright (c) LieberLieber Software GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Verify Modelcheck
+
+on:
+ push:
+
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+
+jobs:
+  ModelReadinessCheck:
+    defaults:
+      run:
+        shell: pwsh
+
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Download LemonTree Check Tool
+        run: |
+          if ('${{runner.os}}' -eq 'Linux') 
+          {
+            #workaround because github artifacts logic doesn't maintain properties
+            Invoke-WebRequest -URI "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck" -OutFile ./LemonTree.Pipeline.Tools.ModelCheck 
+            chmod +x ./LemonTree.Pipeline.Tools.ModelCheck
+          }
+          elseif ('${{runner.os}}' -eq 'Windows') {
+            Invoke-WebRequest -URI "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck.exe" -OutFile ./LemonTree.Pipeline.Tools.ModelCheck.exe
+          }
+          else {
+              Write-Output "${{runner.os}} is not supported"
+              Exit -1
+          }
+          
+                      
+      - name: Run LemonTree Check Tool
+        id: modelcheck
+        run: |
+          Write-Output "starting validation"
+          if ('${{runner.os}}' -eq 'Linux') {         
+              &./LemonTree.Pipeline.Tools.ModelCheck  --model "${{env.ModelName}}" --out "./output.md" 
+          }
+          elseif ('${{runner.os}}' -eq 'Windows') {
+              &./LemonTree.Pipeline.Tools.ModelCheck.exe  --model "${{env.ModelName}}" --out "./output.md" 
+          }
+          else {
+              Write-Output "${{runner.os}} is not supported"
+              Exit -1
+          }
+          
+          Get-Content "./output.md" >> $env:GITHUB_STEP_SUMMARY
+
+          #  Exit codes of LemonTree.Pipeline.Tools.ModelCheck.exe:
+          #  * -2 = other runtime exception occurred
+          #  * -1 = CLI argument parsing error occurred
+          #  *  0 = model is valid (no error, no warning, no runtime exception)
+          #  *  1 = model has at least one warning (only if --FailOnWarnings or --FailOnErrors)
+          #  *  2 = model has at least one error  (only if --FailOnErrors)
+         
+          Write-Output "modelcheckExitCode=$LASTEXITCODE" >> $env:GITHUB_OUTPUT
+          Write-Output "finished validation with $LASTEXITCODE"
+
+          #for now never stop 
+          exit 0
+
+      - name: evaulate Exit Code
+        run: |
+          Write-Output "set job failed on ..."
+          Write-Output "Current Exit Code ${{ steps.modelcheck.outputs.modelcheckExitCode }}"
+
+          if (${{ steps.modelcheck.outputs.modelcheckExitCode }} -eq 1)
+          {
+            #fail on warning
+            Write-Output "model has at least one warning"
+            #fail on warning
+            #exit 3
+            #ignore warning
+            exit 0
+          }
+          elseif (${{ steps.modelcheck.outputs.modelcheckExitCode }} -eq 2)
+          {
+              #fail on Error
+              Write-Output "model has at least one error"
+              exit 2
+          }
+          elseif (${{ steps.modelcheck.outputs.modelcheckExitCode }} -eq 0)
+          {
+            #brilliant model
+            Write-Output "modelcheck is passed"
+            exit 0
+          }
+          else
+          {
+            exit steps.modelcheck.outputs.modelcheckExitCode
+          }
+ 
+     
+    

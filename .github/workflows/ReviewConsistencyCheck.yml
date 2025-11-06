@@ -1,0 +1,39 @@
+# Copyright (c) Robert Bosch GmbH
+# Copyright (c) LieberLieber Software GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Verify LTA ConsistencyCheck
+
+on:
+ push:
+
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+
+jobs:
+  ConsistencyCheck:
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0      
+          
+      - name: GetLTA
+        uses: LieberLieber/setup-LemonTree.Automation@v5
+        id: GetLTA
+        with:
+          License: ${{secrets.LTALICENSE}}
+
+      - name: ConsistencyCheck
+        run: |
+          &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" ConsistencyCheck --Model ${{env.ModelName}}
+ 
+     
+    
