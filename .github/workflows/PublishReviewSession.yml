@@ -211,13 +211,35 @@ jobs:
           
           $Message = $Message +"\n\n Modified Elements in SystemArchitecture:\n\n$modifiedElementOutput"
 
-          
           # Select all diagramPicture elements using the defined namespace
           $diagramPictures = $xmlContent.SelectNodes('//ns:diagramPictures/ns:diagramPicture', $ns)
           
           # Output the count of found elements
           Write-Host "Found $($diagramPictures.Count) Diagrams."
           $Message = $Message +"\n\nFound $($diagramPictures.Count) Diagrams."
+          
+          Write-Output "$Message"
+          Write-Output "SfsFileName=$sfsfilename" >> $env:GITHUB_OUTPUT
+          Write-Output "message=$Message" >> $env:GITHUB_OUTPUT
+          exit 0
+
+      - name: Process SVG diagrams
+        if: steps.baseDownload.outputs.result == 'downloaded' && steps.mergeCheck.outputs.result == 0
+        id: processSvgs
+        run: |
+          # Read the DiffReport.xml to extract diagram information
+          $xmlFilePath = "DiffReport.xml"
+          [xml]$xmlContent = Get-Content -Path $xmlFilePath
+          
+          # Define the XML namespaces
+          $ns = New-Object Xml.XmlNamespaceManager $xmlContent.NameTable
+          $ns.AddNamespace("ns", "http://www.lieberlieber.com")
+
+          # Select all diagramPicture elements using the defined namespace
+          $diagramPictures = $xmlContent.SelectNodes('//ns:diagramPictures/ns:diagramPicture', $ns)
+          
+          Write-Output "Processing $($diagramPictures.Count) diagrams for SVG export"
+          
           # Store current branch name before switching to svg branch
           $originalBranch = git branch --show-current
           Write-Output "Current branch: $originalBranch"
@@ -234,16 +256,18 @@ jobs:
 
           $svgFiles = @()
           $svgInfo = @()
+          $svgLinksMarkdown = ""
+          
           foreach ($diagramPicture in $diagramPictures) {
               $diagramGuid = $diagramPicture.guid
               if($diagramGuid){
                   $cdata_b = $diagramPicture.diagramPictureB.InnerText
                   if (![string]::IsNullOrEmpty($cdata_b)) {
                       $qualifiedName = $diagramPicture.diagramPictureB.qualifiedName
-                      write-host $qualifiedName
+                      Write-Output "Processing diagram: $qualifiedName"
                       $fileGuid = $diagramGuid.Replace('{','').Replace('}','')
                       $filename = "$fileGuid.svg"
-                      write-output "$qualifiedName ==> $filename"
+                      Write-Output "$qualifiedName ==> $filename"
                       $cdata_b | %{[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))}|Set-Content -Encoding UTF8 -Path $filename
                       $svgFiles += $filename
                       $svgInfo += @{ Name = $qualifiedName; File = $filename }
@@ -254,16 +278,20 @@ jobs:
           # Commit all SVGs together to orphan branch 'svg'
           if ($svgFiles.Count -gt 0) {
               git add *.svg
-              git commit -m "Add SVG files for diagrams"
+              git commit -m "Add SVG files for diagrams - PR ${{ github.event.pull_request.number }}"
               $svgCommitId = git rev-parse HEAD
               git push origin svg
+
+              Write-Output "Pushed $($svgFiles.Count) SVG files to svg branch (commit: $svgCommitId)"
 
               # Build GitHub raw links for all SVGs using the same commit id
               $repo = "${{ github.repository }}"
               foreach ($svg in $svgInfo) {
                   $svgUrl = "https://github.com/$repo/blob/$svgCommitId/$($svg.File)?raw=true"
-                  $Message = $Message +"\n\n$($svg.Name)\n\n [![SVG]($svgUrl)]($svgUrl)"
+                  $svgLinksMarkdown += "`n`n$($svg.Name)`n`n [![SVG]($svgUrl)]($svgUrl)"
               }
+          } else {
+              Write-Output "No SVG files to process"
           }
 
           # Return to the original branch
@@ -272,10 +300,9 @@ jobs:
               git checkout $originalBranch
           }
           
-          Write-Output "$Message"
-          Write-Output "SfsFileName=$sfsfilename" >> $env:GITHUB_OUTPUT
-          Write-Output "message=$Message" >> $env:GITHUB_OUTPUT
-          exit 0
+          # Output the SVG links for use in the next step
+          Write-Output "svgLinksMarkdown=$svgLinksMarkdown" >> $env:GITHUB_OUTPUT
+          Write-Output "svgCount=$($svgFiles.Count)" >> $env:GITHUB_OUTPUT
 
       - name: Upload Session
         id: uploadSession
@@ -322,9 +349,15 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const message = `${{ steps.checkSession.outputs.message }}`;
+            const sessionLinks = `${{ steps.uploadSession.outputs.SfsFileNameLinks }}`;
+            const svgLinks = `${{ steps.processSvgs.outputs.svgLinksMarkdown }}`;
+            
+            const fullMessage = message + sessionLinks + svgLinks;
+            
             await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `${{ steps.checkSession.outputs.message }}${{ steps.uploadSession.outputs.SfsFileNameLinks }}`
+              body: fullMessage
             })
