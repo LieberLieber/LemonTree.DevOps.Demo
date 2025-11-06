@@ -14,6 +14,12 @@ on:
       - synchronize
       - review_requested
 
+# Sets permissions of the GITHUB_TOKEN for the workflow
+permissions:
+  contents: write        # Required to checkout code and push to svg branch
+  pull-requests: write   # Required to comment on pull requests
+  issues: write         # Required to comment on issues (PR comments are issue comments)
+
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
   ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session
@@ -99,7 +105,7 @@ jobs:
         id: headDownload
         run: |
           git fetch origin $env:GITHUB_HEAD_REF
-          $pointer = git cat-file blob ${{steps.CommitIds.outputs.sourceCommitId}}":${{env.ModelName}}"
+          $pointer = git cat-file blob ${{steps.CommitIds.outputs.sourceCommitId}}:${{env.ModelName}}
           $sha = ($pointer[1] -split(":"))[1]
           $shaPart1 = $sha.Substring(0,2)
           $shaPart2 = $sha.Substring(2,2)
@@ -212,6 +218,10 @@ jobs:
           # Output the count of found elements
           Write-Host "Found $($diagramPictures.Count) Diagrams."
           $Message = $Message +"\n\nFound $($diagramPictures.Count) Diagrams."
+          # Store current branch name before switching to svg branch
+          $originalBranch = git branch --show-current
+          Write-Output "Current branch: $originalBranch"
+          
           # Checkout svg branch before writing SVG files
           git fetch origin
           if (-not (git branch --list svg)) {
@@ -249,13 +259,18 @@ jobs:
               git push origin svg
 
               # Build GitHub raw links for all SVGs using the same commit id
-              $repo = "LieberLieber/LemonTree.PCS.Demo"
+              $repo = "${{ github.repository }}"
               foreach ($svg in $svgInfo) {
                   $svgUrl = "https://github.com/$repo/blob/$svgCommitId/$($svg.File)?raw=true"
                   $Message = $Message +"\n\n$($svg.Name)\n\n [![SVG]($svgUrl)]($svgUrl)"
               }
           }
 
+          # Return to the original branch
+          if (![string]::IsNullOrEmpty($originalBranch)) {
+              Write-Output "Returning to original branch: $originalBranch"
+              git checkout $originalBranch
+          }
           
           Write-Output "$Message"
           Write-Output "SfsFileName=$sfsfilename" >> $env:GITHUB_OUTPUT
