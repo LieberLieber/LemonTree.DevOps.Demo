@@ -1,0 +1,180 @@
+# Copyright (c) LieberLieber GmbH & Robert Bosch GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: LTA rebase by comments
+
+on:
+  issue_comment:
+    types: [created]
+    
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+  GitHubProjectRoot: https://github.com/LieberLieber/LemonTree.DevOps.Demo
+
+jobs:
+  rebase:
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: windows-latest
+    timeout-minutes: 15
+    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/rebase/'}}
+    
+    steps:
+      - name: Post start message in PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: ${{github.event.issue.number}},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Starting auto-rebase'
+            })  
+            
+      - name: Retrieve Rull Request details
+        id: pr_details
+        uses: actions/github-script@v7
+        with:
+          result-encoding: string
+          script: |
+            const response = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            })
+            if (response.status != 200) {
+              console.error("ohnoes")
+              process.exit()
+            }
+            const openPR = response.data
+            const filteredPRs = openPR.filter(pr => pr.number == ${{github.event.issue.number}})
+            const triggeredPR = filteredPRs[0]
+            console.log(`Number: ${triggeredPR.number}`)
+            console.log(`Head: ${triggeredPR.head.ref}`)
+            console.log(`Base: ${triggeredPR.base.ref}`)
+            core.setOutput('number', triggeredPR.number)
+            core.setOutput('head', triggeredPR.head.ref)
+            core.setOutput('base', triggeredPR.base.ref)
+            
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+          ref: ${{steps.pr_details.outputs.head}} #head instead of base for rebase
+          persist-credentials: false
+          token: ${{secrets.PAT}} #If default token of automation user is used, no workflows for merge commit are triggered
+          
+      - name: Configure merge driver for EA files
+        run: |
+          Write-Output "Setting lemontree merge-driver to 'no action'"
+          git config merge.lemontree.name "lemontree merge driver"
+          git config merge.lemontree.driver "echo Do nothing, manual merge required"
+      
+      # download Lemontree.Automation on a runner and setup the license
+      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
+      - uses: LieberLieber/setup-LemonTree.Automation@v5
+        id: GetLTA
+        with:
+          License: ${{secrets.LTALICENSE}} 
+      
+      - name: Rebase repository
+        id: Rebase
+        run: |
+          $env:GIT_EDITOR = "true"
+          
+          $lta = '${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}'
+          $gitcmd = 'C:\Program Files\Git\git-cmd.exe'
+          
+          Write-Output "set user config"
+          git config --global user.name 'LemonTree.Automation'
+          git config --global user.email 'support@lieberlieber.com'
+
+          Write-Output "setting remote state"
+          git remote set-url origin https://x-access-token:${{secrets.PAT}}@github.com/${{ github.repository }}
+          git status --porcelain --untracked-files=no --ignored=no
+          
+          git rebase origin/main
+          
+          while($LASTEXITCODE -ne 0) {
+              $basecommit = git merge-base HEAD REBASE_HEAD
+              $command = 'git cat-file blob {0}:${{env.ModelName}} | git lfs smudge > base_${{env.ModelName}} & exit' -f $basecommit
+              #this is required to get rid of the line feeds in the basecommit string
+              &$gitcmd $command
+              &$gitcmd "git cat-file blob HEAD:${{env.ModelName}} | git lfs smudge > mine_${{env.ModelName}} & exit"
+              &$gitcmd "git cat-file blob REBASE_HEAD:${{env.ModelName}} | git lfs smudge > theirs_${{env.ModelName}} & exit"
+            
+              &$lta merge --Base base_${{env.ModelName}} --Theirs theirs_${{env.ModelName}} --Mine mine_${{env.ModelName}} --out ${{env.ModelName}}
+          
+              if($LASTEXITCODE -eq 0){
+                Write-Output "No merge conflicts, setting message"
+                Write-Output "message=:heavy_check_mark: Rebase performed successfully" >> $env:GITHUB_OUTPUT
+              }
+              elseif($LASTEXITCODE -eq 2){
+                Write-Output "::error::Internal Error when diffing. Please report such errors to support@lieberlieber.com"
+                Write-Output "message=x: Rebase failed, check [action log](${{env.GitHubProjectRoot}}/actions/runs/${{ github.run_id }}) for details" >> $env:GITHUB_OUTPUT
+                exit 2
+              }
+              elseif($LASTEXITCODE -eq 3){
+                Write-Output "Merge conflicts present, auto-merge failed"
+                Write-Output "message=:x: Merge conflicts present, auto-rebase failed" >> $env:GITHUB_OUTPUT
+                exit 3
+              }
+              elseif($LASTEXITCODE -eq 6){
+                Write-Output "::warning::Licensing issue of LemonTree.Automation"
+                Write-Output "message=:x: Rebase failed, check [action log](${{env.GitHubProjectRoot}}/actions/runs/${{ github.run_id }}) for details" >> $env:GITHUB_OUTPUT
+                exit 6
+              }
+              else{
+                Write-Output "::error::Unknown error"
+                Write-Output "message=x: Rebase failed, check [action log](${{env.GitHubProjectRoot}}/actions/runs/${{ github.run_id }}) for details" >> $env:GITHUB_OUTPUT
+                exit 1
+              }
+              
+              git add ${{env.ModelName}}
+              
+              Remove-Item -Path base_${{env.ModelName}}
+              Remove-Item -Path theirs_${{env.ModelName}}
+              Remove-Item -Path mine_${{env.ModelName}}
+              
+              git rebase --continue
+          }
+          
+          $env:GIT_EDITOR = ""
+
+      - name: Cleanup failed rebase
+        if: failure()
+        run: |
+         try{
+           Remove-Item -Path base_${{env.ModelName}}
+           Remove-Item -Path theirs_${{env.ModelName}}
+           Remove-Item -Path mine_${{env.ModelName}}
+           git rebase --abort
+         }
+         catch{}
+
+      - name: Create commit
+        if: ${{ steps.mergeEA.outputs.result == 0 }}
+        run: |
+         Write-Output "set user config"
+         git config --global user.name 'LemonTree.Automation'
+         git config --global user.email 'support@lieberlieber.com'
+         Write-Output "setting remote state"
+         git remote set-url origin https://x-access-token:${{secrets.PAT}}@github.com/${{ github.repository }}
+         git status --porcelain --untracked-files=no --ignored=no
+         Write-Output "pushing new commit"
+         git push --force-with-lease
+           
+      - name: Create Finish Message in PR
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: ${{steps.pr_details.outputs.number}},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '${{steps.Rebase.outputs.message}}'
+            })        
+            
