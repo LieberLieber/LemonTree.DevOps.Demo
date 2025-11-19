@@ -56,6 +56,7 @@ function Get-PCSStatus {
     param(
         [string]$Tool,
         [string]$Uri,
+        # Not using SecureString here for simplicity; in production, consider using SecureString
         [String]$Password,
         [string]$DbManager
     )
