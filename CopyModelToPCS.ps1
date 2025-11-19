@@ -5,7 +5,7 @@
 
 <#
 .SYNOPSIS
-    Copies LemonTree model to PCS with connection management
+    Copies Enterprise Architect model to PCS with connection management
 
 .DESCRIPTION
     This script disables the PCS connection, copies the model file to the PCS directory,
