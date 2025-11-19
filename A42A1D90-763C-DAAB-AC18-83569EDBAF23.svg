@@ -439,20 +439,15 @@
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[interaction] sq_RaiseWindow</text>
     </g>
     <g style="" id="{85ECFA7D-1DAD-6530-93FA-AFCAB2BB13BD}" transform="translate(64, 50)" class="element uml-Lifeline ds-new ds-new diag-highlight" data-diagram-object-guid="{a3eb50c3-0712-cd74-5cd4-416e4794ff6d}">
-      <polyline points="46,55 46,340" class="main-shape connector-dash" style="" />
-      <g transform="translate(31,12)" style="" class="main-shape">
-        <!-- Actor's head -->
-        <circle cx="15" cy="0" r="7" class="stroke-black" />
-        <!-- Actor's body -->
-        <line x1="15" y1="7" x2="15" y2="20" class="line-black-no-crisp" />
-        <!-- Actor's arms -->
-        <line x1="6" y1="12" x2="24" y2="12" class="line-black-no-crisp" />
-        <!-- Actor's right leg -->
-        <line x1="15" y1="20" x2="23" y2="33.333" class="line-black-no-crisp" />
-        <!-- Actor's left leg -->
-        <line x1="15" y1="20" x2="7" y2="33.333" class="line-black-no-crisp" />
-      </g>
-      <text x="46" y="54" class="text-transition">:Car occupant</text>
+      <polyline points="46,0 46,340" class="main-shape connector-dash" style="" />
+      <rect x="0" y="0" width="92" height="50" class="main-shape" style="" />
+      <foreignObject width="92" height="50" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="margin: 0px; padding-top:6px"></p>
+          <p class="text-center text-ellipsis" style="margin:0px;display:none;"></p>
+          <p class="text-center" style="margin-top:2px;"></p>
+        </div>
+      </foreignObject>
       <g class="invisible" transform="translate(41,335)">
         <polyline points="0,0 10,10" class="node" />
         <polyline points="10,0 0,10" class="node" />
