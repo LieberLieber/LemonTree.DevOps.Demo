@@ -156,7 +156,7 @@ try {
 
     # Step 4: Enable PCS DatabaseManager
     Write-Host "`nStep 4: Enabling PCS DatabaseManager..." -ForegroundColor Cyan
-    & $ToolPCStoggle Enable --uri $PCSUri --Password $PCSPassword --DatabaseManager $DatabaseManager | Out-Null
+    & $ToolPCStoggle Enable --uri $PCSUri --Password $PCSPassword --DatabaseManager $DatabaseManager --EnableProFeatures --EnableDiagramCacheGenerate| Out-Null
     
     if ($LASTEXITCODE -ne 0) {
         Write-Host "Warning: Enable command returned exit code $LASTEXITCODE" -ForegroundColor Yellow
