@@ -144,6 +144,7 @@ jobs:
               Remove-Item -Path theirs_${{env.ModelName}}
               Remove-Item -Path mine_${{env.ModelName}}
               
+              git commit --no-edit
               git rebase --continue
           }
           
