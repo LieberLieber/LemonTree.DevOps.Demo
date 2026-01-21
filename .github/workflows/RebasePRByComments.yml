@@ -8,7 +8,13 @@ name: LTA rebase by comments
 on:
   issue_comment:
     types: [created]
-    
+
+    # Sets permissions of the GITHUB_TOKEN for the workflow
+permissions:
+  contents: write        # Required to checkout code and push to svg branch
+  pull-requests: write   # Required to comment on pull requests
+  issues: write         # Required to comment on issues (PR comments are issue comments)
+
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
   GitHubProjectRoot: https://github.com/LieberLieber/LemonTree.DevOps.Demo
@@ -64,7 +70,7 @@ jobs:
           fetch-depth: 0
           ref: ${{steps.pr_details.outputs.head}} #head instead of base for rebase
           persist-credentials: false
-          token: ${{secrets.PAT}} #If default token of automation user is used, no workflows for merge commit are triggered
+          token: ${{ secrets.GITHUB_TOKEN }} #Use default GitHub Actions token
           
       - name: Configure merge driver for EA files
         run: |
@@ -92,7 +98,7 @@ jobs:
           git config --global user.email 'support@lieberlieber.com'
 
           Write-Output "setting remote state"
-          git remote set-url origin https://x-access-token:${{secrets.PAT}}@github.com/${{ github.repository }}
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git status --porcelain --untracked-files=no --ignored=no
           
           git rebase origin/main
@@ -161,7 +167,7 @@ jobs:
          git config --global user.name 'LemonTree.Automation'
          git config --global user.email 'support@lieberlieber.com'
          Write-Output "setting remote state"
-         git remote set-url origin https://x-access-token:${{secrets.PAT}}@github.com/${{ github.repository }}
+         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
          git status --porcelain --untracked-files=no --ignored=no
          Write-Output "pushing new commit"
          git push --force-with-lease
