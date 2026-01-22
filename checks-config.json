@@ -1,0 +1,15 @@
+{
+  "checks": [
+    {
+      "id": "Custom check from JSON File",
+      "query": "Select Count(*) from t_document",
+      "passedTitle": "There are no entries in t_document",
+      "failedTitle": "Model has {count} entries in t_document",
+      "passedDetail": null,
+      "failedDetail": "This is just to show case loading rules from JSON file.",
+      "passedLevel": "Passed",
+      "failedLevel": "Information",
+      "includeCountInTitle": true
+    }
+  ]
+}

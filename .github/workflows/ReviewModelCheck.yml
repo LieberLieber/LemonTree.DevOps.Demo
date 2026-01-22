@@ -47,10 +47,10 @@ jobs:
         run: |
           Write-Output "starting validation"
           if ('${{runner.os}}' -eq 'Linux') {         
-              &./LemonTree.Pipeline.Tools.ModelCheck  --model "${{env.ModelName}}" --out "./output.md" 
+              &./LemonTree.Pipeline.Tools.ModelCheck  --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact
           }
           elseif ('${{runner.os}}' -eq 'Windows') {
-              &./LemonTree.Pipeline.Tools.ModelCheck.exe  --model "${{env.ModelName}}" --out "./output.md" 
+              &./LemonTree.Pipeline.Tools.ModelCheck.exe  --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact
           }
           else {
               Write-Output "${{runner.os}} is not supported"
