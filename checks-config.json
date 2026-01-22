@@ -1,14 +1,36 @@
 {
   "checks": [
     {
-      "id": "Custom check from JSON File",
-      "query": "Select Count(*) from t_document",
-      "passedTitle": "There are no entries in t_document",
-      "failedTitle": "Model has {count} entries in t_document",
+      "id": "Unsatisfied Requirements",
+      "query": "select count (*) from t_object where object_id not in  ( select o.object_id from t_object o inner join t_connector c on o.object_id = c.end_object_id where o.object_type = 'requirement' and c.stereotype = 'satisfy' ) and object_type = 'requirement'",
+      "passedTitle": "There are no unsatisfied requirements",
+      "failedTitle": "Model has {count} unsatisfied requirements",
       "passedDetail": null,
-      "failedDetail": "This is just to show case loading rules from JSON file.",
+      "failedDetail": "Each requirement should be linked to at least one design element using a 'satisfy' relationship.",
       "passedLevel": "Passed",
-      "failedLevel": "Information",
+      "failedLevel": "Error",
+      "includeCountInTitle": true
+    },
+    {
+      "id": "Ports without Interface Defintion",
+      "query": "select count(*) from t_object where object_type = 'Port' and t_object.PDATA1 is NULL",
+      "passedTitle": "There are no ports without interface definition",
+      "failedTitle": "Model has {count} ports without interface definition",
+      "passedDetail": null,
+      "failedDetail": "All ports should have an interface definition assigned.",
+      "passedLevel": "Passed",
+      "failedLevel": "Warning",
+      "includeCountInTitle": true
+    },
+    {
+      "id": "Orphaned InterfaceBlocks",
+      "query": "select count(*) from t_object where stereotype = 'InterfaceBlock' and ea_guid not in (select pdata1 from t_object where object_type = 'Port')",
+      "passedTitle": "There are no orphaned InterfaceBlocks",
+      "failedTitle": "Model has {count} orphaned InterfaceBlocks",
+      "passedDetail": null,
+      "failedDetail": "There shouldn't be orphaned InterfaceBlocks.",
+      "passedLevel": "Passed",
+      "failedLevel": "Error",
       "includeCountInTitle": true
     }
   ]
