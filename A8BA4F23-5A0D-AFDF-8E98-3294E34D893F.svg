@@ -433,12 +433,12 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(0.5,0.5)">
-    <g style="" id="{95F53C4C-4A25-EFEF-B747-52FFD5A97D37}" transform="translate(10, 10)" class="element uml-Package ds-new ds-new diag-highlight" data-diagram-object-guid="{8b0fa561-2cfc-cea4-a8f0-586a6b753c90}">
+    <g style="" id="{95F53C4C-4A25-EFEF-B747-52FFD5A97D37}" transform="translate(10, 10)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{8b0fa561-2cfc-cea4-a8f0-586a6b753c90}">
       <rect x="0" y="0" width="837" height="498" style="fill:none" class="main-shape" />
       <polygon points="0,0 157.02344,0 157.02344,5 144.02344,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] KnowledgeModel</text>
     </g>
-    <g style="" id="{1D90D769-150E-49b6-BCD4-4F330F30EB3C}" transform="translate(670, 246)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{050eb62b-afc0-8ff4-a537-eadd872a336f}">
+    <g style="" id="{1D90D769-150E-49b6-BCD4-4F330F30EB3C}" transform="translate(670, 246)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{050eb62b-afc0-8ff4-a537-eadd872a336f}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -453,7 +453,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A1188121-EE03-4E97-97F6-4890C65CC335}" transform="translate(30, 42)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{1e1db271-c519-5c6d-394e-5a3fb46184f8}">
+    <g style="" id="{A1188121-EE03-4E97-97F6-4890C65CC335}" transform="translate(30, 42)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{1e1db271-c519-5c6d-394e-5a3fb46184f8}">
       <rect x="0" y="0" width="132" height="70" style="" class="main-shape" />
       <foreignObject width="132" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -468,7 +468,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{C1CB9E3A-BEC3-41b2-8AED-8DC223B26EA0}" transform="translate(672, 150)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{2d848124-e527-f61b-c4e8-982ef3f7f9eb}">
+    <g style="" id="{C1CB9E3A-BEC3-41b2-8AED-8DC223B26EA0}" transform="translate(672, 150)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{2d848124-e527-f61b-c4e8-982ef3f7f9eb}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -483,7 +483,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{821FA91F-1932-4079-80F9-11222247CAD9}" transform="translate(153, 401)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{32464ea2-403a-d256-4745-c4300380b73c}">
+    <g style="" id="{821FA91F-1932-4079-80F9-11222247CAD9}" transform="translate(153, 401)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{32464ea2-403a-d256-4745-c4300380b73c}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -499,7 +499,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8A77DED4-33D2-FF77-A537-2B582C2E2B15}" transform="translate(162, 280)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{3af793a4-d062-b4e4-7d31-c9d265df781d}">
+    <g style="" id="{8A77DED4-33D2-FF77-A537-2B582C2E2B15}" transform="translate(162, 280)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{3af793a4-d062-b4e4-7d31-c9d265df781d}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -515,7 +515,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{5579D896-DC9A-462a-B05E-3E470419D4C5}" transform="translate(299, 145)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{417ab4d2-5656-5903-9d2f-48316c871f7c}">
+    <g style="" id="{5579D896-DC9A-462a-B05E-3E470419D4C5}" transform="translate(299, 145)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{417ab4d2-5656-5903-9d2f-48316c871f7c}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -530,7 +530,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{C5CD0489-0144-4769-ABFA-B4BC0BF0D928}" transform="translate(30, 398)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{4c58e0c1-015c-62a4-e5bb-9ef5c7389064}">
+    <g style="" id="{C5CD0489-0144-4769-ABFA-B4BC0BF0D928}" transform="translate(30, 398)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{4c58e0c1-015c-62a4-e5bb-9ef5c7389064}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -546,7 +546,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8E42B1C0-56CD-0760-B803-60540BCDEE69}" transform="translate(30, 279)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{4f5e5e3d-89b5-3cf8-aaca-04c7afa28af6}">
+    <g style="" id="{8E42B1C0-56CD-0760-B803-60540BCDEE69}" transform="translate(30, 279)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{4f5e5e3d-89b5-3cf8-aaca-04c7afa28af6}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -562,7 +562,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A5C5A85D-FAF0-533C-95BF-552A4C6E7D87}" transform="translate(30, 160)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{52d64ec7-9e95-df86-137c-65028e55298b}">
+    <g style="" id="{A5C5A85D-FAF0-533C-95BF-552A4C6E7D87}" transform="translate(30, 160)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{52d64ec7-9e95-df86-137c-65028e55298b}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -578,7 +578,22 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{DB767A22-375F-464d-B675-51FB373C648E}" transform="translate(420, 41)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{8249b9d3-5796-e427-e04d-5dfbd8b154cc}">
+    <g style="" id="{38485C35-7748-4f4d-AE75-EB6F75B0F2CE}" transform="translate(466, 280)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{6d1b3d02-faca-8f43-b46e-149d2b07e693}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">InterfaceBlock</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>LIN</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{DB767A22-375F-464d-B675-51FB373C648E}" transform="translate(420, 41)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{8249b9d3-5796-e427-e04d-5dfbd8b154cc}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -593,7 +608,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8F7DA2A5-61E1-8443-BE2D-20809116DBFB}" transform="translate(162, 160)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{8af35d65-b53f-b132-c2bf-90022a0f3478}">
+    <g style="" id="{8F7DA2A5-61E1-8443-BE2D-20809116DBFB}" transform="translate(162, 160)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{8af35d65-b53f-b132-c2bf-90022a0f3478}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -609,7 +624,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{E85086EA-08A3-4e31-8380-54EF69E3EBF8}" transform="translate(533, 146)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{9b0d72a1-9bbb-f515-91ae-c4c657bbd71a}">
+    <g style="" id="{E85086EA-08A3-4e31-8380-54EF69E3EBF8}" transform="translate(533, 146)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{9b0d72a1-9bbb-f515-91ae-c4c657bbd71a}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -624,7 +639,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{D9864436-1F28-4881-A1BB-D57D72C9A7DD}" transform="translate(286, 280)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{a947d9f5-6c83-321d-d877-94900bec0223}">
+    <g style="" id="{D9864436-1F28-4881-A1BB-D57D72C9A7DD}" transform="translate(286, 280)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{a947d9f5-6c83-321d-d877-94900bec0223}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -639,7 +654,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{AC7C196A-6E05-18D2-BE25-BF76149848BD}" transform="translate(179, 42)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{cb1cb75f-8813-fc9d-f254-eacb5eec548b}">
+    <g style="" id="{AC7C196A-6E05-18D2-BE25-BF76149848BD}" transform="translate(179, 42)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{cb1cb75f-8813-fc9d-f254-eacb5eec548b}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -654,7 +669,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{79B83026-0404-490e-A603-79DB210C68E5}" transform="translate(546, 41)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{da401c3e-6602-b29c-cdf9-91c2a4a028b9}">
+    <g style="" id="{79B83026-0404-490e-A603-79DB210C68E5}" transform="translate(546, 41)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{da401c3e-6602-b29c-cdf9-91c2a4a028b9}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -669,7 +684,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{7348B746-B7A4-4744-ABA9-6282E818D4FD}" transform="translate(302, 42)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{ec603448-c9d7-5631-1c8f-f1217e2bd562}">
+    <g style="" id="{7348B746-B7A4-4744-ABA9-6282E818D4FD}" transform="translate(302, 42)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{ec603448-c9d7-5631-1c8f-f1217e2bd562}">
       <rect x="0" y="0" width="109" height="76" style="" class="main-shape" />
       <foreignObject width="109" height="76" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -684,7 +699,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{6575D3C5-D7C1-41c6-96B2-B0B0C9B8527A}" transform="translate(426, 145)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{f8027907-963f-586f-92cd-8f652662906d}">
+    <g style="" id="{6575D3C5-D7C1-41c6-96B2-B0B0C9B8527A}" transform="translate(426, 145)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{f8027907-963f-586f-92cd-8f652662906d}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -699,7 +714,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8027E70B-C804-4cca-9E66-3B0640EF6167}" transform="translate(653, 41)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{f8d17d7b-2e8e-373b-8fa1-977e8e5dbba0}">
+    <g style="" id="{8027E70B-C804-4cca-9E66-3B0640EF6167}" transform="translate(653, 41)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{f8d17d7b-2e8e-373b-8fa1-977e8e5dbba0}">
       <rect x="0" y="0" width="157" height="88" style="" class="main-shape" />
       <foreignObject width="157" height="88" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">

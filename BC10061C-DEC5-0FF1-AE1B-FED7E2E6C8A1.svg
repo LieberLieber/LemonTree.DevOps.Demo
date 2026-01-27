@@ -556,7 +556,7 @@
               <p class="text-center" style="margin:0; margin-top:4px;">
                 <i>ports</i>
               </p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">LIN</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:LIN</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:CAN_Bus</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:powerSupply</p>
             </div>
