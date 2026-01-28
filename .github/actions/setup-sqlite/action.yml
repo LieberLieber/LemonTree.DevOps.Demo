@@ -16,8 +16,12 @@ runs:
       id: sqlite_key
       shell: pwsh
       run: |
-        $key = "sqlite3-${{ runner.os }}-3460100"
+        $sqliteVersion = "3460100"
+        $sqliteYear = "2024"
+        $key = "sqlite3-${{ runner.os }}-$sqliteVersion"
         Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+        Write-Output "version=$sqliteVersion" >> $env:GITHUB_OUTPUT
+        Write-Output "year=$sqliteYear" >> $env:GITHUB_OUTPUT
 
     - name: Restore SQLite from cache
       id: cache_sqlite
@@ -33,7 +37,9 @@ runs:
       shell: pwsh
       run: |
         New-Item -ItemType Directory -Path "${{ inputs.sqlite-tools-dir }}" -Force | Out-Null
-        $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
+        $sqliteVersion = "${{ steps.sqlite_key.outputs.version }}"
+        $sqliteYear = "${{ steps.sqlite_key.outputs.year }}"
+        $sqliteUrl = "https://www.sqlite.org/$sqliteYear/sqlite-tools-win-x64-$sqliteVersion.zip"
         Invoke-WebRequest -Uri $sqliteUrl -OutFile "$env:RUNNER_TEMP\sqlite-tools.zip"
         Expand-Archive -Path "$env:RUNNER_TEMP\sqlite-tools.zip" -DestinationPath "${{ inputs.sqlite-tools-dir }}" -Force
         Remove-Item "$env:RUNNER_TEMP\sqlite-tools.zip"
