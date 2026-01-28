@@ -92,6 +92,8 @@ jobs:
         with:
           path: ${{ env.LTC_DIR }}
           key: ${{ steps.ltc_key.outputs.key }}
+          restore-keys: |
+            ltc-${{ runner.os }}-
 
       - name: Download and Unpack LemonTree.Connect Automation Tool (only if not cached)
         id: downloadLTC
@@ -123,15 +125,18 @@ jobs:
         with:
           path: ${{ env.SqliteToolsDir }}
           key: ${{ steps.sqlite_key.outputs.key }}
+          restore-keys: |
+            sqlite3-${{ runner.os }}-
 
       - name: Download and Install SQLite3 (only if not cached)
         if: steps.cache_sqlite.outputs.cache-hit != 'true'
         run: |
+          New-Item -ItemType Directory -Path "${{ env.SqliteToolsDir }}" -Force | Out-Null
           # Download SQLite tools directly
           $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
-          Invoke-WebRequest -Uri $sqliteUrl -OutFile "sqlite-tools.zip"
-          Expand-Archive -Path "sqlite-tools.zip" -DestinationPath "${{ env.SqliteToolsDir }}" -Force
-          Remove-Item "sqlite-tools.zip"
+          Invoke-WebRequest -Uri $sqliteUrl -OutFile "$env:RUNNER_TEMP\sqlite-tools.zip"
+          Expand-Archive -Path "$env:RUNNER_TEMP\sqlite-tools.zip" -DestinationPath "${{ env.SqliteToolsDir }}" -Force
+          Remove-Item "$env:RUNNER_TEMP\sqlite-tools.zip"
           Write-Output "SQLite3 downloaded and extracted"
 
       - name: Add SQLite to PATH
