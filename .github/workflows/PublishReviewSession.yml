@@ -26,6 +26,8 @@ env:
   DiffReportFilename: DiffReport.xml
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'
+  # cached executable paths used by tool setup steps
+  LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
   
 jobs:
   publishReviewSession:
