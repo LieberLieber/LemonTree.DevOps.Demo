@@ -275,6 +275,7 @@ jobs:
            branch: ${{steps.extract_branch.outputs.branch }}
 
       - name: Post Finish message in PR
+        if: ${{ steps.find-pull-request.outputs.number != '' }}
         uses: actions/github-script@v7
         with:
          script: | 
