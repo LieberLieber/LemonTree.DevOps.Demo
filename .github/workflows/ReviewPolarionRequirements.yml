@@ -24,6 +24,11 @@ env:
   PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'
+  
+  # cached executable paths used by tool setup steps
+  LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
+  LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
+  SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
 
 jobs:
   PolarionCheck: 
@@ -43,46 +48,28 @@ jobs:
           #Make a copy of the original model to import into Polarion and compare later
           Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
 
-      # download Lemontree.Automation on a runner and setup the license
-      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
-      - name: Download and Unpack LemonTree Automation Tool
-        uses: LieberLieber/setup-LemonTree.Automation@v5
+      # Custom action to setup LemonTree Automation that supports caching
+      - name: Setup LemonTree Automation
+        uses: ./.github/actions/setup-lta
         id: GetLTA
         with:
-          License: ${{secrets.LTALICENSE}} 
-    
-      - name: Download and Unpack LemonTree.Connect Automation Tool
-        id: downloadLTC
-        run: |
-          # Download the zip file
-          Invoke-WebRequest -Uri "${{env.ToolPolarionAutomationURL}}" -OutFile "LTC.zip"
-          # Create the LTC directory
-          New-Item -ItemType Directory -Path "LTC" -Force
-          # Unpack the zip file
-          Expand-Archive -Path "LTC.zip" -DestinationPath "LTC" -Force
-          # Clean up the zip file
-          Remove-Item "LTC.zip"
-          # Find the executable and set it as output
-          $exePath = Get-ChildItem -Path "LTC" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-          Write-Output "Executable found at: $exePath"
-          Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
+          lta-url: https://www.lieberlieber.com/lemontree/automation/latest
+          lta-dir: ${{ env.LTA_DIR }}
+          license: ${{secrets.LTALICENSE}}
+       
+      # Custom action to setup LemonTree.Connect Automation that supports caching
+      - name: Setup LemonTree.Connect
+        uses: ./.github/actions/setup-ltc
+        id: ltc_setup
+        with:
+          tool-url: ${{ env.ToolPolarionAutomationURL }}
+          ltc-dir: ${{ env.LTC_DIR }}
 
-      - name: Download and Install SQLite3
-        run: |
-          # Download SQLite tools directly
-          $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
-          Invoke-WebRequest -Uri $sqliteUrl -OutFile "sqlite-tools.zip"
-          Expand-Archive -Path "sqlite-tools.zip" -DestinationPath "sqlite-tools" -Force
-          Remove-Item "sqlite-tools.zip"
-          # Add to PATH for all subsequent steps
-          $sqlitePath = (Get-ChildItem -Path "sqlite-tools" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
-          Write-Output "SQLite3 installed: $sqlitePath"
-          # Add to GITHUB_PATH so it persists across steps
-          "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          # Also set for current step
-          $env:PATH = "$sqlitePath;$env:PATH"
-          # Verify installation
-          & sqlite3.exe --version
+      # Custom action to setup SQLite3 that supports caching
+      - name: Setup SQLite3
+        uses: ./.github/actions/setup-sqlite
+        with:
+          sqlite-tools-dir: ${{ env.SqliteToolsDir }}
 
       - name: Extract LemonTree.Connect Mapping Configuration from Model
         id: extractMapping
@@ -100,7 +87,7 @@ jobs:
 
       - name: Import the latest Items from Polariion into the copied Model  
         run: |
-          &"${{steps.downloadLTC.outputs.ToolPolarionAutomation}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
 
       - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
         id: pcsDiff
@@ -150,7 +137,8 @@ jobs:
         if: hashFiles(env.DiffReportFilename) != ''
         id: processSvgs
         run: |
-          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "${{github.event.pull_request.number}}" -RepositoryName "${{github.repository}}"
+          $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
+          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
       - name: Publish DiffReport.xml
         uses: actions/upload-artifact@v4
         with:
@@ -209,6 +197,7 @@ jobs:
            branch: ${{steps.extract_branch.outputs.branch }}
 
       - name: Post Finish message in PR
+        if: ${{ steps.find-pull-request.outputs.number != '' }}
         uses: actions/github-script@v7
         with:
          script: | 

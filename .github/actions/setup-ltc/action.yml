@@ -1,0 +1,71 @@
+name: Setup LemonTree.Connect
+description: Download, cache, and setup LemonTree.Connect Automation Tool
+inputs:
+  tool-url:
+    description: URL to download LemonTree.Connect from
+    required: true
+  ltc-dir:
+    description: Directory to cache LTC tools
+    required: true
+outputs:
+  tool-path:
+    description: Path to the LTC executable
+    value: ${{ steps.ltc_exe.outputs.ToolPolarionAutomation }}
+  cache-hit:
+    description: Whether LTC was restored from cache
+    value: ${{ steps.cache_ltc.outputs.cache-hit }}
+runs:
+  using: composite
+  steps:
+    - name: Compute LTC cache key (best-effort)
+      id: ltc_key
+      shell: pwsh
+      run: |
+        $key = "ltc-${{ runner.os }}-latest"
+        Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+        Write-Output "LTC cache key: $key"
+
+    - name: Restore LTC from cache
+      id: cache_ltc
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.ltc-dir }}
+        key: ${{ steps.ltc_key.outputs.key }}
+        restore-keys: |
+          ltc-${{ runner.os }}-
+
+    - name: Download and Unpack LemonTree.Connect Automation Tool (only if not cached)
+      id: downloadLTC
+      if: steps.cache_ltc.outputs.cache-hit != 'true'
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path "${{ inputs.ltc-dir }}" -Force | Out-Null
+        Invoke-WebRequest -Uri "${{ inputs.tool-url }}" -OutFile "$env:RUNNER_TEMP\LTC.zip"
+        Expand-Archive -Path "$env:RUNNER_TEMP\LTC.zip" -DestinationPath "${{ inputs.ltc-dir }}" -Force
+        Remove-Item "$env:RUNNER_TEMP\LTC.zip" -Force
+
+    - name: Find LTC executable and set output
+      id: ltc_exe
+      shell: pwsh
+      run: |
+        # Initial attempt to find the LTC executable
+        $exePath = Get-ChildItem -Path "${{ inputs.ltc-dir }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+
+        if (-not $exePath -and "${{ steps.cache_ltc.outputs.cache-hit }}" -eq 'true') {
+          Write-Output "No LTC .exe found under ${{ inputs.ltc-dir }} after cache restore. Cache may be invalid. Re-downloading LTC..."
+
+          New-Item -ItemType Directory -Path "${{ inputs.ltc-dir }}" -Force | Out-Null
+          $zipPath = Join-Path $env:RUNNER_TEMP "LTC.zip"
+          Invoke-WebRequest -Uri "${{ inputs.tool-url }}" -OutFile $zipPath
+          Expand-Archive -Path $zipPath -DestinationPath "${{ inputs.ltc-dir }}" -Force
+          Remove-Item $zipPath -Force
+
+          # Retry finding the executable after re-download
+          $exePath = Get-ChildItem -Path "${{ inputs.ltc-dir }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+        }
+
+        if (-not $exePath) {
+          throw "No LTC .exe found under ${{ inputs.ltc-dir }} after validation and optional re-download."
+        }
+        Write-Output "Executable found at: $exePath"
+        Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT

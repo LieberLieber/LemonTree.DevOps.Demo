@@ -28,11 +28,14 @@ jobs:
      
       # download Lemontree.Automation on a runner and setup the license
       # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
-      - name: GetLTA
-        uses: LieberLieber/setup-LemonTree.Automation@v5
+      # Custom action to setup LemonTree Automation that supports caching
+      - name: Setup LemonTree Automation
+        uses: ./.github/actions/setup-lta
         id: GetLTA
         with:
-          License: ${{secrets.LTALICENSE}}
+          lta-url: https://www.lieberlieber.com/lemontree/automation/latest
+          lta-dir: ${{ env.LTA_DIR }}
+          license: ${{secrets.LTALICENSE}}
       - name: ConsistencyCheck
         run: |
           &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" ConsistencyCheck --Model ${{env.ModelName}}
