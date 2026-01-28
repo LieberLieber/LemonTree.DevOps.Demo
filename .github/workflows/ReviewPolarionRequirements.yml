@@ -24,9 +24,9 @@ env:
   PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'
- 
   
   #cached executable paths
+  LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
   LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
   SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
 
@@ -48,13 +48,14 @@ jobs:
           #Make a copy of the original model to import into Polarion and compare later
           Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
 
-      # download Lemontree.Automation on a runner and setup the license
-      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
-      - name: Download and Unpack LemonTree Automation Tool
-        uses: LieberLieber/setup-LemonTree.Automation@v5
-        id: GetLTA
+      - name: Setup LemonTree Automation
+        uses: ./.github/actions/setup-lta
+        id: lta_setup
         with:
-          License: ${{secrets.LTALICENSE}} 
+          lta-url: https://www.lieberlieber.com/lemontree/automation/latest
+          lta-dir: ${{ env.LTA_DIR }}
+          license: ${{secrets.LTALICENSE}}
+       
       - name: Setup LemonTree.Connect
         uses: ./.github/actions/setup-ltc
         id: ltc_setup
@@ -94,7 +95,7 @@ jobs:
           echo "Branch: $currentBranch"
           $sfsfilename= "polarion_$currentBranch_$gitCommitId"+".ltsfs"
           echo "$sfsfilename"
-          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs ${{env.ModelName}} --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
+          $output = &"${{steps.lta_setup.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs ${{env.ModelName}} --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
           
           echo $output
           $diffResult = ""
@@ -133,7 +134,8 @@ jobs:
         if: hashFiles(env.DiffReportFilename) != ''
         id: processSvgs
         run: |
-          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "${{github.event.pull_request.number}}" -RepositoryName "${{github.repository}}"
+          $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
+          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
       - name: Publish DiffReport.xml
         uses: actions/upload-artifact@v4
         with:

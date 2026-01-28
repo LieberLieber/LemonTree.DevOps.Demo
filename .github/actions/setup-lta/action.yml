@@ -1,0 +1,66 @@
+name: Setup LemonTree Automation
+description: Download, cache, and setup LemonTree Automation with license
+inputs:
+  lta-url:
+    description: URL to download LemonTree Automation from
+    required: true
+    default: https://www.lieberlieber.com/lemontree/automation/latest
+  lta-dir:
+    description: Directory to cache LTA tools
+    required: true
+  license:
+    description: LemonTree Automation license (base64 encoded or file content)
+    required: true
+outputs:
+  executable-path:
+    description: Path to the LemonTree Automation executable
+    value: ${{ steps.lta_exe.outputs.LemonTreeAutomationExecutable }}
+  cache-hit:
+    description: Whether LTA was restored from cache
+    value: ${{ steps.cache_lta.outputs.cache-hit }}
+runs:
+  using: composite
+  steps:
+    - name: Compute LTA cache key
+      id: lta_key
+      shell: pwsh
+      run: |
+        $key = "lta-${{ runner.os }}-latest"
+        Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+        Write-Output "LTA cache key: $key"
+
+    - name: Restore LTA from cache
+      id: cache_lta
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.lta-dir }}
+        key: ${{ steps.lta_key.outputs.key }}
+        restore-keys: |
+          lta-${{ runner.os }}-
+
+    - name: Download and Unpack LemonTree Automation (only if not cached)
+      id: downloadLTA
+      if: steps.cache_lta.outputs.cache-hit != 'true'
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path "${{ inputs.lta-dir }}" -Force | Out-Null
+        $lemonTreePackageURL = "${{ inputs.lta-url }}"
+        Write-Output "Downloading LemonTree Automation from: $lemonTreePackageURL"
+        Invoke-WebRequest -Uri $lemonTreePackageURL -OutFile "$env:RUNNER_TEMP\LTA.zip"
+        Expand-Archive -Path "$env:RUNNER_TEMP\LTA.zip" -DestinationPath "${{ inputs.lta-dir }}" -Force
+        Remove-Item "$env:RUNNER_TEMP\LTA.zip" -Force
+        Write-Output "LemonTree Automation downloaded and extracted"
+
+    - name: Setup LTA license
+      shell: pwsh
+      run: |
+        '${{ inputs.license }}' | Out-File -FilePath lta.lic
+
+    - name: Find LTA executable and set output
+      id: lta_exe
+      shell: pwsh
+      run: |
+        $LemonTreeExe = Get-ChildItem -Path "${{ inputs.lta-dir }}" -Filter "LemonTree.Automation.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+        if (-not $LemonTreeExe) { throw "No LemonTree.Automation.exe found under ${{ inputs.lta-dir }}" }
+        Write-Output "LemonTree Automation found at: $LemonTreeExe"
+        Write-Output "LemonTreeAutomationExecutable=$LemonTreeExe" >> $env:GITHUB_OUTPUT
