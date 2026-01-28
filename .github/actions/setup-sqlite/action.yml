@@ -1,0 +1,49 @@
+name: Setup SQLite3
+description: Download, cache, and setup SQLite3 tools for Windows
+inputs:
+  sqlite-tools-dir:
+    description: Directory to cache SQLite tools
+    required: true
+    default: sqlite-tools
+outputs:
+  cache-hit:
+    description: Whether SQLite was restored from cache
+    value: ${{ steps.cache_sqlite.outputs.cache-hit }}
+runs:
+  using: composite
+  steps:
+    - name: Compute SQLite cache key
+      id: sqlite_key
+      shell: pwsh
+      run: |
+        $key = "sqlite3-${{ runner.os }}-3460100"
+        Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+
+    - name: Restore SQLite from cache
+      id: cache_sqlite
+      uses: actions/cache@v4
+      with:
+        path: ${{ inputs.sqlite-tools-dir }}
+        key: ${{ steps.sqlite_key.outputs.key }}
+        restore-keys: |
+          sqlite3-${{ runner.os }}-
+
+    - name: Download and Install SQLite3 (only if not cached)
+      if: steps.cache_sqlite.outputs.cache-hit != 'true'
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path "${{ inputs.sqlite-tools-dir }}" -Force | Out-Null
+        $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
+        Invoke-WebRequest -Uri $sqliteUrl -OutFile "$env:RUNNER_TEMP\sqlite-tools.zip"
+        Expand-Archive -Path "$env:RUNNER_TEMP\sqlite-tools.zip" -DestinationPath "${{ inputs.sqlite-tools-dir }}" -Force
+        Remove-Item "$env:RUNNER_TEMP\sqlite-tools.zip"
+        Write-Output "SQLite3 downloaded and extracted"
+
+    - name: Add SQLite to PATH
+      shell: pwsh
+      run: |
+        $sqlitePath = (Get-ChildItem -Path "${{ inputs.sqlite-tools-dir }}" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
+        Write-Output "SQLite3 found at: $sqlitePath"
+        "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+        $env:PATH = "$sqlitePath;$env:PATH"
+        & sqlite3.exe --version

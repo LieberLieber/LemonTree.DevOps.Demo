@@ -55,100 +55,17 @@ jobs:
         id: GetLTA
         with:
           License: ${{secrets.LTALICENSE}} 
-
-      
-    
-      - name: Compute LTC cache key (best-effort)
-        id: ltc_key
-        run: |
-          # If your URL is versioned, just hardcode/compose a version key instead.
-          # For "latest", try to derive something stable from headers.
-          $url = "${{ env.ToolPolarionAutomationURL }}"
-
-          try {
-            $resp = Invoke-WebRequest -Uri $url -Method Head -UseBasicParsing
-            $etag = $resp.Headers.ETag
-            $lm = $resp.Headers.'Last-Modified'
-          } catch {
-            $etag = ""
-            $lm = ""
-          }
-
-          # if ([string]::IsNullOrWhiteSpace($etag) -and [string]::IsNullOrWhiteSpace($lm)) {
-          #   # Fallback: cache by URL only (still helps across runs until it changes)
-          #   $key = "ltc-${{ runner.os }}-" + ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($url)) -replace '[^A-Za-z0-9]','').Substring(0,20)
-          # } else {
-          #   $key = "ltc-${{ runner.os }}-" + (($etag + "|" + $lm) -replace '[^A-Za-z0-9\-\|]','')
-          # }
-
-          $key = "ltc-${{ runner.os }}-latest"
-
-          Write-Output "key=$key" >> $env:GITHUB_OUTPUT
-          Write-Output "LTC cache key: $key"
-
-      - name: Restore LTC from cache
-        id: cache_ltc
-        uses: actions/cache@v4
+      - name: Setup LemonTree.Connect
+        uses: ./.github/actions/setup-ltc
+        id: ltc_setup
         with:
-          path: ${{ env.LTC_DIR }}
-          key: ${{ steps.ltc_key.outputs.key }}
-          restore-keys: |
-            ltc-${{ runner.os }}-
+          tool-url: ${{ env.ToolPolarionAutomationURL }}
+          ltc-dir: ${{ env.LTC_DIR }}
 
-      - name: Download and Unpack LemonTree.Connect Automation Tool (only if not cached)
-        id: downloadLTC
-        if: steps.cache_ltc.outputs.cache-hit != 'true'
-        run: |
-          New-Item -ItemType Directory -Path "${{ env.LTC_DIR }}" -Force | Out-Null
-
-          Invoke-WebRequest -Uri "${{ env.ToolPolarionAutomationURL }}" -OutFile "$env:RUNNER_TEMP\LTC.zip"
-          Expand-Archive -Path "$env:RUNNER_TEMP\LTC.zip" -DestinationPath "${{ env.LTC_DIR }}" -Force
-          Remove-Item "$env:RUNNER_TEMP\LTC.zip" -Force
-
-      - name: Find LTC executable and set output
-        id: ltc_exe
-        run: |
-          $exePath = Get-ChildItem -Path "${{ env.LTC_DIR }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-          if (-not $exePath) { throw "No LTC .exe found under ${{ env.LTC_DIR }}" }
-          Write-Output "Executable found at: $exePath"
-          Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
-
-      - name: Compute SQLite cache key
-        id: sqlite_key
-        run: |
-          $key = "sqlite3-${{ runner.os }}-3460100"
-          Write-Output "key=$key" >> $env:GITHUB_OUTPUT
-
-      - name: Restore SQLite from cache
-        id: cache_sqlite
-        uses: actions/cache@v4
+      - name: Setup SQLite3
+        uses: ./.github/actions/setup-sqlite
         with:
-          path: ${{ env.SqliteToolsDir }}
-          key: ${{ steps.sqlite_key.outputs.key }}
-          restore-keys: |
-            sqlite3-${{ runner.os }}-
-
-      - name: Download and Install SQLite3 (only if not cached)
-        if: steps.cache_sqlite.outputs.cache-hit != 'true'
-        run: |
-          New-Item -ItemType Directory -Path "${{ env.SqliteToolsDir }}" -Force | Out-Null
-          # Download SQLite tools directly
-          $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
-          Invoke-WebRequest -Uri $sqliteUrl -OutFile "$env:RUNNER_TEMP\sqlite-tools.zip"
-          Expand-Archive -Path "$env:RUNNER_TEMP\sqlite-tools.zip" -DestinationPath "${{ env.SqliteToolsDir }}" -Force
-          Remove-Item "$env:RUNNER_TEMP\sqlite-tools.zip"
-          Write-Output "SQLite3 downloaded and extracted"
-
-      - name: Add SQLite to PATH
-        run: |
-          $sqlitePath = (Get-ChildItem -Path "${{ env.SqliteToolsDir }}" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
-          Write-Output "SQLite3 found at: $sqlitePath"
-          # Add to GITHUB_PATH so it persists across steps
-          "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
-          # Also set for current step
-          $env:PATH = "$sqlitePath;$env:PATH"
-          # Verify installation
-          & sqlite3.exe --version
+          sqlite-tools-dir: ${{ env.SqliteToolsDir }}
 
       - name: Extract LemonTree.Connect Mapping Configuration from Model
         id: extractMapping
@@ -166,7 +83,7 @@ jobs:
 
       - name: Import the latest Items from Polariion into the copied Model  
         run: |
-          &"${{steps.ltc_exe.outputs.ToolPolarionAutomation}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
 
       - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
         id: pcsDiff
