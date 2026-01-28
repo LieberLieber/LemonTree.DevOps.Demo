@@ -81,7 +81,7 @@ jobs:
           #   $key = "ltc-${{ runner.os }}-" + (($etag + "|" + $lm) -replace '[^A-Za-z0-9\-\|]','')
           # }
 
-          $key = "ltc-${{ runner.os }}-"latest"
+          $key = "ltc-${{ runner.os }}-latest"
 
           Write-Output "key=$key" >> $env:GITHUB_OUTPUT
           Write-Output "LTC cache key: $key"
