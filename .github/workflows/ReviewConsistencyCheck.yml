@@ -12,6 +12,8 @@ on:
 
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
+  # cached executable paths used by tool setup steps
+  LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
 
 jobs:
   ConsistencyCheck:
