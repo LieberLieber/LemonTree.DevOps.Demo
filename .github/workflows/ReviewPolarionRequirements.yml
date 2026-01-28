@@ -1,0 +1,234 @@
+# Copyright (c) LieberLieber Software GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+ 
+name: Verify Polarion with LemonTree.Connect Automation
+
+on:
+ push:
+  branches-ignore:
+      - main
+
+# Sets permissions of the GITHUB_TOKEN for the workflow
+permissions:
+  contents: write        # Required to checkout code and push to svg branch
+  pull-requests: write   # Required to comment on pull requests
+  issues: write         # Required to comment on issues (PR comments are issue comments)
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+  ToolPolarionAutomationURL : https://www.lieberlieber.com/polarion/automation/latest/
+  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session/
+  DiffReportFilename: DiffReport.xml
+  PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
+  GitUserName: 'LemonTree.Automation'
+  GitUserEmail: 'support@lieberlieber.com'
+
+jobs:
+  PolarionCheck: 
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: [windows-latest]
+    timeout-minutes: 15
+    steps:  
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+          fetch-depth: 0
+
+      - name: Create a copy of the original model to be able to compare later
+        run: |
+          #Make a copy of the original model to import into Polarion and compare later
+          Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
+
+      # download Lemontree.Automation on a runner and setup the license
+      # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
+      - name: Download and Unpack LemonTree Automation Tool
+        uses: LieberLieber/setup-LemonTree.Automation@v5
+        id: GetLTA
+        with:
+          License: ${{secrets.LTALICENSE}} 
+    
+      - name: Download and Unpack LemonTree.Connect Automation Tool
+        id: downloadLTC
+        run: |
+          # Download the zip file
+          Invoke-WebRequest -Uri "${{env.ToolPolarionAutomationURL}}" -OutFile "LTC.zip"
+          # Create the LTC directory
+          New-Item -ItemType Directory -Path "LTC" -Force
+          # Unpack the zip file
+          Expand-Archive -Path "LTC.zip" -DestinationPath "LTC" -Force
+          # Clean up the zip file
+          Remove-Item "LTC.zip"
+          # Find the executable and set it as output
+          $exePath = Get-ChildItem -Path "LTC" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+          Write-Output "Executable found at: $exePath"
+          Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
+
+      - name: Download and Install SQLite3
+        run: |
+          # Download SQLite tools directly
+          $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
+          Invoke-WebRequest -Uri $sqliteUrl -OutFile "sqlite-tools.zip"
+          Expand-Archive -Path "sqlite-tools.zip" -DestinationPath "sqlite-tools" -Force
+          Remove-Item "sqlite-tools.zip"
+          # Add to PATH for all subsequent steps
+          $sqlitePath = (Get-ChildItem -Path "sqlite-tools" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
+          Write-Output "SQLite3 installed: $sqlitePath"
+          # Add to GITHUB_PATH so it persists across steps
+          "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          # Also set for current step
+          $env:PATH = "$sqlitePath;$env:PATH"
+          # Verify installation
+          & sqlite3.exe --version
+
+      - name: Extract LemonTree.Connect Mapping Configuration from Model
+        id: extractMapping
+        run: |
+          # Query the model for the mapping configuration
+          $query = "select notes from t_objectproperties where property = 'configuration' and object_id in (select object_id from t_object where ea_guid = '${{env.PackageGuid}}')"
+          $mappingXml = & .\scripts\QueryModelSqliteExe.ps1 -Model "copy_${{env.ModelName}}" -Query $query
+          # Extract just the XML content (skip the script's info messages)
+          $xmlContent = $mappingXml | Where-Object { $_ -match '<map' -or $_ -match '</' -or $_ -match '<[^>]+>' } | Out-String
+          # Save to file
+          $xmlContent | Out-File -FilePath "packagemapping.xml" -Encoding UTF8
+          Write-Output "Mapping file created: packagemapping.xml"
+          $mappingPath = Resolve-Path "packagemapping.xml"
+          Write-Output "MappingFile=$mappingPath" >> $env:GITHUB_OUTPUT
+
+      - name: Import the latest Items from Polariion into the copied Model  
+        run: |
+          &"${{steps.downloadLTC.outputs.ToolPolarionAutomation}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+
+      - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
+        id: pcsDiff
+        run: |
+          echo "start Diff with LemonTree"
+          $gitCommitId = git rev-parse HEAD
+          $currentBranch = git branch --show-current 
+          echo "Branch: $currentBranch"
+          $sfsfilename= "polarion_$currentBranch_$gitCommitId"+".ltsfs"
+          echo "$sfsfilename"
+          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs ${{env.ModelName}} --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
+          
+          echo $output
+          $diffResult = ""
+          ForEach ($line in $($output -split "`r`n"))
+          {
+              if ($line.EndsWith("potentially different elements."))
+              {
+                  #ignore
+              }
+              elseif ($line.EndsWith(" different elements."))
+              {
+                  Echo $Line
+                  $diffResult += $line
+                  $diffResult += "`r`n"
+              }
+              elseif ($line.StartsWith("Found conflicts:"))
+              {
+                  if ($line.StartsWith("Found conflicts: 0"))
+                  {
+                      #ignore if there is 0 conflicts
+                  }
+                  else
+                  {
+                      Echo $Line
+                      $diffResult += $line
+                      $diffResult += "`r`n"
+                  }
+              }
+          }
+          echo "DiffResult=$diffResult" >> $env:GITHUB_OUTPUT
+          echo "SfsFilName=$sfsfilename" >> $env:GITHUB_OUTPUT
+          echo "CommitID=$gitCommitId" >>$env:GITHUB_OUTPUT
+          exit 0
+
+      - name: Extract from Diffreport and store SVG diagrams in "svg" branch
+        if: hashFiles(env.DiffReportFilename) != ''
+        id: processSvgs
+        run: |
+          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "${{github.event.pull_request.number}}" -RepositoryName "${{github.repository}}"
+      - name: Publish DiffReport.xml
+        uses: actions/upload-artifact@v4
+        with:
+                name: DiffReport
+                path: .\*.xml
+                retention-days: 2
+
+      - name: Publish SessionFile
+        uses: actions/upload-artifact@v4
+        with:
+              name: SessionFile
+              path: .\*.ltsfs
+              retention-days: 2    
+
+      - name: Upload Session
+        id: uploadSession
+        run: |
+          $sessionFileName = "${{ steps.pcsDiff.outputs.SfsFilName }}"
+          $targetUrl = "${{env.ReviewSessionURL}}/${{ steps.pcsDiff.outputs.SfsFilName }}"
+          echo "Uploading $sessionFileName to Nexus: $targetUrl"
+          while (Test-Path Alias:curl) {Remove-Item Alias:curl} #remove the alias binding from curl to Invoke-WebRequest
+          curl "-u${{secrets.NEXUSAUTHENTICATION}}" -T $sessionFileName $targetUrl
+          echo "SessionURL=$targetUrl" >> $env:GITHUB_OUTPUT
+          
+          $sfsFileNameLinks =""
+          $sfsFileNameLinks += "\nReview Changes with LemonTree:"
+          $sfsFileNameLinks +="[Desktop]($targetUrl)/"
+          $sfsFileNameLinks +="[Web](https://lemontree2.4biz-94523.k8s.nextlayer.at/web?sessionAutoStart=true&sessionFromUrl=$targetUrl)"
+          $sfsFileNameLinks +="\nInstall [LemonTree 3.3+](https://www.lieberlieber.com/lemontree/en/) to open the Review Session file."
+              
+          echo "SfsFileNameLinks=$sfsFileNameLinks" >> $env:GITHUB_OUTPUT
+      
+      - name: Process DiffReport to extract modified requirements
+        id: diffreport
+        run: |
+          (Get-Content DiffReport.xml).replace('xmlns="http://www.lieberlieber.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lieberlieber.com ChangeReport.xsd"', '') | Set-Content DiffReport.xml
+          
+          $modifiedRequirements=""
+          select-xml -path DiffReport.xml -xpath "//package[@name='LT.Connect']/classifier/element[@diffState='Modified']" | foreach {$modifiedRequirements += $_.node.name+"\n"}
+          Write-Output $modifiedRequirements
+          Write-Output "ModifiedRequirements=$modifiedRequirements" >> $env:GITHUB_OUTPUT
+
+      - name: Extract branch name
+        id: extract_branch
+        run: |
+          Write-Output "branch=$env:GITHUB_HEAD_REF" >> $env:GITHUB_OUTPUT
+        
+      - name: Print Session URL
+        run: |
+          Write-Output "${{steps.uploadSession.outputs.SessionURL}}"
+
+      - name: Find Pull Request
+        uses: juliangruber/find-pull-request-action@v1
+        id: find-pull-request
+        with:
+           branch: ${{steps.extract_branch.outputs.branch }}
+
+      - name: Post Finish message in PR
+        uses: actions/github-script@v7
+        with:
+         script: | 
+           await github.rest.issues.createComment({
+             issue_number: ${{steps.find-pull-request.outputs.number}},
+             owner: context.repo.owner,
+             repo: context.repo.repo,
+             body: 'Polarion vs Model comparison in current Branch\n${{steps.uploadSession.outputs.SfsFileNameLinks}}\n\n ${{ steps.processSvgs.outputs.svgLinksMarkdown }}${{steps.pcsDiff.outputs.CommitID}}\n\nChanged Requirements:\n${{steps.diffreport.outputs.ModifiedRequirements}}'
+           }) 
+
+      - name: Publish MD to Action Summary
+        run: |
+          Write-Output "### Polarion vs Model in Branch: ${{steps.extract_branch.outputs.branch}} :rocket:" >> $env:GITHUB_STEP_SUMMARY
+          Write-Output "${{steps.pcsDiff.outputs.DiffResult}}" >> $env:GITHUB_STEP_SUMMARY
+          Write-Output "${{steps.uploadSession.outputs.SfsFileNameLinks}}" >> $env:GITHUB_STEP_SUMMARY
+           
+      - name: Publish Model Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ModelFiles
+          path: .\*.qeax
+          retention-days: 1
+            
