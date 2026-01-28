@@ -25,7 +25,7 @@ env:
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'
   
-  #cached executable paths
+  #cached executable paths - cache only works on the same branch
   LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
   LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
   SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
