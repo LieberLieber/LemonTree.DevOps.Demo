@@ -48,6 +48,7 @@ jobs:
           #Make a copy of the original model to import into Polarion and compare later
           Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
 
+      # Custom action to setup LemonTree Automation that supports caching
       - name: Setup LemonTree Automation
         uses: ./.github/actions/setup-lta
         id: GetLTA
@@ -56,6 +57,7 @@ jobs:
           lta-dir: ${{ env.LTA_DIR }}
           license: ${{secrets.LTALICENSE}}
        
+      # Custom action to setup LemonTree.Connect Automation that supports caching
       - name: Setup LemonTree.Connect
         uses: ./.github/actions/setup-ltc
         id: ltc_setup
@@ -63,6 +65,7 @@ jobs:
           tool-url: ${{ env.ToolPolarionAutomationURL }}
           ltc-dir: ${{ env.LTC_DIR }}
 
+      # Custom action to setup SQLite3 that supports caching
       - name: Setup SQLite3
         uses: ./.github/actions/setup-sqlite
         with:
