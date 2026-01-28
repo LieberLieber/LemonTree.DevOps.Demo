@@ -48,7 +48,24 @@ runs:
       id: ltc_exe
       shell: pwsh
       run: |
+        # Initial attempt to find the LTC executable
         $exePath = Get-ChildItem -Path "${{ inputs.ltc-dir }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
-        if (-not $exePath) { throw "No LTC .exe found under ${{ inputs.ltc-dir }}" }
+
+        if (-not $exePath -and "${{ steps.cache_ltc.outputs.cache-hit }}" -eq 'true') {
+          Write-Output "No LTC .exe found under ${{ inputs.ltc-dir }} after cache restore. Cache may be invalid. Re-downloading LTC..."
+
+          New-Item -ItemType Directory -Path "${{ inputs.ltc-dir }}" -Force | Out-Null
+          $zipPath = Join-Path $env:RUNNER_TEMP "LTC.zip"
+          Invoke-WebRequest -Uri "${{ inputs.tool-url }}" -OutFile $zipPath
+          Expand-Archive -Path $zipPath -DestinationPath "${{ inputs.ltc-dir }}" -Force
+          Remove-Item $zipPath -Force
+
+          # Retry finding the executable after re-download
+          $exePath = Get-ChildItem -Path "${{ inputs.ltc-dir }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
+        }
+
+        if (-not $exePath) {
+          throw "No LTC .exe found under ${{ inputs.ltc-dir }} after validation and optional re-download."
+        }
         Write-Output "Executable found at: $exePath"
         Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
