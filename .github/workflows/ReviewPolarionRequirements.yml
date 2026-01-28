@@ -50,7 +50,7 @@ jobs:
 
       - name: Setup LemonTree Automation
         uses: ./.github/actions/setup-lta
-        id: lta_setup
+        id: GetLTA
         with:
           lta-url: https://www.lieberlieber.com/lemontree/automation/latest
           lta-dir: ${{ env.LTA_DIR }}
@@ -95,7 +95,7 @@ jobs:
           echo "Branch: $currentBranch"
           $sfsfilename= "polarion_$currentBranch_$gitCommitId"+".ltsfs"
           echo "$sfsfilename"
-          $output = &"${{steps.lta_setup.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs ${{env.ModelName}} --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
+          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs ${{env.ModelName}} --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
           
           echo $output
           $diffResult = ""

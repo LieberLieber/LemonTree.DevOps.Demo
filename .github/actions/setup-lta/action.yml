@@ -15,9 +15,9 @@ outputs:
   executable-path:
     description: Path to the LemonTree Automation executable
     value: ${{ steps.lta_exe.outputs.LemonTreeAutomationExecutable }}
-  cache-hit:
-    description: Whether LTA was restored from cache
-    value: ${{ steps.cache_lta.outputs.cache-hit }}
+  LemonTreeAutomationExecutable:
+    description: Path to the LemonTree Automation executable (legacy name)
+    value: ${{ steps.lta_exe.outputs.LemonTreeAutomationExecutable }}
 runs:
   using: composite
   steps:
