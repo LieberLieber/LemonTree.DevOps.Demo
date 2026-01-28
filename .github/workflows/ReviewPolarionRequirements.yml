@@ -24,9 +24,11 @@ env:
   PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'
+ 
   
   #cached executable paths
   LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
+  SqliteToolsDir: '${{ github.workspace }}\_toolcache\sqlite-tools'
 
 jobs:
   PolarionCheck: 
@@ -79,7 +81,7 @@ jobs:
             $key = "ltc-${{ runner.os }}-" + (($etag + "|" + $lm) -replace '[^A-Za-z0-9\-\|]','')
           }
 
-          "key=$key" >> $env:GITHUB_OUTPUT
+          Write-Output "key=$key" >> $env:GITHUB_OUTPUT
           Write-Output "LTC cache key: $key"
 
       - name: Restore LTC from cache
@@ -105,18 +107,35 @@ jobs:
           $exePath = Get-ChildItem -Path "${{ env.LTC_DIR }}" -Filter "*.exe" -Recurse | Select-Object -First 1 -ExpandProperty FullName
           if (-not $exePath) { throw "No LTC .exe found under ${{ env.LTC_DIR }}" }
           Write-Output "Executable found at: $exePath"
-          "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
+          Write-Output "ToolPolarionAutomation=$exePath" >> $env:GITHUB_OUTPUT
 
-      - name: Download and Install SQLite3
+      - name: Compute SQLite cache key
+        id: sqlite_key
+        run: |
+          $key = "sqlite3-${{ runner.os }}-3460100"
+          Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+
+      - name: Restore SQLite from cache
+        id: cache_sqlite
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.SqliteToolsDir }}
+          key: ${{ steps.sqlite_key.outputs.key }}
+
+      - name: Download and Install SQLite3 (only if not cached)
+        if: steps.cache_sqlite.outputs.cache-hit != 'true'
         run: |
           # Download SQLite tools directly
           $sqliteUrl = "https://www.sqlite.org/2024/sqlite-tools-win-x64-3460100.zip"
           Invoke-WebRequest -Uri $sqliteUrl -OutFile "sqlite-tools.zip"
-          Expand-Archive -Path "sqlite-tools.zip" -DestinationPath "sqlite-tools" -Force
+          Expand-Archive -Path "sqlite-tools.zip" -DestinationPath "${{ env.SqliteToolsDir }}" -Force
           Remove-Item "sqlite-tools.zip"
-          # Add to PATH for all subsequent steps
-          $sqlitePath = (Get-ChildItem -Path "sqlite-tools" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
-          Write-Output "SQLite3 installed: $sqlitePath"
+          Write-Output "SQLite3 downloaded and extracted"
+
+      - name: Add SQLite to PATH
+        run: |
+          $sqlitePath = (Get-ChildItem -Path "${{ env.SqliteToolsDir }}" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
+          Write-Output "SQLite3 found at: $sqlitePath"
           # Add to GITHUB_PATH so it persists across steps
           "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           # Also set for current step
@@ -140,7 +159,7 @@ jobs:
 
       - name: Import the latest Items from Polariion into the copied Model  
         run: |
-          &"${{steps.downloadLTC.outputs.ToolPolarionAutomation}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          &"${{steps.ltc_exe.outputs.ToolPolarionAutomation}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
 
       - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
         id: pcsDiff
