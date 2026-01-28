@@ -42,7 +42,16 @@ runs:
     - name: Add SQLite to PATH
       shell: pwsh
       run: |
-        $sqlitePath = (Get-ChildItem -Path "${{ inputs.sqlite-tools-dir }}" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1).DirectoryName
+        $sqliteExe = Get-ChildItem -Path "${{ inputs.sqlite-tools-dir }}" -Filter "sqlite3.exe" -Recurse | Select-Object -First 1
+        if (-not $sqliteExe) {
+          Write-Error "SQLite3 executable (sqlite3.exe) not found under '${{ inputs.sqlite-tools-dir }}'."
+          exit 1
+        }
+        $sqlitePath = $sqliteExe.DirectoryName
+        if (-not $sqlitePath) {
+          Write-Error "Could not determine directory for sqlite3.exe."
+          exit 1
+        }
         Write-Output "SQLite3 found at: $sqlitePath"
         "$sqlitePath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
         $env:PATH = "$sqlitePath;$env:PATH"
