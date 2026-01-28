@@ -28,7 +28,7 @@ env:
   
   #cached executable paths
   LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
-  SqliteToolsDir: '${{ github.workspace }}\_toolcache\sqlite-tools'
+  SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
 
 jobs:
   PolarionCheck: 
@@ -74,12 +74,14 @@ jobs:
             $lm = ""
           }
 
-          if ([string]::IsNullOrWhiteSpace($etag) -and [string]::IsNullOrWhiteSpace($lm)) {
-            # Fallback: cache by URL only (still helps across runs until it changes)
-            $key = "ltc-${{ runner.os }}-" + ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($url)) -replace '[^A-Za-z0-9]','').Substring(0,20)
-          } else {
-            $key = "ltc-${{ runner.os }}-" + (($etag + "|" + $lm) -replace '[^A-Za-z0-9\-\|]','')
-          }
+          # if ([string]::IsNullOrWhiteSpace($etag) -and [string]::IsNullOrWhiteSpace($lm)) {
+          #   # Fallback: cache by URL only (still helps across runs until it changes)
+          #   $key = "ltc-${{ runner.os }}-" + ([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($url)) -replace '[^A-Za-z0-9]','').Substring(0,20)
+          # } else {
+          #   $key = "ltc-${{ runner.os }}-" + (($etag + "|" + $lm) -replace '[^A-Za-z0-9\-\|]','')
+          # }
+
+          $key = "ltc-${{ runner.os }}-"latest"
 
           Write-Output "key=$key" >> $env:GITHUB_OUTPUT
           Write-Output "LTC cache key: $key"
