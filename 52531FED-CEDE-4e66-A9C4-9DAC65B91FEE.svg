@@ -433,7 +433,7 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(-11.5,-35.5)">
-    <g style="" id="{c88878b3-d90d-59a4-72cc-68c823090066}" transform="translate(268, 259)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{26b3a60b-fa6d-496e-bc86-4623346660f3}">
+    <g style="" id="{c88878b3-d90d-59a4-72cc-68c823090066}" transform="translate(268, 264)" class="element uml-Class base-Requirement ds-modified diag-highlight" data-diagram-object-guid="{26b3a60b-fa6d-496e-bc86-4623346660f3}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
       <line x1="12" y1="0" x2="12" y2="30" />
@@ -598,8 +598,8 @@
     </g>
     <g id="{dd5aeadc-ff74-1d27-173a-167c9b7f1fb7}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{635e0490-a88b-52c1-0d92-a3f039b794e4}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="428,277 589,284" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(584,284) rotate(92.49,5,0)" />
+        <polyline class="connector" style="" points="428,281 589,285" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(584,285) rotate(91.423,5,0)" />
       </g>
     </g>
     <g id="{af83a820-554b-069d-b529-7155c2d23b4f}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{a4ebc161-f773-5a59-2ac6-de8ec10a8c82}">
@@ -614,16 +614,16 @@
         <use style="" xlink:href="#_EAArrow" transform="translate(664,186) rotate(180,5,0)" />
       </g>
     </g>
-    <g id="{6E5FB51E-C262-489f-BDDA-4C30091F28B3}" class="element uml-Abstraction ds-unmodified diag-highlight" data-diagram-object-guid="{dd3a6929-9c34-0e9b-b30b-ff14c7c1912d}">
+    <g id="{6E5FB51E-C262-489f-BDDA-4C30091F28B3}" class="element uml-Abstraction ds-modified diag-highlight" data-diagram-object-guid="{dd3a6929-9c34-0e9b-b30b-ff14c7c1912d}">
       <g class="main-shape">
-        <polyline class="connector-dash" style="" points="112,254 268,267" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(263,267) rotate(94.764,5,0)" />
+        <polyline class="connector-dash" style="" points="112,255 268,271" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(263,271) rotate(95.856,5,0)" />
       </g>
       <g class="part-connector-label">
-        <g transform="translate(190,273)" style="text-anchor:gxm; dominant-baseline:ideographic">
+        <g transform="translate(190,276)" style="text-anchor:gxm; dominant-baseline:ideographic">
           <g>
             <text dy="0em">
-              <tspan class="stereotype part-connector-stereotype">«trace»</tspan>
+              <tspan class="stereotype part-connector-stereotype">«trace,suspected»</tspan>
             </text>
           </g>
         </g>
