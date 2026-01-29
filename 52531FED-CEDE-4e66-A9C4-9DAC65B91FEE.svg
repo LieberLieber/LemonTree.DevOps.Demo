@@ -469,7 +469,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{63939881-D8CC-49da-90EF-449184A10919}" transform="translate(22, 216)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{68dc220a-db58-9675-349f-f0e21de50849}">
+    <g style="" id="{63939881-D8CC-49da-90EF-449184A10919}" transform="translate(22, 216)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{68dc220a-db58-9675-349f-f0e21de50849}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -581,7 +581,7 @@
         <use style="" xlink:href="#_EAArrow" transform="translate(584,186) rotate(99.7,5,0)" />
       </g>
     </g>
-    <g id="{095FA545-7149-47ac-923A-265E9F7E726D}" class="element uml-Abstraction ds-modified diag-highlight" data-diagram-object-guid="{3b60fb22-298a-d77d-1d91-3d199814f9d6}">
+    <g id="{095FA545-7149-47ac-923A-265E9F7E726D}" class="element uml-Abstraction ds-unmodified diag-highlight" data-diagram-object-guid="{3b60fb22-298a-d77d-1d91-3d199814f9d6}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="112,240 286,202" />
         <use style="" xlink:href="#_EAArrow" transform="translate(281,202) rotate(77.681,5,0)" />
@@ -590,7 +590,7 @@
         <g transform="translate(199,234)" style="text-anchor:gxm; dominant-baseline:ideographic">
           <g>
             <text dy="0em">
-              <tspan class="stereotype part-connector-stereotype">«trace,suspected»</tspan>
+              <tspan class="stereotype part-connector-stereotype">«trace»</tspan>
             </text>
           </g>
         </g>
