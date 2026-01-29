@@ -46,7 +46,13 @@ jobs:
       - name: Create a copy of the original model to be able to compare later
         run: |
           #Make a copy of the original model to import into Polarion and compare later
-          Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
+          Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}"
+          
+          # Update diagram notes in the copied model - so lemontree reports that diagram as changed also when new elements are adedd or so
+          $sqlQuery = "UPDATE t_diagram SET Notes = 'copy of orginal model' WHERE ea_guid = '{52531FED-CEDE-4e66-A9C4-9DAC65B91FEE}';"
+          & .\scripts\QueryModelSqliteExe.ps1 -Model "copy_${{env.ModelName}}" -Query $sqlQuery 
+
+
       - name: PrepareLTALicense #on the private runner LemonTree Automation is preinstalled. we just get the license
         run: |
           '${{secrets.LTALICENSE}}' | Out-File -FilePath lta.lic
