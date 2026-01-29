@@ -491,7 +491,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{99abad04-a5dd-1389-7303-f80e01b774c8}" transform="translate(274, 172)" class="element uml-Class base-Requirement ds-modified diag-highlight" data-diagram-object-guid="{83e57e5e-75a7-de73-ee23-702ab98f2ac7}">
+    <g style="" id="{99abad04-a5dd-1389-7303-f80e01b774c8}" transform="translate(274, 172)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{83e57e5e-75a7-de73-ee23-702ab98f2ac7}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
       <line x1="12" y1="0" x2="12" y2="30" />
@@ -503,7 +503,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{1400357c-ce15-52dc-66eb-7111170f756a}" transform="translate(194, 46)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{8ca09789-83c1-540a-d095-77bb52b0f7fa}">
+    <g style="" id="{1400357c-ce15-52dc-66eb-7111170f756a}" transform="translate(194, 46)" class="element uml-Class base-Requirement ds-subelementmodified diag-highlight" data-diagram-object-guid="{8ca09789-83c1-540a-d095-77bb52b0f7fa}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
       <line x1="12" y1="0" x2="12" y2="33" />
@@ -515,7 +515,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{70745f34-33f7-cdea-b9bf-3dca6139531a}" transform="translate(589, 116)" class="element uml-Class base-Requirement ds-subelementmodified diag-highlight" data-diagram-object-guid="{a3600b98-4a83-21a1-2ea5-133af36a6b60}">
+    <g style="" id="{70745f34-33f7-cdea-b9bf-3dca6139531a}" transform="translate(589, 116)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{a3600b98-4a83-21a1-2ea5-133af36a6b60}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
       <line x1="12" y1="0" x2="12" y2="33" />
@@ -551,7 +551,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{c5958e00-3e4b-7b1c-efc6-0a2598f2761a}" transform="translate(589, 186)" class="element uml-Class base-Requirement ds-modified diag-highlight" data-diagram-object-guid="{d6539590-846e-29d6-366f-64430030a76f}">
+    <g style="" id="{c5958e00-3e4b-7b1c-efc6-0a2598f2761a}" transform="translate(589, 186)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{d6539590-846e-29d6-366f-64430030a76f}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
       <line x1="12" y1="0" x2="12" y2="30" />
@@ -581,7 +581,7 @@
         <use style="" xlink:href="#_EAArrow" transform="translate(584,186) rotate(99.7,5,0)" />
       </g>
     </g>
-    <g id="{095FA545-7149-47ac-923A-265E9F7E726D}" class="element uml-Abstraction ds-modified diag-highlight" data-diagram-object-guid="{3b60fb22-298a-d77d-1d91-3d199814f9d6}">
+    <g id="{095FA545-7149-47ac-923A-265E9F7E726D}" class="element uml-Abstraction ds-unmodified diag-highlight" data-diagram-object-guid="{3b60fb22-298a-d77d-1d91-3d199814f9d6}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="112,240 286,202" />
         <use style="" xlink:href="#_EAArrow" transform="translate(281,202) rotate(77.681,5,0)" />
@@ -590,7 +590,7 @@
         <g transform="translate(199,234)" style="text-anchor:gxm; dominant-baseline:ideographic">
           <g>
             <text dy="0em">
-              <tspan class="stereotype part-connector-stereotype">«trace,suspected»</tspan>
+              <tspan class="stereotype part-connector-stereotype">«trace»</tspan>
             </text>
           </g>
         </g>
@@ -602,7 +602,7 @@
         <use style="" xlink:href="#_EAArrow" transform="translate(584,284) rotate(92.49,5,0)" />
       </g>
     </g>
-    <g id="{F99F56B3-B6CD-4d7f-886B-73ED078CECD9}" class="element uml-Dependency ds-unmodified diag-highlight" data-diagram-object-guid="{9f1d648f-1875-d7ea-9fb2-b398150065e4}">
+    <g id="{F99F56B3-B6CD-4d7f-886B-73ED078CECD9}" class="element uml-Dependency ds-new ds-new diag-highlight" data-diagram-object-guid="{9f1d648f-1875-d7ea-9fb2-b398150065e4}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="255,79 105,216" />
         <use style="" xlink:href="#_EAArrow" transform="translate(100,216) rotate(227.594,5,0)" />
@@ -623,12 +623,6 @@
         <use style="" xlink:href="#_EAArrow" transform="translate(584,132) rotate(90,5,0)" />
       </g>
     </g>
-    <g id="{5bfddf0a-77bb-3820-8e23-c6de3e665e42}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{aa958809-b301-d87c-8ed3-d12f7aa19fd4}">
-      <g class="main-shape">
-        <polyline class="connector" style="" points="669,149 669,186" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(664,186) rotate(180,5,0)" />
-      </g>
-    </g>
     <g id="{6E5FB51E-C262-489f-BDDA-4C30091F28B3}" class="element uml-Abstraction ds-unmodified diag-highlight" data-diagram-object-guid="{dd3a6929-9c34-0e9b-b30b-ff14c7c1912d}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="112,254 268,267" />
@@ -644,7 +638,7 @@
         </g>
       </g>
     </g>
-    <g id="{70E7B127-AC68-4011-BA71-7A9CA8A9E7D6}" class="element uml-Dependency ds-unmodified diag-highlight" data-diagram-object-guid="{df4cc9d3-1de8-a367-c0a6-b48d6c4ed7a3}">
+    <g id="{70E7B127-AC68-4011-BA71-7A9CA8A9E7D6}" class="element uml-Dependency ds-new ds-new diag-highlight" data-diagram-object-guid="{df4cc9d3-1de8-a367-c0a6-b48d6c4ed7a3}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="112,225 245,149" />
         <use style="" xlink:href="#_EAArrow" transform="translate(240,149) rotate(60.255,5,0)" />
