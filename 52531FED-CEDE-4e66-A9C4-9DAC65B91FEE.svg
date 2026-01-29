@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="747" height="377" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="747" height="391" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -432,7 +432,7 @@
       <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
     </g>
   </defs>
-  <g id="viewport" transform="translate(-11.5,-35.5)">
+  <g id="viewport" transform="translate(-11.5,-21.5)">
     <g style="" id="{c88878b3-d90d-59a4-72cc-68c823090066}" transform="translate(268, 259)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{26b3a60b-fa6d-496e-bc86-4623346660f3}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
@@ -503,7 +503,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{1400357c-ce15-52dc-66eb-7111170f756a}" transform="translate(274, 46)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{8ca09789-83c1-540a-d095-77bb52b0f7fa}">
+    <g style="" id="{1400357c-ce15-52dc-66eb-7111170f756a}" transform="translate(48, 32)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{8ca09789-83c1-540a-d095-77bb52b0f7fa}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
       <line x1="12" y1="0" x2="12" y2="33" />
@@ -565,8 +565,8 @@
     </g>
     <g id="{2af5be2f-0a5c-5d9d-a809-f1312c531eba}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{086a915f-ec92-2caf-5679-033bad793371}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="434,62 589,62" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(584,62) rotate(90,5,0)" />
+        <polyline class="connector" style="" points="208,50 589,59" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(584,59) rotate(91.353,5,0)" />
       </g>
     </g>
     <g id="{b3099eee-7ba8-4dc6-0f49-9a2b1e14438e}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{2214e895-c0c0-336e-d261-0c9853e4b53c}">
