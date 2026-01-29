@@ -8,9 +8,6 @@ inputs:
   lta-dir:
     description: Directory to cache LTA tools
     required: true
-  license:
-    description: LemonTree Automation license (base64 encoded or file content)
-    required: true
 outputs:
   executable-path:
     description: Path to the LemonTree Automation executable
@@ -50,11 +47,6 @@ runs:
         Expand-Archive -Path "$env:RUNNER_TEMP\LTA.zip" -DestinationPath "${{ inputs.lta-dir }}" -Force
         Remove-Item "$env:RUNNER_TEMP\LTA.zip" -Force
         Write-Output "LemonTree Automation downloaded and extracted"
-
-    - name: Setup LTA license
-      shell: pwsh
-      run: |
-        '${{ inputs.license }}' | Out-File -FilePath lta.lic
 
     - name: Find LTA executable and set output
       id: lta_exe

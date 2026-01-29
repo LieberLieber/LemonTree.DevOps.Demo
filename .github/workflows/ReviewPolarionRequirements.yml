@@ -47,7 +47,10 @@ jobs:
         run: |
           #Make a copy of the original model to import into Polarion and compare later
           Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}" 
-
+      - name: PrepareLTALicense #on the private runner LemonTree Automation is preinstalled. we just get the license
+        run: |
+          '${{secrets.LTALICENSE}}' | Out-File -FilePath lta.lic
+          
       # Custom action to setup LemonTree Automation that supports caching
       - name: Setup LemonTree Automation
         uses: ./.github/actions/setup-lta
@@ -55,7 +58,6 @@ jobs:
         with:
           lta-url: https://www.lieberlieber.com/lemontree/automation/latest
           lta-dir: ${{ env.LTA_DIR }}
-          license: ${{secrets.LTALICENSE}}
        
       # Custom action to setup LemonTree.Connect Automation that supports caching
       - name: Setup LemonTree.Connect

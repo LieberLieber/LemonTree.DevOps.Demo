@@ -26,7 +26,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           lfs: true
-          fetch-depth: 0      
+          fetch-depth: 0  
+    
+      - name: PrepareLTALicense #on the private runner LemonTree Automation is preinstalled. we just get the license
+        run: |
+          '${{secrets.LTALICENSE}}' | Out-File -FilePath lta.lic
      
       # download Lemontree.Automation on a runner and setup the license
       # when using private runners LemonTree.Automation can be installed manually and this step can be skipped
@@ -37,7 +41,6 @@ jobs:
         with:
           lta-url: https://www.lieberlieber.com/lemontree/automation/latest
           lta-dir: ${{ env.LTA_DIR }}
-          license: ${{secrets.LTALICENSE}}
       - name: ConsistencyCheck
         run: |
           &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" ConsistencyCheck --Model ${{env.ModelName}}
