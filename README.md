@@ -48,3 +48,5 @@ On run the version from the "main" branch is executed and never the version from
 ## Repo Notes
 
 There is an [orphan branch "svg"](https://github.com/LieberLieber/LemonTree.DevOps.Demo/tree/svg) that is used to store SVG files created by GitHub Actions.
+
+Custom Actions Cache the large executables needed!
