@@ -8,6 +8,14 @@
       "failedDetail": "Each requirement should be linked to at least one design element using a 'satisfy' relationship."
     },
     {
+      "id": "Requirements With Outgoing Architecture Links",
+      "query": "SELECT COUNT(DISTINCT r.Object_ID) AS RequirementCount FROM t_object r JOIN t_connector c ON c.Start_Object_ID = r.Object_ID JOIN t_object tgt ON tgt.Object_ID = c.End_Object_ID WHERE r.Object_Type = 'Requirement' AND tgt.Object_Type <> 'Requirement'",
+      "passedTitle": "All requirements only have incoming links to architecture elements",
+      "failedTitle": "Model has {count} requirements with outgoing architecture links",
+      "failedDetail": "Requirements are expected to have no outgoing links to architecture elements.",
+      "failedLevel": "Error"
+    },
+    {
       "id": "Ports without Interface Defintion",
       "query": "select count(*) from t_object where object_type = 'Port' and t_object.PDATA1 is NULL",
       "passedTitle": "There are no ports without interface definition",
