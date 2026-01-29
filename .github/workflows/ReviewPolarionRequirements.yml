@@ -69,13 +69,17 @@ jobs:
         uses: ./.github/actions/setup-sqlite
         with:
           sqlite-tools-dir: ${{ env.SqliteToolsDir }}
+
+      
       - name: Create a copy of the original model to be able to compare later
         run: |
           #Make a copy of the original model to import into Polarion and compare later
           Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}"
           
-          # Update diagram notes in the copied model - so lemontree reports that diagram as changed also when new elements are adedd or so
-          $sqlQuery = "UPDATE t_diagram SET Notes = 'copy of orginal model' WHERE ea_guid = '{52531FED-CEDE-4e66-A9C4-9DAC65B91FEE}';"
+          # Update diagram notes in the copied model 
+          #This is a bit of a workaround to be able to compare the model after importing latest Polarion requirements
+          #Changing the note on the diagram forces LemonTree to report the diagram as changed also when new elements are added
+          $sqlQuery = "UPDATE t_diagram SET Notes = 'This is the copy of orginal model with the latest Polarion Requirements imported' WHERE ea_guid = '{52531FED-CEDE-4e66-A9C4-9DAC65B91FEE}';"
           & .\scripts\QueryModelSqliteExe.ps1 -Model "copy_${{env.ModelName}}" -Query $sqlQuery 
 
 
