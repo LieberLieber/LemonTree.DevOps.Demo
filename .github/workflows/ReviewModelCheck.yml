@@ -24,7 +24,8 @@ jobs:
         with:
           lfs: true
           fetch-depth: 0
-
+      
+      # Custom action to setup LemonTree ModelCheck that supports caching
       - name: Setup LemonTree ModelCheck Tool
         id: modelcheck_setup
         uses: ./.github/actions/setup-modelcheck
