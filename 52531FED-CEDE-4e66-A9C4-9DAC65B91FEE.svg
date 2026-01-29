@@ -515,6 +515,18 @@
         </div>
       </foreignObject>
     </g>
+    <g style="" id="{4B9C9398-5D04-4180-8ABC-E9C1D1E4A313}" transform="translate(600, 342)" class="element uml-Comment ds-new ds-new diag-highlight" data-diagram-object-guid="{9d2d662c-f893-6c2d-9160-4fdddafebfa7}">
+      <polygon points="0,0 102,0 115,13 115,55 0,55" style="; " class="main-shape" />
+      <polygon points="102,0 115,13 102,13" style="fill:rgb(220,220,220); " />
+      <foreignObject width="115" height="55">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="text-center text-ellipsis part-comment-stereotype" style="margin:0px; margin-right:10px;"></div>
+          <div class="part-note" style="padding-top:13px; padding-left:5px; word-wrap:break-word; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						Copy of the model
+					</div>
+        </div>
+      </foreignObject>
+    </g>
     <g style="" id="{70745f34-33f7-cdea-b9bf-3dca6139531a}" transform="translate(589, 116)" class="element uml-Class base-Requirement ds-subelementmodified diag-highlight" data-diagram-object-guid="{a3600b98-4a83-21a1-2ea5-133af36a6b60}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
