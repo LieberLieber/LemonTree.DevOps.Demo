@@ -37,7 +37,7 @@ jobs:
           Write-Output "starting validation"
           $modelCheckExe = "${{ steps.modelcheck_setup.outputs.executable-path }}"
           
-          &$modelCheckExe --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact
+          &$modelCheckExe --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact --FailOnErrors
           
           Get-Content "./output.md" >> $env:GITHUB_STEP_SUMMARY
 
