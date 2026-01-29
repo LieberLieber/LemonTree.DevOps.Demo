@@ -1,0 +1,67 @@
+name: Setup LemonTree ModelCheck Tool
+description: Download and cache LemonTree ModelCheck Tool for Linux and Windows
+outputs:
+  executable-path:
+    description: Path to the ModelCheck executable
+    value: ${{ steps.modelcheck_exe.outputs.executable-path }}
+runs:
+  using: composite
+  steps:
+    - name: Compute ModelCheck cache key
+      id: modelcheck_key
+      shell: pwsh
+      run: |
+        $key = "lemontree-modelcheck-${{ runner.os }}-latest"
+        Write-Output "key=$key" >> $env:GITHUB_OUTPUT
+
+    - name: Restore ModelCheck from cache
+      id: cache_modelcheck
+      uses: actions/cache@v4
+      with:
+        path: ./lemontree-modelcheck-cache
+        key: ${{ steps.modelcheck_key.outputs.key }}
+        restore-keys: |
+          lemontree-modelcheck-${{ runner.os }}-
+
+    - name: Download LemonTree Check Tool (only if not cached)
+      if: steps.cache_modelcheck.outputs.cache-hit != 'true'
+      shell: pwsh
+      run: |
+        New-Item -ItemType Directory -Path "./lemontree-modelcheck-cache" -Force | Out-Null
+        
+        if ('${{ runner.os }}' -eq 'Linux') {
+          $url = "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck"
+          $output = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck"
+          Invoke-WebRequest -Uri $url -OutFile $output
+          Write-Output "ModelCheck tool downloaded for Linux"
+        }
+        elseif ('${{ runner.os }}' -eq 'Windows') {
+          $url = "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck.exe"
+          $output = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck.exe"
+          Invoke-WebRequest -Uri $url -OutFile $output
+          Write-Output "ModelCheck tool downloaded for Windows"
+        }
+        else {
+          Write-Error "${{ runner.os }} is not supported"
+          exit 1
+        }
+
+    - name: Make executable and set output
+      id: modelcheck_exe
+      shell: pwsh
+      run: |
+        if ('${{ runner.os }}' -eq 'Linux') {
+          $exePath = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck"
+          & chmod +x $exePath
+        }
+        else {
+          $exePath = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck.exe"
+        }
+        
+        if (-not (Test-Path $exePath)) {
+          Write-Error "ModelCheck executable not found at $exePath"
+          exit 1
+        }
+        
+        Write-Output "ModelCheck found at: $exePath"
+        Write-Output "executable-path=$exePath" >> $env:GITHUB_OUTPUT
