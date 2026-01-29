@@ -12,7 +12,8 @@
       "query": "SELECT COUNT(DISTINCT r.Object_ID) AS RequirementCount FROM t_object r JOIN t_connector c ON c.Start_Object_ID = r.Object_ID JOIN t_object tgt ON tgt.Object_ID = c.End_Object_ID WHERE r.Object_Type = 'Requirement' AND tgt.Object_Type <> 'Requirement'",
       "passedTitle": "All requirements have outgoing links to architecture elements",
       "failedTitle": "Model has {count} requirements with outgoing architecture links",
-      "failedDetail": "Each requirement is expected to have at least one outgoing relationship to a non-requirement (architecture) element."
+      "failedDetail": "Each requirement is expected to have at least one outgoing relationship to a non-requirement (architecture) element.",
+      "failedLevel": "Error"
     },
     {
       "id": "Ports without Interface Defintion",
