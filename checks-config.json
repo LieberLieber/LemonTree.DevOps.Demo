@@ -16,6 +16,13 @@
       "failedLevel": "Warning"
     },
     {
+      "id": "Untraced Polarion Requirements",
+      "query": "SELECT Count(*) FROM t_object o JOIN t_package p ON p.Package_ID = o.Package_ID WHERE o.Object_Type = 'Requirement' AND p.ea_guid = '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' AND NOT EXISTS (SELECT 1 FROM t_connector c WHERE c.End_Object_ID = o.Object_ID AND ((c.Connector_Type IN ('Dependency','Abstraction') AND LOWER(c.Stereotype) = 'trace') OR c.Connector_Type = 'Trace')) ORDER BY o.Name;",
+      "passedTitle": "All Polarion requirements are traced to architecture elements",
+      "failedTitle": "Model has {count} untraced Polarion requirements",
+      "failedDetail": "Each Polarion requirement must have at least one Trace relationship (type Trace or stereotype 'trace') to a non-requirement (architecture) element."
+    },
+    {
       "id": "Orphaned InterfaceBlocks",
       "query": "select count(*) from t_object where stereotype = 'InterfaceBlock' and ea_guid not in (select pdata1 from t_object where object_type = 'Port')",
       "passedTitle": "There are no orphaned InterfaceBlocks",
