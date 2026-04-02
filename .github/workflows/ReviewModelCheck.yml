@@ -107,7 +107,12 @@ jobs:
             const fs = require('fs');
             const COMMENT_MARKER = '<!-- modelcheck-results -->';
             const markdownContent = fs.readFileSync('./output.md', 'utf8');
-            const body = `${COMMENT_MARKER}\n## Model Check Results\n\n${markdownContent}`;
+            
+            // Extract just the first block (summary table)
+            const blocks = markdownContent.split('\n\n');
+            const firstBlock = blocks[0];
+            
+            const body = `${COMMENT_MARKER}\n## Model Check Results\n\n${firstBlock}`;
             
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
