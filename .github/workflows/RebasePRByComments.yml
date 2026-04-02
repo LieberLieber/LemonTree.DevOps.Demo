@@ -64,7 +64,7 @@ jobs:
             core.setOutput('head', triggeredPR.head.ref)
             core.setOutput('base', triggeredPR.base.ref)
             
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6.0.2
         with:
           lfs: true
           fetch-depth: 0
