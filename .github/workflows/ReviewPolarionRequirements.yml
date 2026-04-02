@@ -196,56 +196,46 @@ jobs:
       - name: Extract branch name
         id: extract_branch
         run: |
-          Write-Output "branch=$env:GITHUB_HEAD_REF" >> $env:GITHUB_OUTPUT
+          $branch = git branch --show-current
+          Write-Output "branch=$branch" >> $env:GITHUB_OUTPUT
+          Write-Output "Current branch: $branch"
         
       - name: Print Session URL
         run: |
           Write-Output "${{steps.uploadSession.outputs.SessionURL}}"
 
-      - name: Check if running from a Pull Request
-        id: check-pr-context
-        run: |
-          $branch = '${{steps.extract_branch.outputs.branch}}'
-          Write-Output "Branch name: '$branch'"
-          if ($branch -and $branch -ne '') {
-            Write-Output "is_pr_context=true" >> $env:GITHUB_OUTPUT
-          } else {
-            Write-Output "is_pr_context=false" >> $env:GITHUB_OUTPUT
-            Write-Output "Not running from a PR context (branch name is empty)"
-          }
-
-      - name: Find Pull Request
-        if: ${{ steps.check-pr-context.outputs.is_pr_context == 'true' }}
-        uses: juliangruber/find-pull-request-action@v1.11.0
-        id: find-pull-request
+      - name: Find and validate Pull Request
+        id: find-pr
+        uses: actions/github-script@v8
         with:
-           branch: ${{steps.extract_branch.outputs.branch }}
-
-      - name: Check if PR exists
-        id: check-pr
-        run: |
-          $isPrContext = '${{steps.check-pr-context.outputs.is_pr_context}}'
-          if ($isPrContext -eq 'true') {
-            $prNumber = '${{steps.find-pull-request.outputs.number}}'
-            if ($prNumber -and $prNumber -ne 'null' -and $prNumber -ne '') {
-              Write-Output "pr_exists=true" >> $env:GITHUB_OUTPUT
-              Write-Output "pr_number=$prNumber" >> $env:GITHUB_OUTPUT
-              Write-Output "Found PR #$prNumber"
+          result-encoding: string
+          script: |
+            const branch = '${{steps.extract_branch.outputs.branch}}';
+            console.log(`Looking for PR on branch: ${branch}`);
+            
+            const prs = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              head: `${context.repo.owner}:${branch}`,
+              state: 'open'
+            });
+            
+            if (prs.data.length > 0) {
+              const pr = prs.data[0];
+              console.log(`Found PR #${pr.number}`);
+              core.setOutput('pr_exists', 'true');
+              core.setOutput('pr_number', pr.number);
             } else {
-              Write-Output "pr_exists=false" >> $env:GITHUB_OUTPUT
-              Write-Output "No PR found for this branch"
+              console.log('No open PR found for this branch');
+              core.setOutput('pr_exists', 'false');
             }
-          } else {
-            Write-Output "pr_exists=false" >> $env:GITHUB_OUTPUT
-            Write-Output "Not in PR context"
-          }
 
       - name: Post Finish message in PR
-        if: ${{ steps.check-pr.outputs.pr_exists == 'true' }}
+        if: ${{ steps.find-pr.outputs.pr_exists == 'true' }}
         uses: actions/github-script@v8
         with:
          script: |
-           const prNumber = ${{steps.check-pr.outputs.pr_number}};
+           const prNumber = ${{steps.find-pr.outputs.pr_number}};
            const COMMENT_MARKER = '<!-- polarion-review -->';
            const body = COMMENT_MARKER + '\nPolarion vs Model comparison in current Branch\n${{steps.uploadSession.outputs.SfsFileNameLinks}}\n\n${{ steps.processSvgs.outputs.svgLinksMarkdown }}${{steps.pcsDiff.outputs.CommitID}}\n\nChanged Requirements:\n${{steps.diffreport.outputs.ModifiedRequirements}}';
            const { data: comments } = await github.rest.issues.listComments({
