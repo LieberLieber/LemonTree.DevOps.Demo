@@ -213,21 +213,39 @@ jobs:
             const branch = '${{steps.extract_branch.outputs.branch}}';
             console.log(`Looking for PR on branch: ${branch}`);
             
+            // First check if we have a PR context from the event
+            if (context.payload.pull_request) {
+              const pr = context.payload.pull_request;
+              console.log(`Found PR from event context: #${pr.number}`);
+              core.setOutput('pr_exists', 'true');
+              core.setOutput('pr_number', pr.number);
+              return;
+            }
+            
+            // Otherwise search for open PRs with matching head ref
             const prs = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              head: `${context.repo.owner}:${branch}`,
-              state: 'open'
+              state: 'open',
+              per_page: 100
             });
             
-            if (prs.data.length > 0) {
-              const pr = prs.data[0];
-              console.log(`Found PR #${pr.number}`);
+            // Filter PRs by matching head branch
+            const matchingPrs = prs.data.filter(pr => {
+              const headRef = pr.head.ref;
+              console.log(`Checking PR #${pr.number}: head=${headRef}, looking for=${branch}`);
+              return headRef === branch;
+            });
+            
+            if (matchingPrs.length > 0) {
+              const pr = matchingPrs[0];
+              console.log(`Found PR #${pr.number} with matching branch`);
               core.setOutput('pr_exists', 'true');
               core.setOutput('pr_number', pr.number);
             } else {
-              console.log('No open PR found for this branch');
+              console.log(`No open PR found for branch: ${branch}`);
               core.setOutput('pr_exists', 'false');
+            }
             }
 
       - name: Post Finish message in PR
