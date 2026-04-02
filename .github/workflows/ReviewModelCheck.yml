@@ -106,8 +106,8 @@ jobs:
           script: |
             const fs = require('fs');
             const COMMENT_MARKER = '<!-- modelcheck-results -->';
-            const junitContent = fs.readFileSync('./junit.xml', 'utf8');
-            const body = `${COMMENT_MARKER}\n## JUnit Test Report\n\n\`\`\`xml\n${junitContent}\n\`\`\``;
+            const markdownContent = fs.readFileSync('./output.md', 'utf8');
+            const body = `${COMMENT_MARKER}\n## Model Check Results\n\n${markdownContent}`;
             
             const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
