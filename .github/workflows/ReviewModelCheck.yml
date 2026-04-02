@@ -61,6 +61,7 @@ jobs:
           name: Model Check Results
           path: junit.xml
           reporter: java-junit
+          fail-on-error: false
 
       - name: evaulate Exit Code
         run: |
