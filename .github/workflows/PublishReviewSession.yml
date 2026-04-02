@@ -98,12 +98,31 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const COMMENT_MARKER = '<!-- lemontree-review -->';
+            const body = COMMENT_MARKER + '\nModel not found on base commit / fork-off point';
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `Model not found on base commit / fork-off point`
-            })
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              cm => cm.user.login === 'github-actions[bot]' && cm.body.includes(COMMENT_MARKER)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body,
+              });
+            }
             
       - name: Download source branch head file
         if: steps.baseDownload.outputs.result == 'downloaded'
@@ -291,15 +310,31 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
+            const COMMENT_MARKER = '<!-- lemontree-review -->';
             const message = `${{ steps.checkSession.outputs.message }}`;
             const sessionLinks = `${{ steps.uploadSession.outputs.SfsFileNameLinks }}`;
             const svgLinks = `${{ steps.processSvgs.outputs.svgLinksMarkdown }}`;
-            
-            const fullMessage = message + sessionLinks + svgLinks;
-            
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
+            const fullMessage = COMMENT_MARKER + '\n' + message + sessionLinks + svgLinks;
+            const { data: comments } = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: fullMessage
-            })
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(
+              cm => cm.user.login === 'github-actions[bot]' && cm.body.includes(COMMENT_MARKER)
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: fullMessage,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: fullMessage,
+              });
+            }
