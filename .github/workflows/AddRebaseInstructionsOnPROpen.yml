@@ -1,0 +1,56 @@
+# Copyright (c) LieberLieber GmbH & Robert Bosch GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Add Rebase Instructions on PR Open
+
+on:
+  pull_request:
+    types: [opened]
+
+permissions:
+  pull-requests: write
+
+jobs:
+  add_instructions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add rebase instructions to PR body
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const instructions = `
+
+---
+
+## 🔄 Rebase Instructions
+
+If you need to rebase this PR against the target branch, you can trigger the automated rebase workflow by commenting:
+
+/rebase/
+
+The rebase workflow will automatically:
+- Rebase your PR branch against the target branch
+- Resolve model conflicts using LemonTree.Automation
+- Push the rebased changes
+
+**Note:** Only authorized contributors can trigger this workflow.`;
+
+            // Get current PR
+            const pr = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+
+            // Append instructions to PR body
+            const newBody = (pr.data.body || '') + instructions;
+
+            // Update PR with new body
+            await github.rest.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              body: newBody
+            });
