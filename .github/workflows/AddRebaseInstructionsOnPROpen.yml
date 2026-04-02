@@ -16,26 +16,26 @@ jobs:
   add_instructions:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+      
       - name: Add rebase instructions to PR body
         uses: actions/github-script@v8
         with:
           script: |
-            const instructions = `
-
----
-
-## 🔄 Rebase Instructions
-
-If you need to rebase this PR against the target branch, you can trigger the automated rebase workflow by commenting:
-
-/rebase/
-
-The rebase workflow will automatically:
-- Rebase your PR branch against the target branch
-- Resolve model conflicts using LemonTree.Automation
-- Push the rebased changes
-
-**Note:** Only authorized contributors can trigger this workflow.`;
+            const fs = require('fs');
+            const path = require('path');
+            
+            // Read instructions from file
+            const instructionsFile = path.join(process.env.GITHUB_WORKSPACE, '.github/pr-instructions.md');
+            
+            let instructions = '';
+            if (fs.existsSync(instructionsFile)) {
+              instructions = fs.readFileSync(instructionsFile, 'utf8');
+              console.log('Read instructions from file');
+            } else {
+              console.log('Instructions file not found, skipping AppendBody');
+              return;
+            }
 
             // Get current PR
             const pr = await github.rest.pulls.get({
@@ -54,3 +54,5 @@ The rebase workflow will automatically:
               pull_number: context.issue.number,
               body: newBody
             });
+            
+            console.log('Successfully updated PR body with instructions');
