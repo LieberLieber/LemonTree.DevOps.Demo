@@ -30,7 +30,7 @@ jobs:
     
     steps:
       - name: Post start message in PR
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.createComment({
@@ -42,7 +42,7 @@ jobs:
             
       - name: Retrieve Rull Request details
         id: pr_details
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           script: |
@@ -175,7 +175,7 @@ jobs:
            
       - name: Create Finish Message in PR
         if: always()
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.createComment({
