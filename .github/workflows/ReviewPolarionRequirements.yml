@@ -202,7 +202,20 @@ jobs:
         run: |
           Write-Output "${{steps.uploadSession.outputs.SessionURL}}"
 
+      - name: Check if running from a Pull Request
+        id: check-pr-context
+        run: |
+          $branch = '${{steps.extract_branch.outputs.branch}}'
+          Write-Output "Branch name: '$branch'"
+          if ($branch -and $branch -ne '') {
+            Write-Output "is_pr_context=true" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Output "is_pr_context=false" >> $env:GITHUB_OUTPUT
+            Write-Output "Not running from a PR context (branch name is empty)"
+          }
+
       - name: Find Pull Request
+        if: ${{ steps.check-pr-context.outputs.is_pr_context == 'true' }}
         uses: juliangruber/find-pull-request-action@v1
         id: find-pull-request
         with:
@@ -211,13 +224,20 @@ jobs:
       - name: Check if PR exists
         id: check-pr
         run: |
-          $prNumber = '${{steps.find-pull-request.outputs.number}}'
-          if ($prNumber -and $prNumber -ne 'null' -and $prNumber -ne '') {
-            Write-Output "pr_exists=true" >> $env:GITHUB_OUTPUT
-            Write-Output "pr_number=$prNumber" >> $env:GITHUB_OUTPUT
+          $isPrContext = '${{steps.check-pr-context.outputs.is_pr_context}}'
+          if ($isPrContext -eq 'true') {
+            $prNumber = '${{steps.find-pull-request.outputs.number}}'
+            if ($prNumber -and $prNumber -ne 'null' -and $prNumber -ne '') {
+              Write-Output "pr_exists=true" >> $env:GITHUB_OUTPUT
+              Write-Output "pr_number=$prNumber" >> $env:GITHUB_OUTPUT
+              Write-Output "Found PR #$prNumber"
+            } else {
+              Write-Output "pr_exists=false" >> $env:GITHUB_OUTPUT
+              Write-Output "No PR found for this branch"
+            }
           } else {
             Write-Output "pr_exists=false" >> $env:GITHUB_OUTPUT
-            Write-Output "No PR found for this branch"
+            Write-Output "Not in PR context"
           }
 
       - name: Post Finish message in PR
