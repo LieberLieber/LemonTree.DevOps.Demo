@@ -210,8 +210,11 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const branch = '${{steps.extract_branch.outputs.branch}}';
-            console.log(`Looking for PR on branch: ${branch}`);
+            // Extract branch name from github.ref
+            const ref = context.ref;
+            const branch = ref.startsWith('refs/heads/') ? ref.slice('refs/heads/'.length) : ref;
+            console.log(`GitHub ref: ${ref}`);
+            console.log(`Extracted branch: ${branch}`);
             
             // First check if we have a PR context from the event
             if (context.payload.pull_request) {
@@ -222,7 +225,9 @@ jobs:
               return;
             }
             
-            // Otherwise search for open PRs with matching head ref
+            console.log(`Searching for open PRs with head ref: ${branch}`);
+            
+            // Search for open PRs with matching head ref
             const prs = await github.rest.pulls.list({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -230,20 +235,22 @@ jobs:
               per_page: 100
             });
             
+            console.log(`Found ${prs.data.length} open PRs`);
+            
             // Filter PRs by matching head branch
             const matchingPrs = prs.data.filter(pr => {
               const headRef = pr.head.ref;
-              console.log(`Checking PR #${pr.number}: head=${headRef}, looking for=${branch}`);
+              console.log(`  PR #${pr.number}: head=${headRef}`);
               return headRef === branch;
             });
             
             if (matchingPrs.length > 0) {
               const pr = matchingPrs[0];
-              console.log(`Found PR #${pr.number} with matching branch`);
+              console.log(`✓ Found PR #${pr.number} with matching branch`);
               core.setOutput('pr_exists', 'true');
               core.setOutput('pr_number', pr.number);
             } else {
-              console.log(`No open PR found for branch: ${branch}`);
+              console.log(`✗ No open PR found for branch: ${branch}`);
               core.setOutput('pr_exists', 'false');
             }
             }
