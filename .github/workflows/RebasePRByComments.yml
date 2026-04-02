@@ -26,7 +26,7 @@ jobs:
         shell: pwsh
     runs-on: windows-latest
     timeout-minutes: 15
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/rebase/'}}
+    if: ${{ github.event.issue.pull_request && (github.event.comment.body == '/rebase/' || github.event.comment.body == '/rb/') }}
     
     steps:
       - name: Retrieve Rull Request details
