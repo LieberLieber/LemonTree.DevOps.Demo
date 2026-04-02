@@ -63,7 +63,7 @@ jobs:
 
       - name: Create sessionfile name
         id: session_file
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           result-encoding: string
           script: |
@@ -95,7 +95,7 @@ jobs:
           
       - name: Post new model comment to PR
         if: steps.baseDownload.outputs.result == 'notFound'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const COMMENT_MARKER = '<!-- lemontree-review -->';
@@ -150,7 +150,7 @@ jobs:
           lta-dir: ${{ env.LTA_DIR }}
       
       - name: Publish Model Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: ModelFiles
           path: .\*.qeax
@@ -292,14 +292,14 @@ jobs:
 
       - name: Archive Session Files
         if: steps.baseDownload.outputs.result == 'downloaded'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: Review Session File
           path: ${{ steps.session_file.outputs.result }}
           retention-days: 2
 
       - name: Archive DiffReport.xml
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
                 name: DiffReport
                 path: ${{ env.DiffReportFilename }}
@@ -307,7 +307,7 @@ jobs:
 
       - name: Create PR comment
         if: steps.baseDownload.outputs.result == 'downloaded'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const COMMENT_MARKER = '<!-- lemontree-review -->';

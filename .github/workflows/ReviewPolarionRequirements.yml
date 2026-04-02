@@ -152,14 +152,14 @@ jobs:
           $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
           & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
       - name: Publish DiffReport.xml
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
                 name: DiffReport
                 path: .\*.xml
                 retention-days: 2
 
       - name: Publish SessionFile
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
               name: SessionFile
               path: .\*.ltsfs
@@ -216,7 +216,7 @@ jobs:
 
       - name: Find Pull Request
         if: ${{ steps.check-pr-context.outputs.is_pr_context == 'true' }}
-        uses: juliangruber/find-pull-request-action@v1
+        uses: juliangruber/find-pull-request-action@v1.11.0
         id: find-pull-request
         with:
            branch: ${{steps.extract_branch.outputs.branch }}
@@ -242,7 +242,7 @@ jobs:
 
       - name: Post Finish message in PR
         if: ${{ steps.check-pr.outputs.pr_exists == 'true' }}
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
          script: |
            const prNumber = ${{steps.check-pr.outputs.pr_number}};
@@ -279,7 +279,7 @@ jobs:
           Write-Output "${{steps.uploadSession.outputs.SfsFileNameLinks}}" >> $env:GITHUB_STEP_SUMMARY
            
       - name: Publish Model Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7.0.0
         with:
           name: ModelFiles
           path: .\*.qeax
