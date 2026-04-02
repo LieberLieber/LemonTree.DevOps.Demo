@@ -6,7 +6,7 @@
 name: Verify Modelcheck
 
 on:
- push:
+ pull_request:
 
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
@@ -37,7 +37,7 @@ jobs:
           Write-Output "starting validation"
           $modelCheckExe = "${{ steps.modelcheck_setup.outputs.executable-path }}"
           
-          &$modelCheckExe --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact --FailOnErrors
+          &$modelCheckExe --model "${{env.ModelName}}" --out "./output.md" --ChecksConfig "./checks-config.json" --NoCompact --FailOnErrors --junit junit.xml
           
           Get-Content "./output.md" >> $env:GITHUB_STEP_SUMMARY
 
@@ -53,6 +53,14 @@ jobs:
 
           #for now never stop 
           exit 0
+
+      - name: Publish JUnit Test Results
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Model Check Results
+          path: junit.xml
+          reporter: java-junit
 
       - name: evaulate Exit Code
         run: |
