@@ -253,7 +253,6 @@ jobs:
               console.log(`✗ No open PR found for branch: ${branch}`);
               core.setOutput('pr_exists', 'false');
             }
-            }
 
       - name: Post Finish message in PR
         if: ${{ steps.find-pr.outputs.pr_exists == 'true' }}
