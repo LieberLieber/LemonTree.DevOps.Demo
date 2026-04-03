@@ -956,7 +956,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(44,312)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -969,7 +969,7 @@
       <g class="part-connector-label">
         <foreignObject width="61" height="14" transform="translate(627,211)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">switchInput</p>
+            <p style="margin:1px; text-align:wex;">switchInput</p>
           </div>
         </foreignObject>
       </g>
@@ -982,7 +982,7 @@
       <g class="part-connector-label">
         <foreignObject width="37" height="14" transform="translate(653,155)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">disable</p>
+            <p style="margin:1px; text-align:wex;">disable</p>
           </div>
         </foreignObject>
       </g>
@@ -995,7 +995,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(433,380)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wex;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1008,7 +1008,7 @@
       <g class="part-connector-label">
         <foreignObject width="59" height="14" transform="translate(682,176)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">highTorque</p>
+            <p style="margin:1px; text-align:wex;">highTorque</p>
           </div>
         </foreignObject>
       </g>
@@ -1022,12 +1022,12 @@
       <g class="part-connector-label">
         <foreignObject width="104" height="14" transform="translate(328,186)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">disable, switchInput</p>
+            <p style="margin:1px; text-align:wey;">disable, switchInput</p>
           </div>
         </foreignObject>
         <foreignObject width="85" height="14" transform="translate(305,220)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">motorCommand</p>
+            <p style="margin:1px; text-align:wey;">motorCommand</p>
           </div>
         </foreignObject>
       </g>
@@ -1040,7 +1040,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(79,439)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1053,7 +1053,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(936,366)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1071,7 +1071,7 @@
       <g class="part-connector-label">
         <foreignObject width="85" height="14" transform="translate(250,276)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">motorCommand</p>
+            <p style="margin:1px; text-align:wex;">motorCommand</p>
           </div>
         </foreignObject>
       </g>
@@ -1084,7 +1084,7 @@
       <g class="part-connector-label">
         <foreignObject width="92" height="14" transform="translate(770,454)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«block» mechanicalPower</p>
+            <p style="margin:1px; text-align:wey;">«block» mechanicalPower</p>
           </div>
         </foreignObject>
       </g>
@@ -1097,7 +1097,7 @@
       <g class="part-connector-label">
         <foreignObject width="59" height="14" transform="translate(327,325)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">highTorque</p>
+            <p style="margin:1px; text-align:wey;">highTorque</p>
           </div>
         </foreignObject>
       </g>
@@ -1110,7 +1110,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(967,276)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1123,7 +1123,7 @@
       <g class="part-connector-label">
         <foreignObject width="59" height="14" transform="translate(248,323)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">highTorque</p>
+            <p style="margin:1px; text-align:wey;">highTorque</p>
           </div>
         </foreignObject>
       </g>
@@ -1136,7 +1136,7 @@
       <g class="part-connector-label">
         <foreignObject width="61" height="14" transform="translate(228,207)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">switchInput</p>
+            <p style="margin:1px; text-align:wex;">switchInput</p>
           </div>
         </foreignObject>
       </g>
@@ -1149,7 +1149,7 @@
       <g class="part-connector-label">
         <foreignObject width="92" height="14" transform="translate(162,456)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«block» mechanicalPower</p>
+            <p style="margin:1px; text-align:wey;">«block» mechanicalPower</p>
           </div>
         </foreignObject>
       </g>
@@ -1162,7 +1162,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(748,575)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1175,7 +1175,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(126,603)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1188,7 +1188,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(532,442)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wex;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1201,7 +1201,7 @@
       <g class="part-connector-label">
         <foreignObject width="33" height="14" transform="translate(305,443)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">«InterfaceBlock» power</p>
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
           </div>
         </foreignObject>
       </g>
@@ -1214,7 +1214,7 @@
       <g class="part-connector-label">
         <foreignObject width="169" height="14" transform="translate(449,174)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">disable, highTorque, switchInput</p>
+            <p style="margin:1px; text-align:wey;">disable, highTorque, switchInput</p>
           </div>
         </foreignObject>
       </g>
@@ -1227,7 +1227,7 @@
       <g class="part-connector-label">
         <foreignObject width="85" height="14" transform="translate(669,227)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">motorCommand</p>
+            <p style="margin:1px; text-align:wex;">motorCommand</p>
           </div>
         </foreignObject>
       </g>
@@ -1240,7 +1240,7 @@
       <g class="part-connector-label">
         <foreignObject width="61" height="14" transform="translate(602,237)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfm;">switchInput</p>
+            <p style="margin:1px; text-align:wex;">switchInput</p>
           </div>
         </foreignObject>
       </g>
@@ -1253,7 +1253,7 @@
       <g class="part-connector-label">
         <foreignObject width="85" height="14" transform="translate(499,209)">
           <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-            <p style="margin:1px; text-align:lfn;">motorCommand</p>
+            <p style="margin:1px; text-align:wey;">motorCommand</p>
           </div>
         </foreignObject>
       </g>
