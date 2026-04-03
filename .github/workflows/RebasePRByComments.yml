@@ -26,20 +26,9 @@ jobs:
         shell: pwsh
     runs-on: windows-latest
     timeout-minutes: 15
-    if: ${{ github.event.issue.pull_request && github.event.comment.body == '/rebase/'}}
+    if: ${{ github.event.issue.pull_request && (github.event.comment.body == '/rebase/' || github.event.comment.body == '/rb/') }}
     
     steps:
-      - name: Post start message in PR
-        uses: actions/github-script@v8
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              issue_number: ${{github.event.issue.number}},
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: 'Starting auto-rebase'
-            })  
-            
       - name: Retrieve Rull Request details
         id: pr_details
         uses: actions/github-script@v8
@@ -178,10 +167,52 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            await github.rest.issues.createComment({
-              issue_number: ${{steps.pr_details.outputs.number}},
+            const MARKER = '<!-- rebase-run-${{ github.run_id }} -->';
+            const branch = '${{ steps.pr_details.outputs.head }}';
+            const baseBranch = '${{ steps.pr_details.outputs.base }}';
+            const message = '${{ steps.Rebase.outputs.message }}';
+            const runUrl = '${{ env.GitHubProjectRoot }}/actions/runs/${{ github.run_id }}';
+            const runId = '${{ github.run_id }}';
+            
+            const body = MARKER + '\n' +
+              '## Rebase Workflow - Run #' + runId + '\n' +
+              '\n' +
+              '**Status:** ' + message + '\n' +
+              '\n' +
+              '**Details:**\n' +
+              '- Branch: `' + branch + '` → `' + baseBranch + '`\n' +
+              '- Run: [View logs](' + runUrl + ')\n' +
+              '- Triggered by: @${{ github.event.comment.user.login }}\n' +
+              '\n' +
+              '---\n' +
+              '*This comment is automatically updated per workflow run*';
+
+            // Find existing comment for this run
+            const comments = await github.rest.issues.listComments({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '${{steps.Rebase.outputs.message}}'
-            })        
+              issue_number: ${{ steps.pr_details.outputs.number }},
+            });
+            
+            const existing = comments.data.find(
+              cm => cm.user.login === 'github-actions[bot]' && cm.body.includes(MARKER)
+            );
+            
+            if (existing) {
+              console.log('Updating existing comment ' + existing.id);
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body: body,
+              });
+            } else {
+              console.log('Creating new comment');
+              await github.rest.issues.createComment({
+                issue_number: ${{ steps.pr_details.outputs.number }},
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: body,
+              });
+            }        
             
