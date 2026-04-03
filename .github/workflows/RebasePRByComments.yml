@@ -57,21 +57,14 @@ jobs:
         uses: actions/github-script@v8
         with:
           script: |
-            try {
-              console.log('Comment ID: ' + context.payload.comment.id);
-              console.log('PR Number: ' + context.issue.number);
-              console.log('Repo: ' + context.repo.owner + '/' + context.repo.repo);
-              
-              await github.rest.issues.deleteComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                comment_id: context.payload.comment.id
-              });
-              console.log('Successfully deleted trigger comment');
-            } catch (error) {
-              console.error('Failed to delete trigger comment: ' + error.message);
-              throw error;
-            }
+            console.log('Comment ID: ' + context.payload.comment.id);
+            console.log('PR Number: ' + context.issue.number);
+            await github.rest.issues.deleteComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            });
+            console.log('Successfully deleted trigger comment');
       
       - name: Post rebase in progress comment
         id: progress_comment
