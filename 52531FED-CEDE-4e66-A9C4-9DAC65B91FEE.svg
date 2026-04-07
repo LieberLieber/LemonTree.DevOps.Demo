@@ -433,7 +433,7 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(-11.5,-205.5)">
-    <g style="" id="{6063b0cc-89d5-3b7d-1791-1fadc7a78e09}" transform="translate(220, 236)" class="element uml-Class base-Requirement ds-modified diag-highlight" data-diagram-object-guid="{139a0c71-c93c-9ff8-93f5-9cdd811b8c08}">
+    <g style="" id="{6063b0cc-89d5-3b7d-1791-1fadc7a78e09}" transform="translate(220, 236)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{139a0c71-c93c-9ff8-93f5-9cdd811b8c08}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
       <line x1="12" y1="0" x2="12" y2="30" />
@@ -445,7 +445,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{63939881-D8CC-49da-90EF-449184A10919}" transform="translate(22, 216)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{68dc220a-db58-9675-349f-f0e21de50849}">
+    <g style="" id="{63939881-D8CC-49da-90EF-449184A10919}" transform="translate(22, 216)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{68dc220a-db58-9675-349f-f0e21de50849}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -467,7 +467,7 @@
         </div>
       </foreignObject>
     </g>
-    <g id="{D1EC813E-EAA0-47cf-9384-868FEFC3EC40}" class="element uml-Abstraction ds-modified diag-highlight" data-diagram-object-guid="{9600bee2-4c5e-9822-be59-d0125008a2f6}">
+    <g id="{D1EC813E-EAA0-47cf-9384-868FEFC3EC40}" class="element uml-Abstraction ds-unmodified diag-highlight" data-diagram-object-guid="{9600bee2-4c5e-9822-be59-d0125008a2f6}">
       <g class="main-shape">
         <polyline class="connector-dash" style="" points="112,251 220,251" />
         <use style="" xlink:href="#_EAArrow" transform="translate(215,251) rotate(90,5,0)" />
