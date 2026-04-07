@@ -239,7 +239,6 @@ jobs:
           exit 0
 
       - name: Update model with latest Polarion items
-        if: ${{ steps.model_checks.outputs.checks_passed == 'true' }}
         run: |
           Write-Output "set user config"
           git config --global user.name 'LemonTree.Automation'
