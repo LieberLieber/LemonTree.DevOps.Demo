@@ -7,7 +7,7 @@ name: Upload Architecture to Polarion
 
 on:
  push:
-  branches-ignore:
+  branches:
       - main
 
 env:
