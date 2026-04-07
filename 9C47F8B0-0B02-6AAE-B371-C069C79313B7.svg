@@ -1,0 +1,1234 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="1053" height="667" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css"><![CDATA[
+		
+.diag-highlight.ds-unmodified span { color: darkgray !important; }
+
+.diag-highlight.ds-nonexistence { stroke: darkgray; }
+.diag-highlight.ds-nonexistence *:not(text):not(tspan) { stroke: darkgray !important; }
+.diag-highlight.ds-nonexistence span { color: darkgray !important; }
+
+.diag-highlight.ds-subelementmodified { stroke: darkorange; }
+.diag-highlight.ds-subelementmodified *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-subelementmodified span { color: darkorange; }
+
+.diag-highlight.ds-moved { stroke: darkorange; }
+.diag-highlight.ds-moved *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-moved span { color: darkorange !important; }
+
+.diag-highlight.ds-new { stroke: mediumseagreen; }
+.diag-highlight.ds-new *:not(text):not(tspan) { stroke: mediumseagreen !important; }
+.diag-highlight.ds-new span { color: mediumseagreen !important; }
+
+.diag-highlight.ds-modified { stroke: darkorange; }
+.diag-highlight.ds-modified *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-modified span { color: darkorange !important; }
+
+.diag-highlight.ds-removed { stroke: #ff9090; }
+.diag-highlight.ds-removed *:not(text):not(tspan) { stroke: #ff9090 !important; }
+.diag-highlight.ds-removed span { color: #ff9090 !important; }
+
+.diag-highlight.ds-unknown,
+.diag-highlight.ds-unmodified,
+.diag-highlight.ds-nonexistence,
+.diag-highlight.ds-subelementmodified,
+.diag-highlight.ds-moved,
+.diag-highlight.ds-new,
+.diag-highlight.ds-modified,
+.diag-highlight.ds-removed { stroke-width: 2 !important; }
+
+#viewport {
+			margin:0;
+			font-family:"Arial";
+			font-size: 10px;
+			text-rendering: optimizeLegibility;
+			image-rendering: optimizeQuality;
+			buffered-rendering: static;
+			color:rgb(109,112,114);
+		}
+		
+		
+.diag-highlight.ds-unmodified span { color: darkgray !important; }
+
+.diag-highlight.ds-nonexistence { stroke: darkgray; }
+.diag-highlight.ds-nonexistence *:not(text):not(tspan) { stroke: darkgray !important; }
+.diag-highlight.ds-nonexistence span { color: darkgray !important; }
+
+.diag-highlight.ds-subelementmodified { stroke: darkorange; }
+.diag-highlight.ds-subelementmodified *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-subelementmodified span { color: darkorange; }
+
+.diag-highlight.ds-moved { stroke: darkorange; }
+.diag-highlight.ds-moved *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-moved span { color: darkorange !important; }
+
+.diag-highlight.ds-new { stroke: mediumseagreen; }
+.diag-highlight.ds-new *:not(text):not(tspan) { stroke: mediumseagreen !important; }
+.diag-highlight.ds-new span { color: mediumseagreen !important; }
+
+.diag-highlight.ds-modified { stroke: darkorange; }
+.diag-highlight.ds-modified *:not(text):not(tspan) { stroke: darkorange !important; }
+.diag-highlight.ds-modified span { color: darkorange !important; }
+
+.diag-highlight.ds-removed { stroke: #ff9090; }
+.diag-highlight.ds-removed *:not(text):not(tspan) { stroke: #ff9090 !important; }
+.diag-highlight.ds-removed span { color: #ff9090 !important; }
+
+.diag-highlight.ds-unknown,
+.diag-highlight.ds-unmodified,
+.diag-highlight.ds-nonexistence,
+.diag-highlight.ds-subelementmodified,
+.diag-highlight.ds-moved,
+.diag-highlight.ds-new,
+.diag-highlight.ds-modified,
+.diag-highlight.ds-removed { stroke-width: 2 !important; }
+
+#viewport tab { padding-left: 4em; }
+		
+		.fo-body { margin:0; }
+		
+		.stereotype::before { content: '\00AB'; }
+		.stereotype::after { content: '\00BB'; }
+		.text-stereotype { padding-top: 6px; }
+		
+		.visible { display:block; }
+		.invisible { display:none; }
+		
+		.text-center { text-align:center; }
+		.text-ellipsis {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
+		}
+	
+				g.element				{ fill: url(#gradStandardObject);stroke:rgb(157,139,141);stroke-width:1px;}
+				g.uml-Enumeration		{ fill: url(#gradEnumeration) }
+				g.element rect		{ filter:url(#dropshadow)}
+				g.element circle		{ filter:url(#dropshadow)}
+				g.element ellipse		{ filter:url(#dropshadow)}
+				.fillBeige			{ fill: #fcf2e3; }
+	 
+		g.element text { stroke:none; fill:black; } 
+ g.element textOFF {
+			stroke: rgb(253,250,247);
+			stroke-width:2px;
+			paint-order:stroke;
+			stroke-linecap:round;
+			stroke-linejoin:round;
+			fill: rgb(109,112,114);
+		}
+
+		#mainSvg { 
+			background: #aab9dc;
+			background: -moz-linear-gradient(top, #aab9dc 0%, #eff1f8 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#aab9dc), color-stop(100%,#eff1f8));
+			background: -webkit-linear-gradient(top, #aab9dc 0%,#eff1f8 100%);
+			background: -o-linear-gradient(top, #aab9dc 0%,#eff1f8 100%);
+			background: -ms-linear-gradient(top, #aab9dc 0%,#eff1f8 100%);
+			background: linear-gradient(to bottom, #aab9dc 0%,#eff1f8 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aab9dc', endColorstr='#eff1f8',GradientType=0 );
+			
+			background:white;
+		}
+		
+		.node					{ fill:none; }
+		.connector				{ fill:none;pointer-events:visibleStroke; }
+		.connectorPointerTarget { fill:none;pointer-events:stroke;visibility:hidden;stroke-width:17;stroke-linejoin:miter;stroke-linecap:butt; }
+		.connector-dash			{ fill:none; stroke-dasharray:7 4; pointer-events:visibleStroke; }
+		.part-notelink			{ fill:none; stroke-dasharray:3; pointer-events:visibleStroke; }
+		.part-associationclass	{ fill:none; stroke-dasharray:6 3; pointer-events:visibleStroke; }
+		.partition-splitter		{ fill:none; stroke-dasharray:3; }
+		.line-dash				{ stroke-dasharray: 7 4; }
+		
+		.action					{ text-anchor:middle; }
+		.actionpin				{ text-anchor:middle; }
+		.text-middle			{ text-anchor:middle; }
+		
+		.fill-gray				{ fill:#3f3f3f; }
+		.text-members			{ fill:#696969;stroke:none;text-anchor:start; }
+		.text-transition		{ fill:black;stroke:none;text-anchor:middle; }
+		.text-object-name		{ fill:black;stroke:none;text-anchor:middle;font-weight:bold; }
+		.text-stereotypes		{ fill:black;stroke:none;text-anchor:start; }
+		.connector-label		{ text-anchor:middle; alignment-baseline:hanging; }
+		.controlflow-label		{ text-anchor:end; alignment-baseline:baseline; }
+		.message-label			{ text-anchor:middle; }
+		.opaque-action-body		{ color:grey }
+	 
+		.partition-name			{ text-anchor:start;alignment-baseline:hanging; }
+		
+		.childelement-icon		{ display:inline-block;width:20px;height:16px;vertical-align:middle; }
+		.component-icon			{ fill:rgb(252,242,227); }
+		.template-arg-box		{ fill:rgb(252,242,227); stroke-dasharray: 7 4; }
+		.template-arg-text		{ text-anchor:start; alignment-baseline:hanging; }
+		
+		.hyperlink-text			{ color:blue; text-decoration:underline; margin:0 }
+		
+		.enumliterals-list {
+			list-style-type: none;
+			margin: 3px 0px 3px 24px;
+			padding: 0px;
+			line-height: 13px;
+		}
+		.properties-list {
+			list-style-type: none;
+			margin: 3px 0px;
+			padding: 0px;
+			line-height: 13px;
+		}
+		.properties-list li::before {
+			padding: 0px 8px 0px 5px
+		}
+		.properties-list li.private::before {
+			content: '-'; padding-right: 11px;
+		}
+		.properties-list li.protected::before {
+			content: '#';
+		}
+		.properties-list li.public::before {
+			content: '+';
+		}
+		.properties-list li.internal::before {
+			content: '~';
+		}
+		.properties-list li.package::before {
+			content: '~';
+		}
+	 
+		g.element .partitionHeader {
+			fill: none;
+			filter: none;
+		}
+		
+		.highlighted { filter:url(#highlighter)}
+		
+		.part-object-parent {
+			margin: 0px;
+			padding-top: 4px;
+			padding-right: 3px;
+			text-align: right;
+			font-style: italic;
+		}
+		
+		.part-object-rootleaf {
+			margin: 0px;
+			padding-right: 6px;
+			text-align: right;
+		}
+		
+		.part-object-tests {
+			margin-top: 5px;
+			margin-bottom: 5px;
+			padding-top: 5px;
+			padding-left: 5px;
+			border-top: 2px solid red;
+		}
+		
+		.part-usecase-extensionpoints {
+			margin-top: 5px;
+			margin-bottom: 5px;
+			padding-top: 3px;
+			padding-left: 12%;
+			vertical-align: top;
+			border-top: 2px solid red;
+		}
+		
+		.part-diagram-details { border:0; color:blue }
+		.part-diagram-details td { padding:0 }
+		
+		.part-diagram-notes { border:0 }
+		.part-diagram-notes td { padding:0 }		
+	    
+		.part-state-operation { margin:2px 0 0 0; padding-left:5px; color:rgb(0, 71, 136) }
+		.part-state-operation-method { margin:0px; padding-left:10px; color:gray }
+		.part-state-operation-method p { margin: 2px 0px 2px 0px; }
+		.part-state-asframe-name { fill:#f7f3f7 }
+		.part-internal-transition-do { margin:2px 0 0 0; padding-left:5px; color:rgb(0, 30, 30) }
+		.part-internal-transition-behavior { margin:2px 0 0 0; padding-left:15px; color:rgb(0, 71, 136) }
+		
+		.part-timeline-timelabel-container { fill:white }
+    
+	    .connected-feature_mark { fill:none; stroke-width:1 }
+	    
+	    .part-note { line-height:125%; }
+	    .part-note ul { margin:0; padding-left:17px; }
+	    .part-note ol { margin:0; padding-left:12px; }
+	    .part-note ul li { padding-left:10px; }
+	    .part-note ol li { padding-left:15px; }
+	    .part-note ntab { white-space:pre; tab-size:4em; }
+	    .part-note ntab::before { content: '	'; }
+	    
+	    .part-constraint { line-height:125%; }
+	    .part-constraint ul { margin:0; padding-left:5px; list-style-type: none; display: inline-block; }
+	    .part-constraint ol { margin:0; padding-left:5px; display: inline-block; }
+		.part-constraint ul li::before { content: '-'; padding: 0px 2px 0px 0px; }
+	    .part-constraint ntab { white-space:pre; tab-size:4em; }
+	    .part-constraint ntab::before { content: '	'; }
+    
+		.part-decision-label	{ text-anchor:middle;alignment-baseline:central }
+		
+		/*==============================*/
+		
+		.shapescript-errors {
+			border: 0;
+			color: red;
+			width: auto;
+			margin-top: 3px;
+			margin-right: 3px;
+			margin-left: auto;
+			background-color: #e5e5e5a3;
+		}
+		.shapescript-errors caption { text-align: left; font-weight: bold; background-color: inherit }
+		
+		.part-separator { border-top: 1px solid rgb(157,139,141); margin:0px; margin-top:5px }
+		.connector { fill:none; stroke:rgb(107,115,139) }
+		
+		.element.base-Action { fill:rgb(251,241,218) }
+		.element.base-Requirement { fill:url(#gradRequirement) }
+		.element.uml-Activity { fill:rgb(250,247,220) }
+		.element.uml-ActivityParameterNode { fill:rgb(247,197,195) }
+		.element.uml-Class.requirement { fill:rgb(242,251,239) }
+		.element.uml-Interface { fill:url(#gradInterface) }
+		.element.uml-Property, .element.uml-Port { fill:url(#gradProperty) }
+		.element.uml-DataType { fill:rgb(250,249,230) }
+		.element.uml-StateMachine { fill:rgb(245,247,240) }
+		.element.uml-State { fill:url(#gradState) }
+		.element.uml-InstanceSpecification { fill:rgb(224,244,245) }
+		.element.uml-Package { fill:rgb(249,243,240) }
+		.element.uml-Signal { fill:rgb(249,249,249) } /*rgb(255,255,255) - rgb(239,239,239)*/
+		.element.uml-Gate { fill:rgb(032,032,032) }
+		.element.uml-Trigger { fill:rgb(253,240,245) }
+		.element.uml-UseCase { fill:rgb(231,242,253) }
+		.element.uml-Comment { fill:white; stroke:rgb(131,181,190) }
+		
+		.element.uml-InitialNode, .element.uml-JoinNode, .element.uml-ForkNode { fill:rgb(152,132,132) }
+		.element.uml-Pseudostate.kind-Initial, .element.uml-Pseudostate.kind-Join, .element.uml-Pseudostate.kind-Fork, .element.uml-Pseudostate.kind-Junction { fill:rgb(152,132,132) }
+		.element.uml-DecisionNode, .element.uml-MergeNode, .element.uml-ActivityFinalNode, .element.uml-FinalState { fill:rgb(206,225,163) }				
+		.element.uml-Pseudostate.kind-DeepHistory,
+		.element.uml-Pseudostate.kind-ShallowHistory,
+		.element.uml-Pseudostate.kind-Choice,
+		.element.uml-Pseudostate.kind-ExitPoint,		
+		.element.uml-Pseudostate.kind-EntryPoint { fill:rgb(206,225,163) }
+		
+		.part-attribute-container { color:rgb(123,82,86) }
+		.part-operation-container { color:rgb(0, 71, 136) }
+		.part-taggedvalue-container { padding-top:4px }
+		.part-occurrence-specifications { color:rgb(123,82,86); padding-top:2px; padding-left:14px }
+		.part-object-notes { color:#a0a0a0; padding-top:10px; padding-left:11px; padding-right:2px; line-height:110% }
+		.part-timeline-container { fill:#f3fcfc }
+		
+		.requirement-text { white-space:break-spaces }
+
+		a.disabled { pointer-events:none; cursor:not-allowed; color:currentColor; text-decoration:auto }
+
+	]]></style>
+  <defs>
+    <g id="_EAArrow">
+      <polyline points="0,15 5,0 10,15" style="fill:none" />
+    </g>
+    <g id="_EAArrow2">
+      <polyline points="0,10 5,0 10,10 5,20 0,10" style="fill:black" />
+    </g>
+    <g id="_EAArrow3">
+      <polyline points="0,10 5,0 10,10 5,20 0,10" style="fill:rgb(252, 242, 227)" />
+    </g>
+    <g id="_EAArrowFull">
+      <polyline points="0,15 5,0 10,15 0,15" class="fillBeige" />
+    </g>
+    <g id="_EAArrowFullBlack">
+      <polyline points="0,15 5,0 10,15 0,15" style="fill:black" />
+    </g>
+    <g id="NestingArrow">
+      <circle cx="5" cy="8" r="8" class="fillBeige" />
+      <line x1="-3" y1="8" x2="13" y2="8" />
+      <line x1="5" y1="0" x2="5" y2="16" />
+    </g>
+    <g id="NestingArrowBigger">
+      <circle cx="5" cy="10" r="10" class="fillBeige" />
+      <line x1="-5" y1="10" x2="15" y2="10" />
+      <line x1="5" y1="0" x2="5" y2="20" />
+    </g>
+    <g id="AssemblyConnectorMark">
+      <path class="node" style="stroke-width: 1.001;" d="M-10,0 a10,10 0 1 0 20,0" />
+      <circle cx="0" cy="0" r="7" class="fillBeige" />
+    </g>
+    <g id="RealizesArrow">
+      <polyline points="0,10 5,0 10,10 0,10" style="fill:black" />
+    </g>
+    <linearGradient id="gradStandardObject" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(253,250,247);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(245,234,223);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradEnumeration" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(234,253,228);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(213,249,200);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradDeepHistory" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(240,240,240);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradRequirement" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(242,251,239);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(222,243,215);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradInterface" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(241,236,250);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(222,212,242);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradProperty" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(218,234,252);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(189,217,249);stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="gradState" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:rgb(244,237,217);stop-opacity:1" />
+      <stop offset="100%" style="stop-color:rgb(236,225,192);stop-opacity:1" />
+    </linearGradient>
+    <filter id="dropshadow" height="140%" width="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="2" />
+      <!-- stdDeviation is how much to blur -->
+      <feOffset dx="3" dy="3" result="offsetblur" />
+      <!-- how much to offset -->
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.2" />
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode />
+        <!-- this contains the offset blurred image -->
+        <feMergeNode in="SourceGraphic" />
+        <!-- this contains the element that the filter is applied to -->
+      </feMerge>
+    </filter>
+    <g id="compositeDiagramIcon">
+      <ellipse cx="0" cy="0" rx="5" ry="3" style="fill:rgba(255,255,255,0.6)" />
+      <ellipse cx="15" cy="0" rx="5" ry="3" style="fill:rgba(255,255,255,0.6)" />
+      <polyline class="node" points="5,0 10,0" />
+    </g>
+    <filter id="highlighter">
+      <feFlood flood-color="rgb(0,0,255)" result="flood" />
+      <feComposite operator="in" in="flood" in2="SourceGraphic" result="composite1" />
+      <feOffset dx=" 1" dy=" 1" in="composite1" result="offset1" />
+      <feOffset dx="-1" dy="-1" in="composite1" result="offset2" />
+      <feOffset dx=" 1" dy="-1" in="composite1" result="offset3" />
+      <feOffset dx="-1" dy=" 1" in="composite1" result="offset4" />
+      <feMerge result="merge">
+        <feMergeNode in="offset1" />
+        <feMergeNode in="offset2" />
+        <feMergeNode in="offset3" />
+        <feMergeNode in="offset4" />
+      </feMerge>
+      <feGaussianBlur in="merge" stdDeviation="2" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <filter id="doubleStroke" x="-20%" y="-20%" width="140%" height="140%" filterUnits="userSpaceOnUse">
+      <feMorphology in="SourceGraphic" result="a" operator="dilate" radius="1" />
+      <feComposite in="SourceGraphic" in2="a" result="xx" operator="xor" />
+    </filter>
+    <radialGradient id="gradNotePin" cx="35%" cy="35%" r="70%" fx="35%" fy="35%">
+      <stop offset="20%" style="stop-color:white;" />
+      <stop offset="100%" style="stop-color:gray;" />
+    </radialGradient>
+    <g id="NotePin">
+      <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
+    </g>
+  </defs>
+  <g id="viewport" transform="translate(-4.5,-9.5)">
+    <g style="" id="{9CDBEDE0-0CDC-AF3A-94B1-0BA6A76DF0FB}" transform="translate(15, 20)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{b946a1ad-e1c8-a246-b8b9-bcd7c2357959}">
+      <rect x="0" y="0" width="1033" height="645" style="fill:none" class="main-shape" />
+      <polygon points="0,0 163.02441,0 163.02441,5 150.02441,19 0,19" />
+      <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[block] PWC_SystemContext</text>
+    </g>
+    <g style="" id="{92B94C10-DE9B-D1F9-BD01-F921DFB79387}" transform="translate(604, 113)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{012c155c-c496-4e90-ba4d-6a8148bd29aa}">
+      <rect x="0" y="0" width="407" height="424" style="" class="main-shape" />
+      <foreignObject width="407" height="424" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Driver Window</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{86A28D22-049A-B4A7-BB53-496E75D3233C}" transform="translate(379, 235)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{7c99f9e1-974b-2a65-d004-88c87a2fd822}">
+      <rect x="0" y="0" width="139" height="124" style="" class="main-shape" />
+      <foreignObject width="139" height="124" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: WindowControllerECU</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A35B6FA4-6304-6379-84A6-2E264BE1505D}" transform="translate(34, 131)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{8e5a1e57-b34e-f91d-334c-23808ba38db9}">
+      <rect x="0" y="0" width="260" height="442" style="" class="main-shape" />
+      <foreignObject width="260" height="442" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Passenger Window</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{8A34193D-E575-72B8-9A05-804B1AD7A6D7}" transform="translate(407, 415)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{b4d4fe53-3215-ad06-a27e-3c2af8ee31c7}">
+      <rect x="0" y="0" width="70" height="32" style="stroke:#FFFF00;" class="main-shape" />
+      <foreignObject width="70" height="32" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Power Supply</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{89CB8861-85C1-3566-8EAA-EECBB5EFB13C}" transform="translate(104, 260)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{2144a930-95d2-0765-8106-6e2e275ccd2b}">
+      <rect x="0" y="0" width="97" height="83" style="" class="main-shape" />
+      <foreignObject width="97" height="83" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: High Torque Sensor</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A1439C4F-2D95-A43A-98CE-2DC628CFC28E}" transform="translate(786, 354)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{4c4dc631-cbe1-c004-9039-367d410436e2}">
+      <rect x="0" y="0" width="139" height="92" style="" class="main-shape" />
+      <foreignObject width="139" height="92" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Electric motor</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{AA0B4C3C-33BF-D817-A5A0-429B9812D70F}" transform="translate(624, 346)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{56d0d348-07a1-3516-2d31-ff784d902027}">
+      <rect x="0" y="0" width="70" height="69" style="" class="main-shape" />
+      <foreignObject width="70" height="69" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>passenger: Rocker switch</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B6DD0689-5995-2072-B0B3-CB5771BB1FA6}" transform="translate(112, 358)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{604751a8-cc2d-e005-998e-a94fb640eba8}">
+      <rect x="0" y="0" width="126" height="81" style="" class="main-shape" />
+      <foreignObject width="126" height="81" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Electric motor</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{9C415B89-CF97-A98D-8A35-6D824E5E50CB}" transform="translate(396, 288)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{776ac6ea-a8fa-f0cc-c5e3-c760de11a43f}">
+      <image width="20" height="20" class="main-shape" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAERSURBVDhPpZRNDoIwEIWnxj2nYK0JHkIvoTtYkXgOt7ihK/UUHsImutYDuPUE2Gk7UoYigl9S+sPwaN9MKkBTabD/F4GQllJZBUqa8RiStDKbqwWlqPSiHg0XlYsM0osVnJqVD1pMAeS31M0txaz7J0rH+0xc36JYv2A5B3g83cKPdAqudhFsD8MF2ZEteMT4msJ9Y48aH5sWIPSO07lDH/oYe2qhnyAtQUwINvSPzylZfO4T3CEmxPculCAeQwQFMSF+cH6KYH9uCvIYghV2aeqQg36Rb+QngXWoZF3YX5Pi+4eQbyHviN4sh/wMHZXoFeRedXlHtDwcc+H4HjYEx95eSaJb6QTxoUWt6p8IIcQbL+uXz0JHZSsAAAAASUVORK5CYII=" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <foreignObject width="100" height="36" transform="translate(25,5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="part-note" style="margin:0; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						internal view of PWC
+					</div>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A9E480DF-537C-C661-94F8-8B9192533725}" transform="translate(98, 172)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{8856e1af-2263-fd00-caf9-0f589f385fad}">
+      <rect x="0" y="0" width="108" height="69" style="" class="main-shape" />
+      <foreignObject width="108" height="69" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>main: Rocker switch</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A697BB69-00B8-42C6-87C7-8B47065B67ED}" transform="translate(800, 254)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{8e5fc650-9982-f76d-2cd9-3222d8d4e28d}">
+      <rect x="0" y="0" width="148" height="72" style="" class="main-shape" />
+      <foreignObject width="148" height="72" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: High Torque Sensor</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{9DD075C7-72FB-D95B-8F11-978F7970142F}" transform="translate(637, 427)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{9e030dee-97f6-4c7b-2a82-fbf2083cc4c9}">
+      <rect x="0" y="0" width="126" height="59" style="" class="main-shape" />
+      <foreignObject width="126" height="59" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>windowPane: movablePart</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{81611D60-2030-2736-BB89-CC97E80624F4}" transform="translate(793, 153)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{c922ad26-1ad3-497d-8b89-95510a75ad39}">
+      <rect x="0" y="0" width="126" height="68" style="" class="main-shape" />
+      <foreignObject width="126" height="68" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: Power disable button</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{87506BF6-55C7-860F-A4FD-79678C44225C}" transform="translate(658, 266)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{dac2acbf-d115-e564-09a2-ccef3e3c033e}">
+      <rect x="0" y="0" width="70" height="69" style="" class="main-shape" />
+      <foreignObject width="70" height="69" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>main: Rocker switch</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{816EC21D-3E65-1FC5-A9D0-023D41F67D3D}" transform="translate(139, 477)" class="element uml-Property ds-new ds-new diag-highlight" data-diagram-object-guid="{fca35315-5de9-c792-eef7-d222ba7e37fe}">
+      <rect x="0" y="0" width="126" height="59" style="" class="main-shape" />
+      <foreignObject width="126" height="59" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>windowPane: movablePart</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{980F0DA1-5181-A23F-8EA2-8AEE4450986E}" transform="translate(802, 396)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{1ef3fda0-d934-652f-a61c-ec714360ec27}">
+      <image width="20" height="20" class="main-shape" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAERSURBVDhPpZRNDoIwEIWnxj2nYK0JHkIvoTtYkXgOt7ihK/UUHsImutYDuPUE2Gk7UoYigl9S+sPwaN9MKkBTabD/F4GQllJZBUqa8RiStDKbqwWlqPSiHg0XlYsM0osVnJqVD1pMAeS31M0txaz7J0rH+0xc36JYv2A5B3g83cKPdAqudhFsD8MF2ZEteMT4msJ9Y48aH5sWIPSO07lDH/oYe2qhnyAtQUwINvSPzylZfO4T3CEmxPculCAeQwQFMSF+cH6KYH9uCvIYghV2aeqQg36Rb+QngXWoZF3YX5Pi+4eQbyHviN4sh/wMHZXoFeRedXlHtDwcc+H4HjYEx95eSaJb6QTxoUWt6p8IIcQbL+uXz0JHZSsAAAAASUVORK5CYII=" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <foreignObject width="89" height="36" transform="translate(25,5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="part-note" style="margin:0; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						Internal view of EM
+					</div>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A25AC12D-BDD8-207A-8BC9-BA75C6068881}" transform="translate(815, 296)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{e81c47fc-de68-9335-d56b-a922a89956cd}">
+      <image width="20" height="20" class="main-shape" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAERSURBVDhPpZRNDoIwEIWnxj2nYK0JHkIvoTtYkXgOt7ihK/UUHsImutYDuPUE2Gk7UoYigl9S+sPwaN9MKkBTabD/F4GQllJZBUqa8RiStDKbqwWlqPSiHg0XlYsM0osVnJqVD1pMAeS31M0txaz7J0rH+0xc36JYv2A5B3g83cKPdAqudhFsD8MF2ZEteMT4msJ9Y48aH5sWIPSO07lDH/oYe2qhnyAtQUwINvSPzylZfO4T3CEmxPculCAeQwQFMSF+cH6KYH9uCvIYghV2aeqQg36Rb+QngXWoZF3YX5Pi+4eQbyHviN4sh/wMHZXoFeRedXlHtDwcc+H4HjYEx95eSaJb6QTxoUWt6p8IIcQbL+uXz0JHZSsAAAAASUVORK5CYII=" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <foreignObject width="102" height="23" transform="translate(25,5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="part-note" style="margin:0; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						internal view of HS
+					</div>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B2F1FC31-D7A4-BB89-BB4D-C3A1CB3911B5}" transform="translate(130, 396)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{76824e19-2ece-f4e2-6104-132e42108a49}">
+      <image width="20" height="20" class="main-shape" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAERSURBVDhPpZRNDoIwEIWnxj2nYK0JHkIvoTtYkXgOt7ihK/UUHsImutYDuPUE2Gk7UoYigl9S+sPwaN9MKkBTabD/F4GQllJZBUqa8RiStDKbqwWlqPSiHg0XlYsM0osVnJqVD1pMAeS31M0txaz7J0rH+0xc36JYv2A5B3g83cKPdAqudhFsD8MF2ZEteMT4msJ9Y48aH5sWIPSO07lDH/oYe2qhnyAtQUwINvSPzylZfO4T3CEmxPculCAeQwQFMSF+cH6KYH9uCvIYghV2aeqQg36Rb+QngXWoZF3YX5Pi+4eQbyHviN4sh/wMHZXoFeRedXlHtDwcc+H4HjYEx95eSaJb6QTxoUWt6p8IIcQbL+uXz0JHZSsAAAAASUVORK5CYII=" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <foreignObject width="89" height="36" transform="translate(25,5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="part-note" style="margin:0; font-weight:normal;font-style:normal;color:#000;font-family:Calibri;text-decoration:none;text-align:inherit;font-size:8.68px">
+						Internal view of EM
+					</div>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B818A4EF-CA71-0FC0-971B-8572A4B34702}" transform="translate(121, 298)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{82133240-996b-1dff-2d53-23a00b7f7b4f}">
+      <image width="20" height="20" class="main-shape" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAASCAYAAABb0P4QAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAERSURBVDhPpZRNDoIwEIWnxj2nYK0JHkIvoTtYkXgOt7ihK/UUHsImutYDuPUE2Gk7UoYigl9S+sPwaN9MKkBTabD/F4GQllJZBUqa8RiStDKbqwWlqPSiHg0XlYsM0osVnJqVD1pMAeS31M0txaz7J0rH+0xc36JYv2A5B3g83cKPdAqudhFsD8MF2ZEteMT4msJ9Y48aH5sWIPSO07lDH/oYe2qhnyAtQUwINvSPzylZfO4T3CEmxPculCAeQwQFMSF+cH6KYH9uCvIYghV2aeqQg36Rb+QngXWoZF3YX5Pi+4eQbyHviN4sh/wMHZXoFeRedXlHtDwcc+H4HjYEx95eSaJb6QTxoUWt6p8IIcQbL+uXz0JHZSsAAAAASUVORK5CYII=" xmlns:xlink="http://www.w3.org/1999/xlink" />
+      <foreignObject width="71" height="36" transform="translate(25,5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="part-note" style="margin:0; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						internal view of HS
+					</div>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{BDFD6C58-3D1A-35C9-BBC8-5D4C4C70D490}" transform="translate(101, 565)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{98368b76-fe47-f726-9f75-2c143fbbbd22}">
+      <rect x="0" y="0" width="68" height="16" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(16,1) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{AB4E2367-0F17-2AFB-9654-FD616EC7D52F}" transform="translate(590, 158)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{acf510a6-358c-6a84-722c-51ec4253cb1a}">
+      <rect x="0" y="0" width="29" height="112" class="main-shape" />
+      <foreignObject width="46" height="14" transform="translate(21,-28) rotate(-90, 0, 14)" style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : CAN_Bus</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A70DE7E1-F046-0EE5-AA1E-936D0223F6D7}" transform="translate(407, 228)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{c1a17f70-e1e0-1890-03d6-fda70773f6f5}">
+      <rect x="0" y="0" width="85" height="15" class="main-shape" />
+      <foreignObject width="46" height="14" transform="translate(16,3) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : CAN_Bus</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{80FDF3A3-3F4F-6278-AC76-5260F456D240}" transform="translate(283, 210)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{c7c6952e-b1ac-bab7-c1e3-ae56b1013405}">
+      <rect x="0" y="0" width="22" height="62" class="main-shape" />
+      <foreignObject width="46" height="14" transform="translate(17,-8) rotate(-90, 0, 14)" style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : CAN_Bus</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="fill:#DAEAFC;" id="{8E1C36B7-8F56-C928-B4C9-0582EA0AAA57}" transform="translate(432, 352)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{e41d7e1c-a2b7-4e1c-62d3-95f49277d53e}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="62" height="14" transform="translate(3,-16) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : powerSupply</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A2DE6C1C-780A-79DD-A1D6-2F18C4000C2B}" transform="translate(726, 529)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{ec96e181-bcdc-0526-1716-388f8e688555}">
+      <rect x="0" y="0" width="68" height="16" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(16,3) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{8F59BD87-E9C7-007E-AB1F-E7C387E850BB}" transform="translate(193, 291)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{10e1f3a0-be4e-2f01-92e4-e56dc5193374}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="49" height="14" transform="translate(-49,0) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : digitalOut</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{8E9388C6-F6FB-8E65-97A4-20DA19DD8292}" transform="translate(230, 392)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{329c7e8b-c6f7-0b8b-70c8-839dc3a4e268}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="75" height="14" transform="translate(-39,2) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : motorCommand</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="fill:#DAEAFC;" id="{B89AB278-942B-ED2D-9CAF-61A41900FDCB}" transform="translate(918, 381)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{3ee09265-1c51-0210-473b-5915bdd7b9e4}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(-33,1) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{8692BCA3-F061-14D9-B16C-830D35CEA836}" transform="translate(756, 451)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{4febbe10-9100-bf45-1a19-0f6f96f25a94}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="71" height="14" transform="translate(-73,2) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : mechanicalPort</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A8494D77-788A-F752-BD3D-362FA4FEFD50}" transform="translate(104, 357)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{56012e74-4be1-601b-a42b-2864213aa119}">
+      <rect x="0" y="0" width="15" height="15" style="" class="main-shape" />
+      <foreignObject width="15" height="15" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: diagnosticPort</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{90EF1076-7350-82D2-BE55-BD9FA9F60953}" transform="translate(815, 246)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{58ceb49d-ba90-ff91-f429-ae72da9484af}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="49" height="14" transform="translate(18,-8) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : digitalOut</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{8233E590-3335-8B72-9DF4-FBFDAC1F70BF}" transform="translate(96, 254)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{5fca9bba-4f9b-0559-58be-5e0344c7f4ca}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(4,-11) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{AA7FF136-99D2-113E-8636-22EF29BD32C2}" transform="translate(868, 347)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{77460b1e-08e0-f5cb-9896-ec897bd17c24}">
+      <rect x="0" y="0" width="15" height="15" style="" class="main-shape" />
+      <foreignObject width="15" height="15" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>: diagnosticPort</b>
+          </p>
+          <div class="part-attribute-container"></div>
+          <div class="part-object-sysmlblock"></div>
+          <div class="part-object-behaviors"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{99BAC50F-6737-DFFD-ABAC-9A2096EE22F8}" transform="translate(148, 470)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{9d50f289-7215-629d-4ea0-1385c529f451}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="71" height="14" transform="translate(13,7) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : mechanicalPort</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B55C86DA-366D-BDD4-9032-8B02E7C5BAFB}" transform="translate(793, 313)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{a12f6d9c-0a47-35a1-20be-1038d1e9a301}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="45" height="14" transform="translate(-47,1) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : analogIn</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="fill:#DAEAFC;" id="{8D3FA88C-CB24-9C3D-B288-74E2A176B057}" transform="translate(104, 412)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{a502271e-e36b-5c4a-d2e7-e882c4f3bf7c}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(11,7) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{89F986FD-FEBE-8DA7-AD59-251E3146DAE5}" transform="translate(96, 304)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{a94ab386-5bad-36df-c43f-5c4c3780e006}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="45" height="14" transform="translate(-36,-14) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : analogIn</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{85F309B7-A343-05F3-894B-7A0FFD675E13}" transform="translate(147, 431)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{b8d96891-50bc-d1f0-59bb-6a2dd8c8c8e4}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="71" height="14" transform="translate(7,-6) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : mechanicalPort</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B0A0B968-4FF6-F6D5-88F5-6AD7FB4886C5}" transform="translate(837, 439)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{e2f739b8-eaa3-caef-468b-a3631b3e689f}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="71" height="14" transform="translate(13,-10) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : mechanicalPort</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{958C69BB-5962-80A2-BA6B-3EE202DA2E48}" transform="translate(779, 367)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{ea640cd7-b7d5-324a-5cb8-9ee80aacb37c}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="75" height="14" transform="translate(-47,14) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : motorCommand</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="fill:#DAEAFC;" id="{8E3BF5DE-FEA6-9B8C-8A6A-16223E9E2CDD}" transform="translate(940, 280)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{f822acdf-54b9-187f-0881-9924d3a79eb0}">
+      <rect x="0" y="0" width="15" height="15" class="main-shape" />
+      <foreignObject width="35" height="14" transform="translate(-32,2) " style="overflow:visible;">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
+            <span> : power</span>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g id="{A49309F9-A719-AF93-9467-37000653FA84}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{0158d7a4-0850-0f51-9402-0b1264b9ab64}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="454,447 454,584 758,584 758,545" />
+        <use xlink:href="#RealizesArrow" transform="translate(753,565) rotate(0,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(748,575)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{9A508A3C-FFB0-0713-931E-54813FE47143}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{01804c0f-daa0-0cb5-906e-55be83a8dda5}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="846,454 846,458 771,458" />
+        <use xlink:href="#RealizesArrow" transform="translate(804,458) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="92" height="14" transform="translate(770,454)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«block» mechanicalPower</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{B7E00501-E414-F9D3-8755-3429CF4327D3}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{05836472-7dc8-7938-443a-dd64bbdf999b}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="869,347 869,339 798,339 798,328" />
+      </g>
+    </g>
+    <g id="{B7FE0EBF-EFBE-2136-92F4-D01BF52BE1B9}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{11061c1b-4278-f988-4abf-ff3d626665ae}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="677,266 677,235 619,235" />
+        <use xlink:href="#RealizesArrow" transform="translate(643,235) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="61" height="14" transform="translate(627,211)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">switchInput</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{A18D099D-74C0-7A27-9494-AF54F37AD0E3}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{196b167d-365d-522f-647d-d4a0feb3c2f6}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="104,363 83,363 83,314 96,314" />
+      </g>
+    </g>
+    <g id="{A1748B3A-C7BA-1197-B3CA-D0F4F3763AA7}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{1d3a6522-291b-6fa9-0797-1a2a3efb9195}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="447,447 447,605 136,605 136,581" />
+        <use xlink:href="#RealizesArrow" transform="translate(131,593) rotate(0,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(126,603)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{9511B95A-7EA6-4122-87D6-145F73283F47}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{23d043a9-a777-ae3e-4d3d-b7d0e5ff0128}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="590,184 465,184 465,228" />
+        <use xlink:href="#RealizesArrow" transform="translate(460,206) rotate(180,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="169" height="14" transform="translate(449,174)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">switchInput, disable, highTorque</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{BF676760-82D6-AE11-8137-420499515CF7}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{32010785-7f57-1149-ab5a-0d07a4b1714b}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="208,299 220,299 220,256 283,256" />
+        <use xlink:href="#RealizesArrow" transform="translate(246,256) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="59" height="14" transform="translate(220,239)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">highTorque</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{8997DBDA-A180-01BF-BFC0-600981A76DAD}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{36c8a4fb-e59f-b0e8-668a-0fe0f1eb2d9c}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="407,443 294,443" />
+        <use xlink:href="#RealizesArrow" transform="translate(318,443) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(305,443)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{B4195E7B-B39C-FBCC-BFF0-139197577B80}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{45b37ae0-cef3-2a83-3d51-4da53b37290e}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="824,246 824,235 751,235 751,199 619,199" />
+        <use xlink:href="#RealizesArrow" transform="translate(680,199) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="59" height="14" transform="translate(682,176)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">highTorque</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{92BBE440-B41F-661F-AB44-EA7EC98AC1C1}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{4c895b7d-79dc-b686-2189-12f1d8f791be}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="779,373 739,373 739,217 619,217" />
+        <use xlink:href="#RealizesArrow" transform="translate(674,217) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="85" height="14" transform="translate(669,227)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">motorCommand</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{9A9A3137-6862-3D6A-A2F3-F522BD8CDCA0}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{50c72559-a99c-eca7-fe93-1931e0e1db91}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="206,226 283,226" />
+        <use xlink:href="#RealizesArrow" transform="translate(258,226) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="61" height="14" transform="translate(228,207)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">switchInput</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{BEDF40A8-B300-C04D-99E8-32D5CFA59E76}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{758e727b-5a16-32d0-9eaf-29c4a4c12e27}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="155,446 155,470" />
+        <use xlink:href="#RealizesArrow" transform="translate(150,464) rotate(180,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="92" height="14" transform="translate(162,456)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«block» mechanicalPower</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{AD86E000-A9F5-1AF9-97E9-261A0703559B}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{76236fe0-22bb-8f85-ed8f-ac77e8946fe5}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="439,415 439,367" />
+        <use xlink:href="#RealizesArrow" transform="translate(434,379) rotate(0,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(433,380)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{9BE63D4D-C9BA-3A7D-A6E6-E143B88F902B}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{80a4ae2a-790b-09ea-d581-f538d627c0a3}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="111,565 111,541 49,541 49,260 96,260" />
+        <use xlink:href="#RealizesArrow" transform="translate(67,260) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(62,270)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{A8C4D365-D58C-40DE-AC94-428AFFD3AADD}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{80d17f01-e7d4-22dc-872a-caaacc896927}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="477,433 604,433" />
+        <use xlink:href="#RealizesArrow" transform="translate(567,433) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(532,442)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{AB65A5C0-B1C7-B53E-A476-140D36C48C22}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{841d57c6-9f76-6612-255a-f4b7f911a7fe}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="793,183 619,183" />
+        <use xlink:href="#RealizesArrow" transform="translate(658,183) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="37" height="14" transform="translate(653,155)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">disable</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{8FDA995F-6FF1-25A7-BA77-4F696DD72EA1}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{8f03e629-910f-83ef-dceb-a2783226379c}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="479,228 479,202 590,202" />
+        <use xlink:href="#RealizesArrow" transform="translate(529,202) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="85" height="14" transform="translate(499,209)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">motorCommand</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{8ED0C4AC-73C0-B050-A477-A2FA396BFEA6}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{a76e4cf6-e9c7-6010-b6a7-da8ac9429170}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="305,239 355,239 355,181 432,181 432,228" />
+        <use xlink:href="#RealizesArrow" transform="translate(427,204) rotate(180,5,0)" />
+        <use xlink:href="#RealizesArrow" transform="translate(325,239) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="109" height="27" transform="translate(359,173)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">switchInput, disable, highTorque</p>
+          </div>
+        </foreignObject>
+        <foreignObject width="85" height="14" transform="translate(305,220)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">motorCommand</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{B3F8FA0F-D3A3-33DC-8508-6CFBA2474BFC}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{b6b877bd-8d7d-6fbe-7f16-c6d021fb285d}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="238,392 238,266 283,266" />
+        <use xlink:href="#RealizesArrow" transform="translate(255,266) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="85" height="14" transform="translate(250,276)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">motorCommand</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{AF6EF692-99BD-94C7-88C3-73AF4797A7B2}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{bd339bfd-e691-7e4a-9aab-9ff3ac266ea2}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="647,346 647,262 619,262" />
+        <use xlink:href="#RealizesArrow" transform="translate(628,262) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="61" height="14" transform="translate(602,237)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wex;">switchInput</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{B2377125-D108-B7BB-BF57-83E392F91593}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{cdb6b2ba-63bc-7c51-0e07-7ce172ab5aaa}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="755,529 755,499 963,499 963,392 933,392" />
+        <use xlink:href="#RealizesArrow" transform="translate(943,392) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(936,366)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{827F0962-ECC9-19BF-AD9D-91C059FEFC16}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{d78d3da2-8e51-41a4-5853-b330828c5106}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="765,529 765,508 992,508 992,291 955,291" />
+        <use xlink:href="#RealizesArrow" transform="translate(969,291) rotate(270,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(967,263)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+    <g id="{A8D05D96-D4A8-206F-9546-F08A573EEDA5}" class="element uml-Connector ds-new ds-new diag-highlight" data-diagram-object-guid="{de7d1bfd-8b9a-e655-325d-a1b85b86f8ad}">
+      <g class="main-shape">
+        <polyline class="connector" style="stroke:#FFA500;" points="128,565 128,486 70,486 70,427 104,427" />
+        <use xlink:href="#RealizesArrow" transform="translate(82,427) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <foreignObject width="33" height="14" transform="translate(79,439)">
+          <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+            <p style="margin:1px; text-align:wey;">«InterfaceBlock» power</p>
+          </div>
+        </foreignObject>
+      </g>
+    </g>
+  </g>
+</svg>

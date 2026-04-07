@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="809" height="411" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="598" height="477" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -432,68 +432,144 @@
       <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
     </g>
   </defs>
-  <g id="viewport" transform="translate(-7.5,-7.5)">
-    <g style="" id="{A7B2B212-BD09-483c-9946-ADD1417DE7CD}" transform="translate(286, 18)" class="element uml-Package ds-modified diag-highlight" data-diagram-object-guid="{4d7846d0-6522-94e2-122b-949ef1b239d2}">
-      <rect x="0" y="0" width="106" height="20" class="main-shape" />
-      <rect x="0" y="20" width="253" height="361" style="" />
-      <foreignObject width="253" height="381">
-        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
-          <p style="margin:0px;padding:3px;padding-bottom:0px;display:none;"></p>
-          <p class="part-object-name" style="padding:3px;margin:0px;">
-            <b>Architecture</b>
+  <g id="viewport" transform="translate(0.5,0.5)">
+    <g style="" id="{9C1ABDC1-A2F6-5B1F-B1C0-9CD6E4C57DAF}" transform="translate(10, 10)" class="element uml-Package ds-new ds-new diag-highlight" data-diagram-object-guid="{89a8f923-826f-b148-4613-d4b7c16b5848}">
+      <rect x="0" y="0" width="578" height="455" style="fill:none" class="main-shape" />
+      <polygon points="0,0 181.02734,0 181.02734,5 168.02734,19 0,19" />
+      <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] High Torque Sensor</text>
+    </g>
+    <g style="" id="{89B7B3C1-5FE3-0030-AD0F-6414ED9B8DB9}" transform="translate(225, 43)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{07976202-0abe-6820-9840-2413ed9233c0}">
+      <rect x="0" y="0" width="143" height="176" style="" class="main-shape" />
+      <foreignObject width="143" height="176" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
           </p>
-          <div class="part-package-children-list" style="margin-top:5px;">
-            <ul style="margin:0px;padding:5px;padding-left:0px;padding-top:2px;list-style-type:none">
-              <li>
-                <div class="childelement-icon" style="background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACxSURBVDhPY2CYOZPh////VMOMYAPT0hjQwYUl0v+hTDgwiHnKCGXiAVhc+Op4NJD6///zl3X/v1yE4NMrV/4/v1gKJIyhHhljuPD1iZj/T+/sh/JIAyAfsEDZcAAyDCjB8OXreqgIYcB4l4Fhc3EaUB8DAxNUDAWADAMpIhZfv/EbqhOHgZSAUQMpB0PUQFjaIhYjA4ysByoUbiz8BeURDzTi2aCFB9WLLyAAMagDGBgA5TcEu+8VzmAAAAAASUVORK5CYIJCYII=);"></div> + KnowledgeModel</li>
-              <li>
-                <div class="childelement-icon" style="background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACxSURBVDhPY2CYOZPh////VMOMYAPT0hjQwYUl0v+hTDgwiHnKCGXiAVhc+Op4NJD6///zl3X/v1yE4NMrV/4/v1gKJIyhHhljuPD1iZj/T+/sh/JIAyAfsEDZcAAyDCjB8OXreqgIYcB4l4Fhc3EaUB8DAxNUDAWADAMpIhZfv/EbqhOHgZSAUQMpB0PUQFjaIhYjA4ysByoUbiz8BeURDzTi2aCFB9WLLyAAMagDGBgA5TcEu+8VzmAAAAAASUVORK5CYIJCYII=);"></div> + Subsystems</li>
-              <li>
-                <div class="childelement-icon" style="background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACxSURBVDhPY2CYOZPh////VMOMYAPT0hjQwYUl0v+hTDgwiHnKCGXiAVhc+Op4NJD6///zl3X/v1yE4NMrV/4/v1gKJIyhHhljuPD1iZj/T+/sh/JIAyAfsEDZcAAyDCjB8OXreqgIYcB4l4Fhc3EaUB8DAxNUDAWADAMpIhZfv/EbqhOHgZSAUQMpB0PUQFjaIhYjA4ysByoUbiz8BeURDzTi2aCFB9WLLyAAMagDGBgA5TcEu+8VzmAAAAAASUVORK5CYIJCYII=);"></div> + SystemContext</li>
-            </ul>
-          </div>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{C2492228-3220-4559-8DA1-B4DB3B1DBD75}" transform="translate(554, 18)" class="element uml-Comment ds-unmodified diag-highlight" data-diagram-object-guid="{50e6d6c5-a214-dbe2-7fee-b8e9fe6b1b8e}">
-      <polygon points="0,0 240,0 253,13 253,381 0,381" style="; " class="main-shape" />
-      <polygon points="240,0 253,13 240,13" style="fill:rgb(220,220,220); " />
-      <foreignObject width="253" height="381">
-        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
-          <div class="text-center text-ellipsis part-comment-stereotype" style="margin:0px; margin-right:10px;"></div>
-          <div class="part-note" style="padding-top:13px; padding-left:5px; word-wrap:break-word; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
-						This Model is used to showcase how MBSE with Git and Pipeline Tools can create a true DevOps environment
-					</div>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{FF70B0EC-7334-429b-B4F6-C418A220F546}" transform="translate(18, 18)" class="element uml-Artifact ds-unmodified diag-highlight" data-diagram-object-guid="{fc166999-19c9-b292-064d-0af7aa026dba}">
-      <rect x="0" y="0" width="253" height="389" style="fill:none;" class="main-shape" />
-      <foreignObject width="253" height="389">
-        <div class="fo-body text-center" xmlns="http://www.w3.org/1999/xhtml">
-          <p style="margin:0; padding-top:5px; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
-						External Requirements linked with LemonTree Connect
-					</p>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{7AF82A72-2200-425b-BDDB-E2F07FB2A9B3}" transform="translate(49, 164)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{c526451c-f695-535f-ab1e-a05182c3e69f}">
-      <rect x="0" y="0" width="106" height="20" class="main-shape" />
-      <rect x="0" y="20" width="180" height="60" style="" />
-      <foreignObject width="180" height="80">
-        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
-          <p style="margin:0px;padding:3px;padding-bottom:0px;display:none;"></p>
-          <p class="part-object-name" style="padding:3px;margin:0px;">
-            <b>Polarion</b>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>High Torque Sensor</b>
           </p>
-          <div class="part-package-children-list" style="margin-top:5px;">
-            <ul style="margin:0px;padding:5px;padding-left:0px;padding-top:2px;list-style-type:none">
-              <li>
-                <div class="childelement-icon" style="background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAARCAYAAADdRIy+AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACxSURBVDhPY2CYOZPh////VMOMYAPT0hjQwYUl0v+hTDgwiHnKCGXiAVhc+Op4NJD6///zl3X/v1yE4NMrV/4/v1gKJIyhHhljuPD1iZj/T+/sh/JIAyAfsEDZcAAyDCjB8OXreqgIYcB4l4Fhc3EaUB8DAxNUDAWADAMpIhZfv/EbqhOHgZSAUQMpB0PUQFjaIhYjA4ysByoUbiz8BeURDzTi2aCFB9WLLyAAMagDGBgA5TcEu+8VzmAAAAAASUVORK5CYIJCYII=);"></div> + LT.Connect</li>
-            </ul>
+          <div class="part-object-sysmlblock">
+            <div class="part-separator">
+              <p class="text-center" style="margin:0; margin-top:4px;">
+                <i>ports</i>
+              </p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:power</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:analogIn</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:digitalOut</p>
+            </div>
+            <div class="part-separator">
+              <p class="text-center" style="margin:0; margin-top:4px;">
+                <i>parts</i>
+              </p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">comparator:ThresholdLogic</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">measurement:StrainGauge</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Frame</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">signalConditioner:Amplifier</p>
+            </div>
           </div>
+          <p class="childdiagram"></p>
         </div>
       </foreignObject>
+      <use xlink:href="#compositeDiagramIcon" transform="translate(118,161)" />
+    </g>
+    <g style="" id="{B4740F9A-5CBB-CE0E-BBB8-7C2EB335DA9A}" transform="translate(461, 249)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{1de2fe3b-0a2b-4531-d474-e15c1588e469}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>ThresholdLogic</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B211409D-18B2-0CB6-82C6-32BF45DC288F}" transform="translate(69, 253)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{1ecb2af9-a581-644d-ee73-4bb1307dc100}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>StrainGauge</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A8FE674C-45FB-55DA-826F-B292992A8C20}" transform="translate(244, 258)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{225b921f-0e07-54f9-63e5-9efd41dd227b}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Amplifier</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A78EB882-9736-9B96-B130-30F0DAC5DE45}" transform="translate(357, 358)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{b54d58ed-f8a7-018e-fc7d-226e827eab1a}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Frame</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g id="{84222464-DC30-12B2-A83A-E41C6C66CBAC}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{2773d24b-d968-c809-2ea1-539abc977715}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="294,258 294,219" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(289,219) rotate(0,5,0)" />
+        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{b3ce18e4-4676-2b6b-3a62-232c893a3f68}" transform="translate(214,244)">
+          <text>
+            <tspan class="part-connectorend-name">signalConditioner</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g id="{A2C8CD58-699C-4635-ACC9-727534171DF4}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{55f60fd1-e3e4-958d-d041-f891bfd5ec8d}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="387,358 331,219" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(326,219) rotate(338.057,5,0)" />
+      </g>
+    </g>
+    <g id="{93A66A4A-A9B3-96BD-8C8E-C9FAA651C769}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{ad2a8444-f968-7881-4e3e-bce3f81f2994}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="154,253 225,192" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(220,192) rotate(49.332,5,0)" />
+        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{bedb007e-a228-da5f-2e44-07064a5057d1}" transform="translate(92,243)">
+          <text>
+            <tspan class="part-connectorend-name">measurement</tspan>
+          </text>
+        </g>
+      </g>
+    </g>
+    <g id="{814C642D-4F54-200B-935B-F237195930CD}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{fe3ed551-aef2-c174-2833-f7fffe086abd}">
+      <g class="main-shape">
+        <polyline class="connector" style="" points="461,251 368,183" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(363,183) rotate(306.174,5,0)" />
+        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{0c33baea-bcfb-0d0f-f006-c49ed484d75a}" transform="translate(409,241)">
+          <text>
+            <tspan class="part-connectorend-name">comparator</tspan>
+          </text>
+        </g>
+      </g>
     </g>
   </g>
 </svg>
