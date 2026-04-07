@@ -168,10 +168,24 @@ jobs:
           Write-Output "MappingFile=$mappingPath" >> $env:GITHUB_OUTPUT
 
       - name: Import the latest Items from Polarion into the copied Model  
+        id: polarion_import
         run: |
-          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          $importOutput = &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          
+          Write-Output "Import output:"
+          Write-Output $importOutput
+          
+          # Check if polarion items are already up to date (C:0;U:0;D:0)
+          if ($importOutput -match "C:0;U:0;D:0") {
+            Write-Output "Polarion items are already up to date - no changes"
+            Write-Output "items_updated=false" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Output "Polarion items have been updated"
+            Write-Output "items_updated=true" >> $env:GITHUB_OUTPUT
+          }
 
       - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
+        if: ${{ steps.polarion_import.outputs.items_updated == 'true' }}
         id: pcsDiff
         run: |
           echo "start Diff with LemonTree"
@@ -216,13 +230,14 @@ jobs:
           exit 0
 
       - name: Extract from Diffreport and store SVG diagrams in "svg" branch
-        if: hashFiles(env.DiffReportFilename) != ''
+        if: ${{ steps.polarion_import.outputs.items_updated == 'true' && hashFiles(env.DiffReportFilename) != '' }}
         id: processSvgs
         run: |
           $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
           & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
       
       - name: Run checks on updated model
+        if: ${{ steps.polarion_import.outputs.items_updated == 'true' }}
         id: model_checks
         run: |
           echo "Running checks on updated model..."
@@ -281,6 +296,14 @@ jobs:
             Write-Output "message=:heavy_check_mark: Model checks passed, but no Polarion updates available" >> $env:GITHUB_OUTPUT
             Write-Output "update_status=no_changes" >> $env:GITHUB_OUTPUT
           }
+
+      - name: Handle Polarion Items Already Up to Date
+        if: ${{ steps.polarion_import.outputs.items_updated == 'false' }}
+        id: polarion_uptodate
+        run: |
+          Write-Output "Polarion items are already up to date - no changes to import"
+          Write-Output "message=:information_source: Polarion items are already up to date" >> $env:GITHUB_OUTPUT
+          Write-Output "checks_passed=true" >> $env:GITHUB_OUTPUT
 
       - name: Publish DiffReport.xml
         uses: actions/upload-artifact@v7.0.0
@@ -344,17 +367,27 @@ jobs:
           script: |
             const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
             const branch = '${{ steps.pr_details.outputs.head }}';
+            const itemsUpdated = '${{ steps.polarion_import.outputs.items_updated }}';
             const checksStatus = '${{ steps.model_checks.outputs.checks_passed }}';
             const checksMessage = '${{ steps.model_checks.outputs.message }}';
             const updateMessage = '${{ steps.update_model.outputs.message }}';
+            const uptodateMessage = '${{ steps.polarion_uptodate.outputs.message }}';
             const runUrl = '${{ env.GitHubProjectRoot }}/actions/runs/${{ github.run_id }}';
             const runId = '${{ github.run_id }}';
             const commentId = ${{ steps.progress_comment.outputs.comment_id }};
             
             let finalMessage = checksMessage;
-            if (checksStatus === 'true' && updateMessage) {
-              // Use update step message if checks passed
+            
+            // Determine final message based on what happened
+            if (itemsUpdated === 'false') {
+              // Items were already up to date
+              finalMessage = uptodateMessage || '✓ Polarion items are already up to date';
+            } else if (checksStatus === 'true' && updateMessage) {
+              // Items were updated and checks passed
               finalMessage = updateMessage;
+            } else if (checksStatus === 'false') {
+              // Items were updated but checks failed
+              finalMessage = checksMessage;
             }
             
             const body = MARKER + '\n' +
@@ -364,7 +397,8 @@ jobs:
               '\n' +
               '**Details:**\n' +
               '- Branch: `' + branch + '`\n' +
-              '- Checks Passed: ' + (checksStatus === 'true' ? '✓ Yes' : '✗ No') + '\n' +
+              '- Items Updated: ' + (itemsUpdated === 'true' ? 'Yes' : 'No - Already up to date') + '\n' +
+              '- Checks Passed: ' + (checksStatus === 'true' ? '✓ Yes' : (checksStatus === 'false' ? '✗ No' : 'N/A')) + '\n' +
               '- Run: [View logs](' + runUrl + ')\n' +
               '- Triggered by: @${{ github.event.comment.user.login }}\n' +
               '\n' +
