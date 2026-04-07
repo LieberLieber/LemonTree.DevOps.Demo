@@ -23,7 +23,7 @@ The rebase workflow will automatically:
 If you need to update this PR's model with the latest Polarion items, you can trigger the automated Polarion update workflow by commenting:
 
 ```
-update polarion
+/update polarion/
 ```
 
 The Polarion update workflow will automatically:
