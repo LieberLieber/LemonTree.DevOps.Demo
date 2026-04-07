@@ -14,6 +14,8 @@ In complex engineering landscapes, particularly when you’re working with SysML
 - Automation ensures that your MBSE artifacts evolve — and that your team can apply standard DevOps best practices (branching, merging, CI/CD) to architectural models just as you do to software.
     
 - You benefit from full traceability between model changes, version control, and engineering outcomes — helping you maintain consistency, enable collaboration, and reduce manual error in system-model lifecycles.
+
+- on Push to main the Architecture get's uploaded to Polarion - see [Polarion Testdrive]](https://testdrive.polarion.com/polarion/#/project/LT.Connect/workitems?query=NOT%20type%3A(requirement%20systemrequirement%20softwarerequirement%20systemtestcase%20heading)&link_role=parent&tree_depth=7&tab=tree)
     
 
 In short: this repository demonstrates how to **bring DevOps to MBSE** by integrating GitHub, Enterprise Architect models, and LemonTree’s automation capabilities — turning what used to be a manual, fragmented workflow into a continuous, model-aware pipeline.

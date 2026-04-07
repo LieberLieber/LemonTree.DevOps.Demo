@@ -1,0 +1,91 @@
+# Copyright (c) LieberLieber Software GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Upload Architecture to Polarion
+
+on:
+ push:
+  branches:
+      - main
+
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+  ToolPolarionAutomationURL : https://www.lieberlieber.com/polarion/automation/latest/
+  PackageGuid: '{A7B2B212-BD09-483c-9946-ADD1417DE7CD}' #this is the package guid of the Architecture to export to Polarion
+  
+  # cached executable paths used by tool setup steps
+  LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
+  SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
+
+jobs:
+  UploadArchitecture: 
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: [windows-latest]
+    timeout-minutes: 15
+    steps:  
+      - uses: actions/checkout@v6.0.2
+        with:
+          lfs: true
+          fetch-depth: 0
+
+     
+      - name: PrepareLTALicense #on the private runner LemonTree Automation is preinstalled. we just get the license
+        run: |
+          '${{secrets.LTALICENSE}}' | Out-File -FilePath lta.lic
+
+      # Custom action to setup LemonTree.Connect Automation that supports caching
+      - name: Setup LemonTree.Connect
+        uses: ./.github/actions/setup-ltc
+        id: ltc_setup
+        with:
+          tool-url: ${{ env.ToolPolarionAutomationURL }}
+          ltc-dir: ${{ env.LTC_DIR }}
+
+      # Custom action to setup SQLite3 that supports caching
+      - name: Setup SQLite3
+        uses: ./.github/actions/setup-sqlite
+        with:
+          sqlite-tools-dir: ${{ env.SqliteToolsDir }}
+
+      - name: Extract LemonTree.Connect Mapping Configuration from Model
+        id: extractMapping
+        run: |
+          # Query the model for the mapping configuration
+          $query = "select notes from t_objectproperties where property = 'configuration' and object_id in (select object_id from t_object where ea_guid = '${{env.PackageGuid}}')"
+          $mappingXml = & .\scripts\QueryModelSqliteExe.ps1 -Model "${{env.ModelName}}" -Query $query
+          # Extract just the XML content (skip the script's info messages)
+          $xmlContent = $mappingXml | Where-Object { $_ -match '<map' -or $_ -match '</' -or $_ -match '<[^>]+>' } | Out-String
+          # Save to file
+          $xmlContent | Out-File -FilePath "packagemapping.xml" -Encoding UTF8
+          Write-Output "Mapping file created: packagemapping.xml"
+          $mappingPath = Resolve-Path "packagemapping.xml"
+          Write-Output "MappingFile=$mappingPath" >> $env:GITHUB_OUTPUT
+
+      - name: Export Architecture to Polarion
+        id: export_architecture
+        run: |
+          echo "Starting export of architecture to Polarion..."
+          $exportOutput = &"${{steps.ltc_setup.outputs.tool-path}}" Export --Model "${{env.ModelName}}" --PackageGuid "${{env.PackageGuid}}" --Project "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          
+          Write-Output "Export output:"
+          Write-Output $exportOutput
+          
+          if ($LASTEXITCODE -eq 0) {
+            Write-Output "message=:heavy_check_mark: Architecture successfully exported to Polarion" >> $env:GITHUB_OUTPUT
+            Write-Output "export_status=success" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Output "::error::Architecture export to Polarion failed"
+            Write-Output "message=:x: Architecture export failed, see [action log](${{env.GitHubProjectRoot}}/actions/runs/${{ github.run_id }}) for details" >> $env:GITHUB_OUTPUT
+            Write-Output "export_status=failed" >> $env:GITHUB_OUTPUT
+            exit 1
+          }
+
+      - name: Publish MD to Action Summary
+        run: |
+          $branch = git branch --show-current
+          Write-Output "### Architecture Upload to Polarion - Branch: $branch :rocket:" >> $env:GITHUB_STEP_SUMMARY
+          Write-Output "${{steps.export_architecture.outputs.message}}" >> $env:GITHUB_STEP_SUMMARY
