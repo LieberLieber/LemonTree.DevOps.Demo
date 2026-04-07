@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="185" height="72" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="378" height="92" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -432,20 +432,55 @@
       <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
     </g>
   </defs>
-  <g id="viewport" transform="translate(-47.5,-63.5)">
-    <g style="" id="{DB9C65A8-321A-4e3d-878B-E296936AB72E}" transform="translate(58, 74)" class="element uml-Artifact ds-unmodified diag-highlight" data-diagram-object-guid="{7a83038e-d1c3-320c-140f-c29e96eca803}">
-      <rect x="0" y="0" width="165" height="50" class="main-shape" />
-      <image x="145" y="4" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAC8SURBVDhPY/z//z8DJQDFgFWrzhA0LSzMhBHKhACQATC8cuVpIIUbgOShauB6WKDmoACgS6AsBADaDKdBLoW5BMMLMIXYAMjgtRe+QXkMDCvb7BhJcgGvujxDgjqEv2DldQgD2T+EwmDbhVdwHFZ5ECREfBiAAMz5CeGaYBoEsBqALRy2X3wNdz4yINoFyIFHsgtw2Q4CTFAaJwBpxgdwGgDSSEgzCGAYQKxGGMBIiciBRQiAUiKF2ZmBAQDM+L++oaUAbAAAAABJRU5ErkJggg==" xmlns:xlink="http://www.w3.org/1999/xlink" />
-      <foreignObject width="145" height="50" transform="translate(-0.5,-0.5)">
+  <g id="viewport" transform="translate(-11.5,-205.5)">
+    <g style="" id="{6063b0cc-89d5-3b7d-1791-1fadc7a78e09}" transform="translate(220, 236)" class="element uml-Class base-Requirement ds-modified diag-highlight" data-diagram-object-guid="{139a0c71-c93c-9ff8-93f5-9cdd811b8c08}">
+      <rect x="0" y="0" width="160" height="30" class="main-shape" />
+      <line x1="10" y1="0" x2="10" y2="30" />
+      <line x1="12" y1="0" x2="12" y2="30" />
+      <foreignObject width="148" height="30" transform="translate(11.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-          <p class="text-center text-ellipsis text-stereotype" style="margin:0">
-            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">EAMatrixSpecification</span>
-          </p>
-          <p class="text-center" style="margin-top:2px;margin-bottom:5px;text-decoration:none;">
-            <b>Requirements2Architecture</b>
+          <p class="part-object-name" style="margin:0; padding-top:6px;padding-left:5px;">
+            <b>LT.Connect::<wbr />ECU System Requirements</b>
           </p>
         </div>
       </foreignObject>
+    </g>
+    <g style="" id="{63939881-D8CC-49da-90EF-449184A10919}" transform="translate(22, 216)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{68dc220a-db58-9675-349f-f0e21de50849}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Electric Motor::<wbr />MotorController</b>
+          </p>
+          <div class="part-object-sysmlblock">
+            <div class="part-separator">
+              <p class="text-center" style="margin:0; margin-top:4px;">
+                <i>ports</i>
+              </p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:PWM</p>
+            </div>
+          </div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g id="{D1EC813E-EAA0-47cf-9384-868FEFC3EC40}" class="element uml-Abstraction ds-modified diag-highlight" data-diagram-object-guid="{9600bee2-4c5e-9822-be59-d0125008a2f6}">
+      <g class="main-shape">
+        <polyline class="connector-dash" style="" points="112,251 220,251" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(215,251) rotate(90,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <g transform="translate(166,264)" style="text-anchor:pvm; dominant-baseline:ideographic">
+          <g>
+            <text dy="0em">
+              <tspan class="stereotype part-connector-stereotype">«trace,suspected»</tspan>
+            </text>
+          </g>
+        </g>
+      </g>
     </g>
   </g>
 </svg>
