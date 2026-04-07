@@ -169,7 +169,7 @@ jobs:
 
       - name: Import the latest Items from Polarion into the copied Model  
         run: |
-          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "copy_${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
 
       - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
         id: pcsDiff
@@ -180,7 +180,7 @@ jobs:
           echo "Branch: $currentBranch"
           $sfsfilename= "polarion_$currentBranch_$gitCommitId"+".ltsfs"
           echo "$sfsfilename"
-          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "copy_${{env.ModelName}}" --theirs copy_"${{env.ModelName}}" --mine "${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
+          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "${{env.ModelName}}" --theirs "${{env.ModelName}}" --mine "copy_${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
           
           echo $output
           $diffResult = ""
@@ -239,19 +239,48 @@ jobs:
           exit 0
 
       - name: Update model with latest Polarion items
+        if: ${{ steps.model_checks.outputs.checks_passed == 'true' }}
+        id: update_model
         run: |
           Write-Output "set user config"
           git config --global user.name 'LemonTree.Automation'
           git config --global user.email 'support@lieberlieber.com'
+          
           Write-Output "setting remote state"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          git config --global user.password "${{ secrets.GITHUB_TOKEN }}"
           
-          # Stage and commit the changes
-          git add "${{env.ModelName}}"
-          git commit -m "Update model with latest Polarion items [skip ci]"
+          # Copy the updated model back to the original location
+          Write-Output "Copying updated model from copy_${{env.ModelName}} to ${{env.ModelName}}..."
+          Copy-Item "copy_${{env.ModelName}}" -Destination "${{env.ModelName}}" -Force
+          Write-Output "Copy completed successfully"
           
-          Write-Output "pushing updated model"
-          git push
+          # Check if there are actual changes
+          $status = git status --porcelain
+          if ($status) {
+            Write-Output "Changes detected:"
+            Write-Output $status
+            
+            # Stage the updated model
+            Write-Output "Staging ${{env.ModelName}}..."
+            git add "${{env.ModelName}}"
+            
+            # Commit the changes
+            Write-Output "Committing changes..."
+            git commit -m "Update model with latest Polarion items [skip ci]"
+            
+            # Push to remote
+            Write-Output "Pushing updated model to remote..."
+            git push
+            Write-Output "Push completed successfully"
+            
+            Write-Output "message=:heavy_check_mark: Model checks passed and successfully updated with latest Polarion items" >> $env:GITHUB_OUTPUT
+            Write-Output "update_status=success" >> $env:GITHUB_OUTPUT
+          } else {
+            Write-Output "No changes detected in model"
+            Write-Output "message=:heavy_check_mark: Model checks passed, but no Polarion updates available" >> $env:GITHUB_OUTPUT
+            Write-Output "update_status=no_changes" >> $env:GITHUB_OUTPUT
+          }
 
       - name: Publish DiffReport.xml
         uses: actions/upload-artifact@v7.0.0
@@ -315,17 +344,23 @@ jobs:
           script: |
             const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
             const branch = '${{ steps.pr_details.outputs.head }}';
-            const baseBranch = '${{ steps.pr_details.outputs.base }}';
-            const message = '${{ steps.model_checks.outputs.message }}';
+            const checksStatus = '${{ steps.model_checks.outputs.checks_passed }}';
+            const checksMessage = '${{ steps.model_checks.outputs.message }}';
+            const updateMessage = '${{ steps.update_model.outputs.message }}';
             const runUrl = '${{ env.GitHubProjectRoot }}/actions/runs/${{ github.run_id }}';
             const runId = '${{ github.run_id }}';
             const commentId = ${{ steps.progress_comment.outputs.comment_id }};
-            const checksStatus = '${{ steps.model_checks.outputs.checks_passed }}';
+            
+            let finalMessage = checksMessage;
+            if (checksStatus === 'true' && updateMessage) {
+              // Use update step message if checks passed
+              finalMessage = updateMessage;
+            }
             
             const body = MARKER + '\n' +
               '## Polarion Update Workflow - Run #' + runId + '\n' +
               '\n' +
-              '**Status:** ' + message + '\n' +
+              '**Status:** ' + finalMessage + '\n' +
               '\n' +
               '**Details:**\n' +
               '- Branch: `' + branch + '`\n' +
