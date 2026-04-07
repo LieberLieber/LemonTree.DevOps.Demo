@@ -433,7 +433,7 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(-47.5,-63.5)">
-    <g style="" id="{DB9C65A8-321A-4e3d-878B-E296936AB72E}" transform="translate(58, 74)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{7a83038e-d1c3-320c-140f-c29e96eca803}">
+    <g style="" id="{DB9C65A8-321A-4e3d-878B-E296936AB72E}" transform="translate(58, 74)" class="element uml-Artifact ds-unmodified diag-highlight" data-diagram-object-guid="{7a83038e-d1c3-320c-140f-c29e96eca803}">
       <rect x="0" y="0" width="165" height="50" class="main-shape" />
       <image x="145" y="4" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAC8SURBVDhPY/z//z8DJQDFgFWrzhA0LSzMhBHKhACQATC8cuVpIIUbgOShauB6WKDmoACgS6AsBADaDKdBLoW5BMMLMIXYAMjgtRe+QXkMDCvb7BhJcgGvujxDgjqEv2DldQgD2T+EwmDbhVdwHFZ5ECREfBiAAMz5CeGaYBoEsBqALRy2X3wNdz4yINoFyIFHsgtw2Q4CTFAaJwBpxgdwGgDSSEgzCGAYQKxGGMBIiciBRQiAUiKF2ZmBAQDM+L++oaUAbAAAAABJRU5ErkJggg==" xmlns:xlink="http://www.w3.org/1999/xlink" />
       <foreignObject width="145" height="50" transform="translate(-0.5,-0.5)">
