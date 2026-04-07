@@ -261,7 +261,31 @@ jobs:
          script: |
            const prNumber = ${{steps.find-pr.outputs.pr_number}};
            const COMMENT_MARKER = '<!-- polarion-review -->';
-           const body = COMMENT_MARKER + '\nPolarion vs Model comparison in current Branch\n${{steps.uploadSession.outputs.SfsFileNameLinks}}\n\n${{ steps.processSvgs.outputs.svgLinksMarkdown }}${{steps.pcsDiff.outputs.CommitID}}\n\nChanged Requirements:\n${{steps.diffreport.outputs.ModifiedRequirements}}';
+           const modifiedRequirements = '${{steps.diffreport.outputs.ModifiedRequirements}}'.trim();
+           const branch = '${{steps.extract_branch.outputs.branch}}';
+           const commitId = '${{steps.pcsDiff.outputs.CommitID}}';
+           const runUrl = 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}';
+           const runId = '${{ github.run_id }}';
+
+           let body;
+           if (!modifiedRequirements) {
+             body = COMMENT_MARKER + '\n' +
+               '## Polarion vs Model Comparison - Run #' + runId + '\n' +
+               '\n' +
+               '**Status:** :heavy_check_mark: Polarion is in sync with EA model\n' +
+               '\n' +
+               '**Details:**\n' +
+               '- Branch: `' + branch + '`\n' +
+               '- Changed Requirements: None\n' +
+               '- Commit: `' + commitId + '`\n' +
+               '- Run: [View logs](' + runUrl + ')\n' +
+               '\n' +
+               '---\n' +
+               '*This comment is automatically updated per run*';
+           } else {
+             body = COMMENT_MARKER + '\nPolarion vs Model comparison in current Branch\n${{steps.uploadSession.outputs.SfsFileNameLinks}}\n\n${{ steps.processSvgs.outputs.svgLinksMarkdown }}${{steps.pcsDiff.outputs.CommitID}}\n\nChanged Requirements:\n${{steps.diffreport.outputs.ModifiedRequirements}}';
+           }
+
            const { data: comments } = await github.rest.issues.listComments({
              owner: context.repo.owner,
              repo: context.repo.repo,
