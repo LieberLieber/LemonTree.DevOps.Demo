@@ -1,0 +1,346 @@
+# Copyright (c) LieberLieber GmbH & Robert Bosch GmbH
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+name: Update model by Polarion comments
+
+on:
+  issue_comment:
+    types: [created]
+
+    # Sets permissions of the GITHUB_TOKEN for the workflow
+permissions:
+  contents: write        # Required to checkout code and push to svg branch
+  pull-requests: write   # Required to comment on pull requests
+  issues: write         # Required to comment on issues (PR comments are issue comments)
+
+env:
+  ModelName: LemonTree.DevOps.Demo.qeax
+  GitHubProjectRoot: https://github.com/LieberLieber/LemonTree.DevOps.Demo
+  ToolPolarionAutomationURL : https://www.lieberlieber.com/polarion/automation/latest/
+  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session/
+  DiffReportFilename: DiffReport.xml
+  PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
+  GitUserName: 'LemonTree.Automation'
+  GitUserEmail: 'support@lieberlieber.com'
+  
+  # cached executable paths used by tool setup steps
+  LTA_DIR: ${{ github.workspace }}\_toolcache\LTA
+  LTC_DIR: ${{ github.workspace }}\_toolcache\LTC
+  SqliteToolsDir: ${{ github.workspace }}\_toolcache\sqlite-tools
+
+jobs:
+  update-polarion:
+    defaults:
+      run:
+        shell: pwsh
+    runs-on: windows-latest
+    timeout-minutes: 30
+    if: ${{ github.event.issue.pull_request && contains(github.event.comment.body, 'update') && contains(github.event.comment.body, 'polarion') }}
+    
+    steps:
+      - name: Retrieve Pull Request details
+        id: pr_details
+        uses: actions/github-script@v8
+        with:
+          result-encoding: string
+          script: |
+            const response = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            })
+            if (response.status != 200) {
+              console.error("ohnoes")
+              process.exit()
+            }
+            const openPR = response.data
+            const filteredPRs = openPR.filter(pr => pr.number == ${{github.event.issue.number}})
+            const triggeredPR = filteredPRs[0]
+            console.log(`Number: ${triggeredPR.number}`)
+            console.log(`Head: ${triggeredPR.head.ref}`)
+            console.log(`Base: ${triggeredPR.base.ref}`)
+            core.setOutput('number', triggeredPR.number)
+            core.setOutput('head', triggeredPR.head.ref)
+            core.setOutput('base', triggeredPR.base.ref)
+            
+      - name: Delete trigger comment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            console.log('Comment ID: ' + context.payload.comment.id);
+            console.log('PR Number: ' + context.issue.number);
+            await github.rest.issues.deleteComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            });
+            console.log('Successfully deleted trigger comment');
+      
+      - name: Post update in progress comment
+        id: progress_comment
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
+            const runUrl = '${{ env.GitHubProjectRoot }}/actions/runs/${{ github.run_id }}';
+            const runId = '${{ github.run_id }}';
+            
+            const body = MARKER + '\n' +
+              '## Polarion Update Workflow - Run #' + runId + '\n' +
+              '\n' +
+              '**Status:** ⏳ In progress...\n' +
+              '\n' +
+              '**Details:**\n' +
+              '- Triggered by: @${{ github.event.comment.user.login }}\n' +
+              '- Run: [View logs](' + runUrl + ')\n' +
+              '\n' +
+              '---\n' +
+              '*This comment will be updated when the update is complete*';
+            
+            const comment = await github.rest.issues.createComment({
+              issue_number: ${{ steps.pr_details.outputs.number }},
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: body,
+            });
+            
+            core.setOutput('comment_id', comment.data.id);
+            console.log('Created progress comment #' + comment.data.id);
+            
+      - uses: actions/checkout@v6.0.2
+        with:
+          lfs: true
+          fetch-depth: 0
+          ref: ${{steps.pr_details.outputs.head}}
+          persist-credentials: false
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: PrepareLTALicense
+        run: |
+          '${{secrets.LTALICENSE}}' | Out-File -FilePath lta.lic
+          
+      # Custom action to setup LemonTree Automation that supports caching
+      - name: Setup LemonTree Automation
+        uses: ./.github/actions/setup-lta
+        id: GetLTA
+        with:
+          lta-url: https://www.lieberlieber.com/lemontree/automation/latest
+          lta-dir: ${{ env.LTA_DIR }}
+       
+      # Custom action to setup LemonTree.Connect Automation that supports caching
+      - name: Setup LemonTree.Connect
+        uses: ./.github/actions/setup-ltc
+        id: ltc_setup
+        with:
+          tool-url: ${{ env.ToolPolarionAutomationURL }}
+          ltc-dir: ${{ env.LTC_DIR }}
+
+      # Custom action to setup SQLite3 that supports caching
+      - name: Setup SQLite3
+        uses: ./.github/actions/setup-sqlite
+        with:
+          sqlite-tools-dir: ${{ env.SqliteToolsDir }}
+
+      - name: Create a copy of the original model to be able to compare later
+        run: |
+          #Make a copy of the original model to import into Polarion and compare later
+          Copy-Item "${{env.ModelName}}" -Destination "copy_${{env.ModelName}}"
+          
+          # Update diagram notes in the copied model 
+          #This is a bit of a workaround to be able to compare the model after importing latest Polarion requirements
+          #Changing the note on the diagram forces LemonTree to report the diagram as changed also when new elements are added
+          $sqlQuery = "UPDATE t_diagram SET Notes = 'This is the copy of orginal model with the latest Polarion Requirements imported' WHERE ea_guid = '{52531FED-CEDE-4e66-A9C4-9DAC65B91FEE}';"
+          & .\scripts\QueryModelSqliteExe.ps1 -Model "copy_${{env.ModelName}}" -Query $sqlQuery 
+
+      - name: Extract LemonTree.Connect Mapping Configuration from Model
+        id: extractMapping
+        run: |
+          # Query the model for the mapping configuration
+          $query = "select notes from t_objectproperties where property = 'configuration' and object_id in (select object_id from t_object where ea_guid = '${{env.PackageGuid}}')"
+          $mappingXml = & .\scripts\QueryModelSqliteExe.ps1 -Model "copy_${{env.ModelName}}" -Query $query
+          # Extract just the XML content (skip the script's info messages)
+          $xmlContent = $mappingXml | Where-Object { $_ -match '<map' -or $_ -match '</' -or $_ -match '<[^>]+>' } | Out-String
+          # Save to file
+          $xmlContent | Out-File -FilePath "packagemapping.xml" -Encoding UTF8
+          Write-Output "Mapping file created: packagemapping.xml"
+          $mappingPath = Resolve-Path "packagemapping.xml"
+          Write-Output "MappingFile=$mappingPath" >> $env:GITHUB_OUTPUT
+
+      - name: Import the latest Items from Polarion into the copied Model  
+        run: |
+          &"${{steps.ltc_setup.outputs.tool-path}}" Import --Model "${{env.ModelName}}"  --PackageGuid "${{env.PackageGuid}}" --Project  "LT.Connect" --Mapping "${{steps.extractMapping.outputs.MappingFile}}" --ServerUrl "https://testdrive.polarion.com/polarion/" --Username "0ee265a99e504e639b4fe954739dd14e" --token "${{secrets.POLARIONTOKEN}}" --License "lta.lic"
+
+      - name: Compare git model with model and latest Polarion import and produce DiffReport.xml
+        id: pcsDiff
+        run: |
+          echo "start Diff with LemonTree"
+          $gitCommitId = git rev-parse HEAD
+          $currentBranch = git branch --show-current 
+          echo "Branch: $currentBranch"
+          $sfsfilename= "polarion_$currentBranch_$gitCommitId"+".ltsfs"
+          echo "$sfsfilename"
+          $output = &"${{steps.GetLTA.outputs.LemonTreeAutomationExecutable}}" diff  --base "copy_${{env.ModelName}}" --theirs copy_"${{env.ModelName}}" --mine "${{env.ModelName}}" --sfs "$sfsfilename" --License lta.lic --DiffReportFilename ${{env.DiffReportFilename}} --ReportIncludeDiagrams  
+          
+          echo $output
+          $diffResult = ""
+          ForEach ($line in $($output -split "`r`n"))
+          {
+              if ($line.EndsWith("potentially different elements."))
+              {
+                  #ignore
+              }
+              elseif ($line.EndsWith(" different elements."))
+              {
+                  Echo $Line
+                  $diffResult += $line
+                  $diffResult += "`r`n"
+              }
+              elseif ($line.StartsWith("Found conflicts:"))
+              {
+                  if ($line.StartsWith("Found conflicts: 0"))
+                  {
+                      #ignore if there is 0 conflicts
+                  }
+                  else
+                  {
+                      Echo $Line
+                      $diffResult += $line
+                      $diffResult += "`r`n"
+                  }
+              }
+          }
+          echo "DiffResult=$diffResult" >> $env:GITHUB_OUTPUT
+          echo "SfsFilName=$sfsfilename" >> $env:GITHUB_OUTPUT
+          echo "CommitID=$gitCommitId" >>$env:GITHUB_OUTPUT
+          exit 0
+
+      - name: Extract from Diffreport and store SVG diagrams in "svg" branch
+        if: hashFiles(env.DiffReportFilename) != ''
+        id: processSvgs
+        run: |
+          $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
+          & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
+      
+      - name: Run checks on updated model
+        id: model_checks
+        run: |
+          echo "Running checks on updated model..."
+          & .\scripts\runChecksLocal.ps1 -Model "copy_${{env.ModelName}}" -ChecksConfig "checks-config.json"
+          if($LASTEXITCODE -eq 0){
+            Write-Output "message=:heavy_check_mark: Model checks passed" >> $env:GITHUB_OUTPUT
+            Write-Output "checks_passed=true" >> $env:GITHUB_OUTPUT
+          }
+          else{
+            Write-Output "::warning::Model checks failed"
+            Write-Output "message=:x: Model checks failed, see [action log](${{env.GitHubProjectRoot}}/actions/runs/${{ github.run_id }}) for details" >> $env:GITHUB_OUTPUT
+            Write-Output "checks_passed=false" >> $env:GITHUB_OUTPUT
+          }
+          exit 0
+
+      - name: Update model with latest Polarion items
+        if: ${{ steps.model_checks.outputs.checks_passed == 'true' }}
+        run: |
+          Write-Output "set user config"
+          git config --global user.name 'LemonTree.Automation'
+          git config --global user.email 'support@lieberlieber.com'
+          Write-Output "setting remote state"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+          
+          # Stage and commit the changes
+          git add "${{env.ModelName}}"
+          git commit -m "Update model with latest Polarion items [skip ci]"
+          
+          Write-Output "pushing updated model"
+          git push
+
+      - name: Publish DiffReport.xml
+        uses: actions/upload-artifact@v7.0.0
+        with:
+                name: DiffReport
+                path: .\*.xml
+                retention-days: 2
+
+      - name: Publish SessionFile
+        uses: actions/upload-artifact@v7.0.0
+        with:
+              name: SessionFile
+              path: .\*.ltsfs
+              retention-days: 2    
+
+      - name: Upload Session
+        id: uploadSession
+        run: |
+          $sessionFileName = "${{ steps.pcsDiff.outputs.SfsFilName }}"
+          $targetUrl = "${{env.ReviewSessionURL}}/${{ steps.pcsDiff.outputs.SfsFilName }}"
+          echo "Uploading $sessionFileName to Nexus: $targetUrl"
+          while (Test-Path Alias:curl) {Remove-Item Alias:curl} #remove the alias binding from curl to Invoke-WebRequest
+          curl "-u${{secrets.NEXUSAUTHENTICATION}}" -T $sessionFileName $targetUrl
+          echo "SessionURL=$targetUrl" >> $env:GITHUB_OUTPUT
+          
+          $sfsFileNameLinks =""
+          $sfsFileNameLinks += "\nReview Changes with LemonTree:"
+          $sfsFileNameLinks +="[Desktop]($targetUrl)/"
+          $sfsFileNameLinks +="[Web](https://lemontree2.4biz-94523.k8s.nextlayer.at/web?sessionAutoStart=true&sessionFromUrl=$targetUrl)"
+          $sfsFileNameLinks +="\nInstall [LemonTree 3.3+](https://www.lieberlieber.com/lemontree/en/) to open the Review Session file."
+              
+          echo "SfsFileNameLinks=$sfsFileNameLinks" >> $env:GITHUB_OUTPUT
+      
+      - name: Process DiffReport to extract modified requirements
+        id: diffreport
+        run: |
+          (Get-Content DiffReport.xml).replace('xmlns="http://www.lieberlieber.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.lieberlieber.com ChangeReport.xsd"', '') | Set-Content DiffReport.xml
+          
+          $modifiedRequirements=""
+          select-xml -path DiffReport.xml -xpath "//package[@name='LT.Connect']/classifier/element[@diffState='Modified']" | foreach {$modifiedRequirements += $_.node.name+"\n"}
+          Write-Output $modifiedRequirements
+          Write-Output "ModifiedRequirements=$modifiedRequirements" >> $env:GITHUB_OUTPUT
+
+      - name: Publish MD to Action Summary
+        run: |
+          Write-Output "### Polarion Update in Branch: ${{steps.pr_details.outputs.head}} :rocket:" >> $env:GITHUB_STEP_SUMMARY
+          Write-Output "${{steps.pcsDiff.outputs.DiffResult}}" >> $env:GITHUB_STEP_SUMMARY
+          Write-Output "${{steps.uploadSession.outputs.SfsFileNameLinks}}" >> $env:GITHUB_STEP_SUMMARY
+           
+      - name: Publish Model Artifact
+        uses: actions/upload-artifact@v7.0.0
+        with:
+          name: ModelFiles
+          path: .\*.qeax
+          retention-days: 1
+
+      - name: Create Finish Message in PR
+        if: always()
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
+            const branch = '${{ steps.pr_details.outputs.head }}';
+            const baseBranch = '${{ steps.pr_details.outputs.base }}';
+            const message = '${{ steps.model_checks.outputs.message }}';
+            const runUrl = '${{ env.GitHubProjectRoot }}/actions/runs/${{ github.run_id }}';
+            const runId = '${{ github.run_id }}';
+            const commentId = ${{ steps.progress_comment.outputs.comment_id }};
+            const checksStatus = '${{ steps.model_checks.outputs.checks_passed }}';
+            
+            const body = MARKER + '\n' +
+              '## Polarion Update Workflow - Run #' + runId + '\n' +
+              '\n' +
+              '**Status:** ' + message + '\n' +
+              '\n' +
+              '**Details:**\n' +
+              '- Branch: `' + branch + '`\n' +
+              '- Checks Passed: ' + (checksStatus === 'true' ? '✓ Yes' : '✗ No') + '\n' +
+              '- Run: [View logs](' + runUrl + ')\n' +
+              '- Triggered by: @${{ github.event.comment.user.login }}\n' +
+              '\n' +
+              '---\n' +
+              '*This comment is automatically updated per workflow run*';
+
+            console.log('Updating comment ' + commentId);
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: commentId,
+              body: body,
+            });
