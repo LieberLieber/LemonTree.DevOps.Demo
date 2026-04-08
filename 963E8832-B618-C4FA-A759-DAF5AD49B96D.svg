@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="314" height="168" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="693" height="560" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -433,12 +433,42 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(0.5,0.5)">
-    <g style="" id="{B3AF43B1-C91E-6FAE-A304-197A839627D6}" transform="translate(10, 10)" class="element uml-Package ds-new ds-new diag-highlight" data-diagram-object-guid="{ed89a9a2-53e3-4e83-5ba5-cb90ccce56fe}">
-      <rect x="0" y="0" width="294" height="146" style="fill:none" class="main-shape" />
+    <g style="" id="{B3AF43B1-C91E-6FAE-A304-197A839627D6}" transform="translate(10, 10)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{ed89a9a2-53e3-4e83-5ba5-cb90ccce56fe}">
+      <rect x="0" y="0" width="673" height="538" style="fill:none" class="main-shape" />
       <polygon points="0,0 133.01953,0 133.01953,5 120.01953,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] Subsystems</text>
     </g>
-    <g style="" id="{B6A62B7A-18C7-F8A5-8FF8-1CF24A0463B0}" transform="translate(102, 69)" class="element uml-Artifact ds-new ds-new diag-highlight" data-diagram-object-guid="{d65c21d1-8a8b-e0b6-7806-eda23326c284}">
+    <g style="" id="{A5438FE4-9147-F8C2-B78D-3025786219FC}" transform="translate(246, 365)" class="element uml-Class ds-subelementmodified ds-new diag-highlight" data-diagram-object-guid="{a0c85776-779b-e962-9fb0-0b05bdb0cca7}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Window Controller ECU::<wbr />PWC_MainSoftware</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{A7E7E96B-B9D9-CD30-B44D-CC4DEBDE1DB8}" transform="translate(186, 226)" class="element uml-Class ds-subelementmodified ds-new diag-highlight" data-diagram-object-guid="{d3003bcf-76b6-dcc8-9d79-0d56b67ccee6}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
+            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
+          </p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Electric Motor::<wbr />Stator</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
+    <g style="" id="{B6A62B7A-18C7-F8A5-8FF8-1CF24A0463B0}" transform="translate(102, 69)" class="element uml-Artifact ds-unmodified diag-highlight" data-diagram-object-guid="{d65c21d1-8a8b-e0b6-7806-eda23326c284}">
       <rect x="0" y="0" width="165" height="50" class="main-shape" />
       <image x="145" y="4" width="16" height="16" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAC8SURBVDhPY/z//z8DJQDFgFWrzhA0LSzMhBHKhACQATC8cuVpIIUbgOShauB6WKDmoACgS6AsBADaDKdBLoW5BMMLMIXYAMjgtRe+QXkMDCvb7BhJcgGvujxDgjqEv2DldQgD2T+EwmDbhVdwHFZ5ECREfBiAAMz5CeGaYBoEsBqALRy2X3wNdz4yINoFyIFHsgtw2Q4CTFAaJwBpxgdwGgDSSEgzCGAYQKxGGMBIiciBRQiAUiKF2ZmBAQDM+L++oaUAbAAAAABJRU5ErkJggg==" xmlns:xlink="http://www.w3.org/1999/xlink" />
       <foreignObject width="145" height="50" transform="translate(-0.5,-0.5)">
@@ -451,6 +481,48 @@
           </p>
         </div>
       </foreignObject>
+    </g>
+    <g style="" id="{2b53023a-59f9-8236-ff0b-9de39ca3ffff}" transform="translate(486, 223)" class="element uml-Class base-Requirement ds-modified ds-new diag-highlight" data-diagram-object-guid="{e16e7561-645e-abbe-7a0d-7575fc347b90}">
+      <rect x="0" y="0" width="160" height="33" class="main-shape" />
+      <line x1="10" y1="0" x2="10" y2="33" />
+      <line x1="12" y1="0" x2="12" y2="33" />
+      <foreignObject width="148" height="33" transform="translate(11.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="part-object-name" style="margin:0; padding-top:6px;padding-left:5px;">
+            <b>ECU System Requirements::<wbr />Automatic Stop on Obstruction</b>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
+    <g id="{82833238-B3A2-479b-A401-7E265CE8E2C9}" class="element uml-Dependency ds-unmodified ds-new diag-highlight" data-diagram-object-guid="{da6c5270-af56-7bf6-a51a-0ad376937894}">
+      <g class="main-shape">
+        <polyline class="connector-dash" style="" points="336,373 536,256" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(531,256) rotate(59.672,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <g transform="translate(436,327)" style="text-anchor:pvm; dominant-baseline:ideographic">
+          <g>
+            <text dy="0em">
+              <tspan class="stereotype part-connector-stereotype">«satisfy»</tspan>
+            </text>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="{07FD288D-065C-46d7-8E79-509C401C38C8}" class="element uml-Dependency ds-unmodified ds-new diag-highlight" data-diagram-object-guid="{dd85f54c-df53-5c9c-661c-ced20d257fa7}">
+      <g class="main-shape">
+        <polyline class="connector-dash" style="" points="276,258 486,244" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(481,244) rotate(86.186,5,0)" />
+      </g>
+      <g class="part-connector-label">
+        <g transform="translate(381,264)" style="text-anchor:pvm; dominant-baseline:ideographic">
+          <g>
+            <text dy="0em">
+              <tspan class="stereotype part-connector-stereotype">«satisfy»</tspan>
+            </text>
+          </g>
+        </g>
+      </g>
     </g>
   </g>
 </svg>
