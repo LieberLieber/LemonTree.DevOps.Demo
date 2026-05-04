@@ -433,34 +433,12 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(0.5,0.5)">
-    <g style="" id="{ADA2B7E3-2BA8-163A-AE6A-7749D33C1511}" transform="translate(10, 10)" class="element uml-Package ds-new ds-new diag-highlight" data-diagram-object-guid="{ad80b434-f7ee-4555-31d4-69433c40b8de}">
+    <g style="" id="{ADA2B7E3-2BA8-163A-AE6A-7749D33C1511}" transform="translate(10, 10)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{ad80b434-f7ee-4555-31d4-69433c40b8de}">
       <rect x="0" y="0" width="482" height="391" style="fill:none" class="main-shape" />
       <polygon points="0,0 157.02344,0 157.02344,5 144.02344,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] Electric Motor</text>
     </g>
-    <g style="" id="{BFC35DC0-7B75-5F5C-A4B7-A1EA6AD616DF}" transform="translate(293, 275)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{217c447e-05f2-bedc-6738-dd2834d63374}">
-      <rect x="0" y="0" width="90" height="76" style="" class="main-shape" />
-      <foreignObject width="90" height="76" transform="translate(-0.5,-0.5)">
-        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
-            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
-          </p>
-          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
-            <b>Rotor</b>
-          </p>
-          <div class="part-object-sysmlblock">
-            <div class="part-separator">
-              <p class="text-center" style="margin:0; margin-top:4px;">
-                <i>ports</i>
-              </p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:shaft</p>
-            </div>
-          </div>
-          <p class="childdiagram"></p>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{90EF4491-84A1-0919-AFD5-2BF94694F736}" transform="translate(47, 222)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{2dd5aafa-91ce-5d2a-9140-50af7a7abf5a}">
+    <g style="" id="{90EF4491-84A1-0919-AFD5-2BF94694F736}" transform="translate(47, 222)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{2dd5aafa-91ce-5d2a-9140-50af7a7abf5a}">
       <rect x="0" y="0" width="90" height="76" style="" class="main-shape" />
       <foreignObject width="90" height="76" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -482,7 +460,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{B8598106-A940-3B59-B92E-22886BEEC203}" transform="translate(211, 43)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{90e493db-b7fb-ac1c-a2bc-7115c560ec6e}">
+    <g style="" id="{B8598106-A940-3B59-B92E-22886BEEC203}" transform="translate(211, 43)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{90e493db-b7fb-ac1c-a2bc-7115c560ec6e}">
       <rect x="0" y="0" width="99" height="189" style="" class="main-shape" />
       <foreignObject width="99" height="189" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -506,7 +484,6 @@
               <p class="text-center" style="margin:0; margin-top:4px;">
                 <i>parts</i>
               </p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Rotor</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Gearbox</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:MotorController</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Stator</p>
@@ -517,7 +494,7 @@
       </foreignObject>
       <use xlink:href="#compositeDiagramIcon" transform="translate(74,174)" />
     </g>
-    <g style="" id="{91B6938C-82BB-2C8F-B0D4-0E64D133F5D2}" transform="translate(162, 275)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{b537a348-3a98-666d-5560-fc70ee64bc17}">
+    <g style="" id="{91B6938C-82BB-2C8F-B0D4-0E64D133F5D2}" transform="translate(162, 275)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{b537a348-3a98-666d-5560-fc70ee64bc17}">
       <rect x="0" y="0" width="97" height="89" style="" class="main-shape" />
       <foreignObject width="97" height="89" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -540,7 +517,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A7E7E96B-B9D9-CD30-B44D-CC4DEBDE1DB8}" transform="translate(365, 180)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{ca18015b-8c99-9b2c-f174-6da30025a20a}">
+    <g style="" id="{A7E7E96B-B9D9-CD30-B44D-CC4DEBDE1DB8}" transform="translate(365, 180)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{ca18015b-8c99-9b2c-f174-6da30025a20a}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -555,28 +532,22 @@
         </div>
       </foreignObject>
     </g>
-    <g id="{95FAD097-8599-3B8F-877A-2195A0E9642E}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{00076180-b8c7-88f0-5b20-fd32a6a02129}">
+    <g id="{95FAD097-8599-3B8F-877A-2195A0E9642E}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{00076180-b8c7-88f0-5b20-fd32a6a02129}">
       <g class="main-shape">
         <polyline class="connector" style="" points="137,227 211,172" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(206,172) rotate(53.379,5,0)" />
       </g>
     </g>
-    <g id="{92DA0033-C325-33DB-B4AA-CB979C40A24A}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{3f9d8c21-5f6e-ad1f-11d8-ee93872f69af}">
+    <g id="{92DA0033-C325-33DB-B4AA-CB979C40A24A}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{3f9d8c21-5f6e-ad1f-11d8-ee93872f69af}">
       <g class="main-shape">
         <polyline class="connector" style="" points="365,191 310,163" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(305,163) rotate(296.98,5,0)" />
       </g>
     </g>
-    <g id="{9348DE10-E28D-D1B1-90DF-30A9C2E0287C}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{4e24a985-60b1-e954-dcb9-603c97e881ef}">
+    <g id="{9348DE10-E28D-D1B1-90DF-30A9C2E0287C}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{4e24a985-60b1-e954-dcb9-603c97e881ef}">
       <g class="main-shape">
         <polyline class="connector" style="" points="222,275 233,232" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(228,232) rotate(14.349,5,0)" />
-      </g>
-    </g>
-    <g id="{BE14CD75-1BB8-711C-8B1E-4985A72864A1}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{59ca6073-c41e-1d00-789f-c8c1354070f2}">
-      <g class="main-shape">
-        <polyline class="connector" style="" points="321,275 302,232" />
-        <use style="" xlink:href="#_EAArrow2" transform="translate(297,232) rotate(336.161,5,0)" />
       </g>
     </g>
   </g>
