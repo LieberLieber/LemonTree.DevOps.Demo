@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="940" height="392" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="781" height="338" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -432,8 +432,8 @@
       <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
     </g>
   </defs>
-  <g id="viewport" transform="translate(-47.5,-63.5)">
-    <g style="" id="{2618c373-8d10-868a-8b5f-287f29185fc6}" transform="translate(411, 414)" class="element uml-Class base-Requirement ds-unmodified ds-new diag-highlight" data-diagram-object-guid="{502a9c80-289b-ab46-4d6c-17cc252a09de}">
+  <g id="viewport" transform="translate(-47.5,-38.5)">
+    <g style="" id="{2618c373-8d10-868a-8b5f-287f29185fc6}" transform="translate(401, 49)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{502a9c80-289b-ab46-4d6c-17cc252a09de}">
       <rect x="0" y="0" width="160" height="30" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="30" />
       <line x1="12" y1="0" x2="12" y2="30" />
@@ -459,9 +459,9 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A7E7E96B-B9D9-CD30-B44D-CC4DEBDE1DB8}" transform="translate(888, 225)" class="element uml-Class ds-subelementmodified ds-new diag-highlight" data-diagram-object-guid="{cb2a0c16-8973-55be-5980-e9d146291be7}">
-      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
-      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+    <g style="" id="{A7E7E96B-B9D9-CD30-B44D-CC4DEBDE1DB8}" transform="translate(413, 208)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{cb2a0c16-8973-55be-5980-e9d146291be7}">
+      <rect x="0" y="0" width="406" height="157" style="" class="main-shape" />
+      <foreignObject width="406" height="157" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
           <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
             <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
@@ -474,13 +474,13 @@
         </div>
       </foreignObject>
     </g>
-    <g id="{0D84A6CE-4DA2-4e13-B97A-0CFBF6033412}" class="element uml-Dependency ds-modified ds-new diag-highlight" data-diagram-object-guid="{e4c8c5f8-73f9-d599-1186-3b1f2eadb651}">
+    <g id="{0D84A6CE-4DA2-4e13-B97A-0CFBF6033412}" class="element uml-Dependency ds-unmodified diag-highlight" data-diagram-object-guid="{e4c8c5f8-73f9-d599-1186-3b1f2eadb651}">
       <g class="main-shape">
-        <polyline class="connector-dash" style="" points="888,277 530,414" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(525,414) rotate(249.059,5,0)" />
+        <polyline class="connector-dash" style="" points="568,208 490,79" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(485,79) rotate(328.841,5,0)" />
       </g>
       <g class="part-connector-label">
-        <g transform="translate(710,358)" style="text-anchor:pvm; dominant-baseline:ideographic">
+        <g transform="translate(530,156)" style="text-anchor:pvm; dominant-baseline:ideographic">
           <g>
             <text dy="0em">
               <tspan class="stereotype part-connector-stereotype">«satisfy»</tspan>
