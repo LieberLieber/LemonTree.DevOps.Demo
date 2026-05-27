@@ -59,6 +59,13 @@
       "passedTitle": "No Journal entries in the model",
       "failedTitle": "Model has {count} Journal Entries",
       "failedDetail": "Journal entries are not merged by LemonTree."
+    },
+	{
+      "id": "Requirements Without Description",
+      "query": "SELECT o.Object_ID,o.Name AS RequirementName,o.Stereotype,o.Note FROM t_object o WHERE o.Object_Type = 'Requirement' AND (o.Note IS NULL OR TRIM(o.Note) = '')",
+      "passedTitle": "There are no requirements without description",
+      "failedTitle": "Model contains {count} requirements without description",
+      "failedDetail": "Each requirement should have a description"
     }
   ]
 }
