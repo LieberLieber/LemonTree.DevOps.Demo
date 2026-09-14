@@ -460,21 +460,6 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{BCD44F33-0F30-EB3C-9A22-EA8F2ADF8F53}" transform="translate(670, 246)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{25d20dd1-baec-fc2a-91ba-f8b01ca81d6f}">
-      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
-      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
-        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
-            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
-          </p>
-          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
-            <b>heat</b>
-          </p>
-          <div class="part-object-sysmlblock"></div>
-          <p class="childdiagram"></p>
-        </div>
-      </foreignObject>
-    </g>
     <g style="" id="{ABFAB4BC-0BF0-D928-A77E-225BD5A6FE95}" transform="translate(30, 398)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{3b0047a7-17a7-7cde-4841-ae864e5513ec}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
@@ -487,21 +472,6 @@
           </p>
           <div class="part-object-sysmlblock"></div>
           <div class="part-object-behaviors"></div>
-          <p class="childdiagram"></p>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{8AED8DC2-23B2-6EA0-8BA9-73F7410FF53C}" transform="translate(672, 150)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{5428a765-53cb-b3bb-13cb-69b0b2f4daf3}">
-      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
-      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
-        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
-          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
-            <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
-          </p>
-          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
-            <b>torque</b>
-          </p>
-          <div class="part-object-sysmlblock"></div>
           <p class="childdiagram"></p>
         </div>
       </foreignObject>
@@ -522,7 +492,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{838054EF-69E3-EBF8-85C8-F447BCF6600A}" transform="translate(533, 146)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{6f5bc5e7-2d89-4301-97e0-128331974285}">
+    <g style="" id="{838054EF-69E3-EBF8-85C8-F447BCF6600A}" transform="translate(533, 146)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{6f5bc5e7-2d89-4301-97e0-128331974285}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -553,7 +523,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{AE75EB6F-75B0-F2CE-9A92-CC5B02802A9E}" transform="translate(466, 280)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{7fe42c4f-1498-3cda-548e-b968e70c1dbe}">
+    <g style="" id="{AE75EB6F-75B0-F2CE-9A92-CC5B02802A9E}" transform="translate(411, 279)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{7fe42c4f-1498-3cda-548e-b968e70c1dbe}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -675,7 +645,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A60379DB-210C-68E5-A9EA-29B01259CAA4}" transform="translate(546, 41)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{d0285fa9-261e-07a1-820e-5e479cc018f5}">
+    <g style="" id="{A60379DB-210C-68E5-A9EA-29B01259CAA4}" transform="translate(546, 41)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{d0285fa9-261e-07a1-820e-5e479cc018f5}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -721,7 +691,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{43FC2113-7D0C-4776-8138-31510A7BF09E}" transform="translate(278, 395)" class="element uml-Signal ds-new ds-new diag-highlight" data-diagram-object-guid="{eccf36fe-38cd-f9d0-ad5b-51208007797d}">
+    <g style="" id="{43FC2113-7D0C-4776-8138-31510A7BF09E}" transform="translate(278, 395)" class="element uml-Signal ds-unmodified diag-highlight" data-diagram-object-guid="{eccf36fe-38cd-f9d0-ad5b-51208007797d}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
