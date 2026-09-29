@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="768" height="682" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="768" height="669" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -433,12 +433,12 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(0.5,0.5)">
-    <g style="" id="{A8E1A430-AD24-2805-927D-1BFF91A16C4D}" transform="translate(10, 10)" class="element uml-Package ds-new ds-new diag-highlight" data-diagram-object-guid="{c2e7791f-2377-3953-84da-b13063dd2c9f}">
-      <rect x="0" y="0" width="748" height="660" style="fill:none" class="main-shape" />
+    <g style="" id="{A8E1A430-AD24-2805-927D-1BFF91A16C4D}" transform="translate(10, 10)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{c2e7791f-2377-3953-84da-b13063dd2c9f}">
+      <rect x="0" y="0" width="748" height="647" style="fill:none" class="main-shape" />
       <polygon points="0,0 163.02441,0 163.02441,5 150.02441,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] Window Assembly</text>
     </g>
-    <g style="" id="{BA3A7916-6B29-7499-A5A8-8DDA45681BEB}" transform="translate(586, 396)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{2bff5eae-137a-102d-0985-5b26b40ec90a}">
+    <g style="" id="{BA3A7916-6B29-7499-A5A8-8DDA45681BEB}" transform="translate(586, 396)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{2bff5eae-137a-102d-0985-5b26b40ec90a}">
       <rect x="0" y="0" width="135" height="102" style="" class="main-shape" />
       <foreignObject width="135" height="102" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -462,9 +462,9 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{B8598106-A940-3B59-B92E-22886BEEC203}" transform="translate(35, 43)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{a8540616-a243-43ce-8c78-41c2491c8dc7}">
-      <rect x="0" y="0" width="99" height="189" style="" class="main-shape" />
-      <foreignObject width="99" height="189" transform="translate(-0.5,-0.5)">
+    <g style="" id="{B8598106-A940-3B59-B92E-22886BEEC203}" transform="translate(35, 43)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{a8540616-a243-43ce-8c78-41c2491c8dc7}">
+      <rect x="0" y="0" width="99" height="202" style="" class="main-shape" />
+      <foreignObject width="99" height="202" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
           <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
             <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
@@ -486,6 +486,7 @@
               <p class="text-center" style="margin:0; margin-top:4px;">
                 <i>parts</i>
               </p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:MonitorSensor</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Rotor</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Gearbox</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:MotorController</p>
@@ -495,9 +496,9 @@
           <p class="childdiagram"></p>
         </div>
       </foreignObject>
-      <use xlink:href="#compositeDiagramIcon" transform="translate(74,174)" />
+      <use xlink:href="#compositeDiagramIcon" transform="translate(74,187)" />
     </g>
-    <g style="" id="{89B7B3C1-5FE3-0030-AD0F-6414ED9B8DB9}" transform="translate(30, 251)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{beead6a4-a040-fbae-4d20-d75a1c2ae55c}">
+    <g style="" id="{89B7B3C1-5FE3-0030-AD0F-6414ED9B8DB9}" transform="translate(30, 251)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{beead6a4-a040-fbae-4d20-d75a1c2ae55c}">
       <rect x="0" y="0" width="141" height="176" style="" class="main-shape" />
       <foreignObject width="141" height="176" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -522,7 +523,7 @@
               </p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">comparator:ThresholdLogic</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">measurement:StrainGauge</p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Frame</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">f:Frame</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">signalConditioner:Amplifier</p>
             </div>
           </div>
@@ -531,7 +532,7 @@
       </foreignObject>
       <use xlink:href="#compositeDiagramIcon" transform="translate(116,161)" />
     </g>
-    <g style="" id="{89BC50C7-3F00-9944-871A-96FD4F919094}" transform="translate(196, 492)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{cdfcfac4-d1f9-fbd8-ec74-b5c4e8985318}">
+    <g style="" id="{89BC50C7-3F00-9944-871A-96FD4F919094}" transform="translate(196, 492)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{cdfcfac4-d1f9-fbd8-ec74-b5c4e8985318}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -546,7 +547,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{89C15588-EE0F-0A94-9315-D3E25E1BFEB1}" transform="translate(81, 480)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{ed022d97-7b0c-1d4c-dd7c-3703e7cb1bb2}">
+    <g style="" id="{89C15588-EE0F-0A94-9315-D3E25E1BFEB1}" transform="translate(81, 480)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{ed022d97-7b0c-1d4c-dd7c-3703e7cb1bb2}">
       <rect x="0" y="0" width="97" height="76" style="" class="main-shape" />
       <foreignObject width="97" height="76" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -568,7 +569,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{806CC2FF-5DAB-5A1D-8348-8B2F06BCFA38}" transform="translate(397, 550)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{f147e2c7-4ba0-861e-c523-0760524565f0}">
+    <g style="" id="{806CC2FF-5DAB-5A1D-8348-8B2F06BCFA38}" transform="translate(397, 550)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{f147e2c7-4ba0-861e-c523-0760524565f0}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -583,7 +584,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{BB841DDF-A8FE-814F-AFEA-A3D2FB89A4A3}" transform="translate(361, 363)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{fa621622-f2f2-6e3e-d505-823629b73ba0}">
+    <g style="" id="{BB841DDF-A8FE-814F-AFEA-A3D2FB89A4A3}" transform="translate(361, 363)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{fa621622-f2f2-6e3e-d505-823629b73ba0}">
       <rect x="0" y="0" width="177" height="150" style="" class="main-shape" />
       <foreignObject width="177" height="150" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -614,7 +615,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8DE2358D-C95A-D22E-AFC8-0AA339DF7ECC}" transform="translate(444, 43)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{fcc3313e-be1a-0436-44d7-43307a411a8b}">
+    <g style="" id="{8DE2358D-C95A-D22E-AFC8-0AA339DF7ECC}" transform="translate(444, 43)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{fcc3313e-be1a-0436-44d7-43307a411a8b}">
       <rect x="0" y="0" width="138" height="176" style="" class="main-shape" />
       <foreignObject width="138" height="176" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -629,6 +630,7 @@
               <p class="text-center" style="margin:0; margin-top:4px;">
                 <i>ports</i>
               </p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:LIN</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:power</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:CAN_Bus</p>
             </div>
@@ -646,74 +648,64 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{825A99BF-F9F2-70EF-AD57-88C62CB88C60}" transform="translate(575, 70)" class="element uml-Port ds-new ds-new diag-highlight" data-diagram-object-guid="{7f099ebe-5fae-9f91-9829-579932d71b80}">
-      <rect x="0" y="0" width="15" height="15" class="main-shape" />
-      <foreignObject width="18" height="14" transform="translate(17,18) " style="overflow:visible;">
-        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
-          <p style="padding:0px; margin:0px; font-size:0.95em; font-weight:bold;">
-            <span> : LIN</span>
-          </p>
-        </div>
-      </foreignObject>
-    </g>
-    <g id="{919923C6-2B00-2C6F-94B6-DC147D8B92DB}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{0a16256d-f1d7-0393-85ab-9bf04b2a2d09}">
+    <g id="{919923C6-2B00-2C6F-94B6-DC147D8B92DB}" class="element uml-Association ds-modified diag-highlight" data-diagram-object-guid="{0a16256d-f1d7-0393-85ab-9bf04b2a2d09}">
       <g class="main-shape">
         <polyline class="connector" style="" points="166,480 444,200" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(439,200) rotate(44.795,5,0)" />
-        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{ac19c033-6593-16b9-12cb-ec14f077f4ed}" transform="translate(109,470)">
+        <g class="uml-ConnectorEnd ds-unmodified diag-highlight" id="{ac19c033-6593-16b9-12cb-ec14f077f4ed}" transform="translate(109,470)">
           <text>
             <tspan class="part-connectorend-name">windowPane</tspan>
           </text>
         </g>
       </g>
     </g>
-    <g id="{B5F22827-6287-8192-ACBD-903DB3506461}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{48216a4d-bb58-5a7b-df20-98b98be06520}">
+    <g id="{B5F22827-6287-8192-ACBD-903DB3506461}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{48216a4d-bb58-5a7b-df20-98b98be06520}">
       <g class="main-shape">
         <polyline class="connector" style="" points="286,507 361,475" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(356,475) rotate(66.894,5,0)" />
-        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{0dfe0da8-2a49-54b3-e3d7-e1b4073f6f3e}" transform="translate(295,502)">
+        <g class="uml-ConnectorEnd ds-unmodified diag-highlight" id="{0dfe0da8-2a49-54b3-e3d7-e1b4073f6f3e}" transform="translate(295,502)">
           <text>
             <tspan class="part-connectorend-name">passenger</tspan>
           </text>
         </g>
       </g>
     </g>
-    <g id="{86449250-6643-C3A8-8E81-57667A460A40}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{4b8f9838-6e9f-b9be-9b15-d738e1ea26f2}">
+    <g id="{86449250-6643-C3A8-8E81-57667A460A40}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{4b8f9838-6e9f-b9be-9b15-d738e1ea26f2}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="134,136 444,131" />
-        <use style="" xlink:href="#_EAArrow2" transform="translate(439,131) rotate(89.076,5,0)" />
+        <polyline class="connector" style="" points="134,142 444,133" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(439,133) rotate(88.337,5,0)" />
       </g>
     </g>
-    <g id="{8C115BC0-FA46-4543-9963-EC24EAEE96E9}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{4ea76554-6b79-a4ea-f31e-88636e949c16}">
+    <g id="{8C115BC0-FA46-4543-9963-EC24EAEE96E9}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{4ea76554-6b79-a4ea-f31e-88636e949c16}">
       <g class="main-shape">
         <polyline class="connector" style="" points="171,303 444,165" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(439,165) rotate(63.184,5,0)" />
       </g>
     </g>
-    <g id="{957B59DF-886A-C6FC-9D17-D42A5BC178A4}" class="element uml-Generalization ds-new ds-new diag-highlight" data-diagram-object-guid="{579f754e-7066-d28c-cf19-8213528f726d}">
+    <g id="{957B59DF-886A-C6FC-9D17-D42A5BC178A4}" class="element uml-Generalization ds-unmodified diag-highlight" data-diagram-object-guid="{579f754e-7066-d28c-cf19-8213528f726d}">
       <g class="main-shape">
         <polyline class="connector" style="" points="448,363 448,269 513,269 513,219" />
         <use style="" xlink:href="#_EAArrowFull" transform="translate(508,219) rotate(0,5,0)" />
       </g>
     </g>
-    <g id="{92028769-C675-9F9A-963D-3CDB5C3EE240}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{7d73c3a6-fdc3-5032-18fa-ad530e489a06}">
+    <g id="{92028769-C675-9F9A-963D-3CDB5C3EE240}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{7d73c3a6-fdc3-5032-18fa-ad530e489a06}">
       <g class="main-shape">
         <polyline class="connector" style="" points="443,550 445,513" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(440,513) rotate(3.094,5,0)" />
       </g>
     </g>
-    <g id="{AEA10BB2-2857-FB1C-83A3-DB63461F6262}" class="element uml-Association ds-new ds-new diag-highlight" data-diagram-object-guid="{da7617ac-db38-0697-bc46-182daa7a45d5}">
+    <g id="{AEA10BB2-2857-FB1C-83A3-DB63461F6262}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{da7617ac-db38-0697-bc46-182daa7a45d5}">
       <g class="main-shape">
         <polyline class="connector" style="" points="265,492 452,219" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(447,219) rotate(34.41,5,0)" />
-        <g class="uml-ConnectorEnd ds-new diag-highlight" id="{d0504591-75e2-4faa-b877-0a1a70ba15a9}" transform="translate(239,482)">
+        <g class="uml-ConnectorEnd ds-unmodified diag-highlight" id="{d0504591-75e2-4faa-b877-0a1a70ba15a9}" transform="translate(239,482)">
           <text>
             <tspan class="part-connectorend-name">main</tspan>
           </text>
         </g>
       </g>
     </g>
-    <g id="{96CB2B2B-D07B-ED6E-BB7F-422CD058A599}" class="element uml-Generalization ds-new ds-new diag-highlight" data-diagram-object-guid="{e007b1c4-42f4-861f-a3d4-29acd16968ad}">
+    <g id="{96CB2B2B-D07B-ED6E-BB7F-422CD058A599}" class="element uml-Generalization ds-unmodified diag-highlight" data-diagram-object-guid="{e007b1c4-42f4-861f-a3d4-29acd16968ad}">
       <g class="main-shape">
         <polyline class="connector" style="" points="638,396 638,269 513,269 513,219" />
         <use style="" xlink:href="#_EAArrowFull" transform="translate(508,219) rotate(0,5,0)" />
