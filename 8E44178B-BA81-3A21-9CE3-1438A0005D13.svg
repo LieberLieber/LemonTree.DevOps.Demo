@@ -622,6 +622,13 @@
         <polyline class="connector" style="" points="214,427 214,461" />
         <use style="" xlink:href="#_EAArrow" transform="translate(209,461) rotate(180,5,0)" />
       </g>
+      <g class="part-connector-label">
+        <g transform="translate(214,457)" style="text-anchor:yqe; dominant-baseline:ideographic">
+          <g>
+            <text dy="0em">trigger_here</text>
+          </g>
+        </g>
+      </g>
     </g>
     <g id="{BBA1ABBF-25F6-1AA2-9DE8-035858534750}" class="element uml-Transition ds-unmodified diag-highlight" data-diagram-object-guid="{ffe562d0-1de1-f331-db76-7235cc31b705}">
       <g class="main-shape">
