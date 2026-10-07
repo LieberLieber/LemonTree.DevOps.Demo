@@ -622,6 +622,13 @@
         <polyline class="connector" style="" points="215,427 217,464" />
         <use style="" xlink:href="#_EAArrow" transform="translate(212,464) rotate(176.906,5,0)" />
       </g>
+      <g class="part-connector-label">
+        <g transform="translate(216,458)" style="text-anchor:yqe; dominant-baseline:ideographic">
+          <g>
+            <text dy="0em">trg_autoUp1s</text>
+          </g>
+        </g>
+      </g>
     </g>
     <g id="{BBA1ABBF-25F6-1AA2-9DE8-035858534750}" class="element uml-Transition ds-unmodified diag-highlight" data-diagram-object-guid="{ffe562d0-1de1-f331-db76-7235cc31b705}">
       <g class="main-shape">

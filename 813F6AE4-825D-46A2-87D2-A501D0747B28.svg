@@ -438,7 +438,7 @@
       <polygon points="0,0 151.02246,0 151.02246,5 138.02246,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] SystemContext</text>
     </g>
-    <g style="" id="{9CDBEDE0-0CDC-AF3A-94B1-0BA6A76DF0FB}" transform="translate(139, 40)" class="element uml-Class ds-modified diag-highlight" data-diagram-object-guid="{49ea1d41-6dfd-165b-0db9-e9024846be57}">
+    <g style="" id="{9CDBEDE0-0CDC-AF3A-94B1-0BA6A76DF0FB}" transform="translate(139, 40)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{49ea1d41-6dfd-165b-0db9-e9024846be57}">
       <rect x="0" y="0" width="158" height="128" style="" class="main-shape" />
       <foreignObject width="158" height="128" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -446,7 +446,7 @@
             <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
           </p>
           <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
-            <b>PWC_System Context</b>
+            <b>PWC_SystemContext</b>
           </p>
           <div class="part-object-sysmlblock">
             <div class="part-separator">
@@ -454,7 +454,7 @@
                 <i>parts</i>
               </p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Rooftop Window</p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Window Controller ECU</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:WindowControllerECU</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Power Supply</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Driver Window</p>
               <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">:Passenger Window</p>
@@ -465,7 +465,7 @@
       </foreignObject>
       <use xlink:href="#compositeDiagramIcon" transform="translate(133,113)" />
     </g>
-    <g style="" id="{A1A3A13E-2A6C-19DA-B89B-6907D09ABD72}" transform="translate(30, 229)" class="element uml-Class ds-modified diag-highlight" data-diagram-object-guid="{715cfda3-ca85-7513-1436-1c664b775baf}">
+    <g style="" id="{A1A3A13E-2A6C-19DA-B89B-6907D09ABD72}" transform="translate(30, 229)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{715cfda3-ca85-7513-1436-1c664b775baf}">
       <rect x="0" y="0" width="181" height="211" style="" class="main-shape" />
       <foreignObject width="181" height="211" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -473,7 +473,7 @@
             <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
           </p>
           <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
-            <b>Window Controller ECU::<wbr />Window Controller ECU</b>
+            <b>Window Controller ECU::<wbr />WindowControllerECU</b>
           </p>
           <div class="part-object-sysmlblock">
             <div class="part-separator">
