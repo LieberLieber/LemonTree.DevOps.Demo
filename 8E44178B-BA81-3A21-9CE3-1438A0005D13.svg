@@ -471,6 +471,17 @@
       <text x="10" y="30" class="text-transition">Initial</text>
       <!--Label></-Label-->
     </g>
+    <g style="" id="{E9DE73B1-C9ED-46ab-AF1D-CFDC4786F9C6}" transform="translate(158, 464)" class="element uml-State ds-new ds-new diag-highlight" data-diagram-object-guid="{1083ed6a-0d2a-f395-73b4-9873617ad2f2}">
+      <rect x="0" y="0" rx="20" ry="20" width="120" height="60" class="main-shape" />
+      <foreignObject width="120" height="60" transform="translate(-0.5,-0.5)">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="display:none;margin:0px;"></p>
+          <p class="text-center" style="margin:0px;padding:3px; padding-bottom:6px;">
+            <b>Auto Up</b>
+          </p>
+        </div>
+      </foreignObject>
+    </g>
     <g style="" id="{88BE5F14-BD42-D765-83DE-4ECFC48EFB2A}" transform="translate(317, 314)" class="element uml-State ds-unmodified diag-highlight" data-diagram-object-guid="{67f1f52a-1f9f-4ccc-7f46-b4ca5455b159}">
       <rect x="0" y="0" rx="20" ry="20" width="120" height="60" class="main-shape" />
       <foreignObject width="120" height="60" transform="translate(-0.5,-0.5)">
@@ -478,17 +489,6 @@
           <p class="text-center text-ellipsis text-stereotype" style="display:none;margin:0px;"></p>
           <p class="text-center" style="margin:0px;padding:3px; padding-bottom:6px;">
             <b>Down</b>
-          </p>
-        </div>
-      </foreignObject>
-    </g>
-    <g style="" id="{737A90C1-B8BE-4e8e-AA5D-DCA6D587B4A4}" transform="translate(154, 461)" class="element uml-State ds-new ds-new diag-highlight" data-diagram-object-guid="{6bc9b3dc-6756-f9f2-3146-3211ccdd4dba}">
-      <rect x="0" y="0" rx="20" ry="20" width="120" height="60" class="main-shape" />
-      <foreignObject width="120" height="60" transform="translate(-0.5,-0.5)">
-        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
-          <p class="text-center text-ellipsis text-stereotype" style="display:none;margin:0px;"></p>
-          <p class="text-center" style="margin:0px;padding:3px; padding-bottom:6px;">
-            <b>Auto Up</b>
           </p>
         </div>
       </foreignObject>
@@ -510,7 +510,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{A9EC0B9C-70C4-5C5C-81DE-47559AD31CF3}" transform="translate(310, 445)" class="element uml-State ds-unmodified diag-highlight" data-diagram-object-guid="{c8f542c7-592a-19e8-330e-313df03c21a8}">
+    <g style="" id="{A9EC0B9C-70C4-5C5C-81DE-47559AD31CF3}" transform="translate(322, 459)" class="element uml-State ds-unmodified diag-highlight" data-diagram-object-guid="{c8f542c7-592a-19e8-330e-313df03c21a8}">
       <rect x="0" y="0" rx="20" ry="20" width="120" height="60" class="main-shape" />
       <foreignObject width="120" height="60" transform="translate(-0.5,-0.5)">
         <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
@@ -593,11 +593,11 @@
     </g>
     <g id="{BA84BB73-DD5D-6ED0-AD1B-C9555E18CCA9}" class="element uml-Transition ds-unmodified diag-highlight" data-diagram-object-guid="{d084b99b-5fe2-0b02-5a02-d845037b5fc7}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="375,374 371,445" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(366,445) rotate(183.225,5,0)" />
+        <polyline class="connector" style="" points="378,374 380,459" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(375,459) rotate(178.652,5,0)" />
       </g>
       <g class="part-connector-label">
-        <g transform="translate(373,422)" style="text-anchor:yqe; dominant-baseline:ideographic">
+        <g transform="translate(379,429)" style="text-anchor:yqe; dominant-baseline:ideographic">
           <g>
             <text dy="0em">trg_downTime1s</text>
           </g>
@@ -617,17 +617,10 @@
         </g>
       </g>
     </g>
-    <g id="{7FC319FB-D61E-4fe2-B33E-DDA69755EB8D}" class="element uml-Transition ds-new ds-new diag-highlight" data-diagram-object-guid="{ef108d10-994b-02e9-ef41-49bec1ec9cb2}">
+    <g id="{834F3414-EE0D-45ef-8DA5-4F2D602C18BF}" class="element uml-Transition ds-new ds-new diag-highlight" data-diagram-object-guid="{df2dfb21-613a-8f54-d6d0-0f1ab050515d}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="214,427 214,461" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(209,461) rotate(180,5,0)" />
-      </g>
-      <g class="part-connector-label">
-        <g transform="translate(214,457)" style="text-anchor:yqe; dominant-baseline:ideographic">
-          <g>
-            <text dy="0em">trigger_here</text>
-          </g>
-        </g>
+        <polyline class="connector" style="" points="215,427 217,464" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(212,464) rotate(176.906,5,0)" />
       </g>
     </g>
     <g id="{BBA1ABBF-25F6-1AA2-9DE8-035858534750}" class="element uml-Transition ds-unmodified diag-highlight" data-diagram-object-guid="{ffe562d0-1de1-f331-db76-7235cc31b705}">
