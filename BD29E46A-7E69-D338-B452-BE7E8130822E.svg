@@ -615,7 +615,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{8DE2358D-C95A-D22E-AFC8-0AA339DF7ECC}" transform="translate(444, 43)" class="element uml-Class ds-subelementmodified diag-highlight" data-diagram-object-guid="{fcc3313e-be1a-0436-44d7-43307a411a8b}">
+    <g style="" id="{8DE2358D-C95A-D22E-AFC8-0AA339DF7ECC}" transform="translate(444, 43)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{fcc3313e-be1a-0436-44d7-43307a411a8b}">
       <rect x="0" y="0" width="138" height="176" style="" class="main-shape" />
       <foreignObject width="138" height="176" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -648,7 +648,7 @@
         </div>
       </foreignObject>
     </g>
-    <g id="{919923C6-2B00-2C6F-94B6-DC147D8B92DB}" class="element uml-Association ds-modified diag-highlight" data-diagram-object-guid="{0a16256d-f1d7-0393-85ab-9bf04b2a2d09}">
+    <g id="{919923C6-2B00-2C6F-94B6-DC147D8B92DB}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{0a16256d-f1d7-0393-85ab-9bf04b2a2d09}">
       <g class="main-shape">
         <polyline class="connector" style="" points="166,480 444,200" />
         <use style="" xlink:href="#_EAArrow2" transform="translate(439,200) rotate(44.795,5,0)" />
