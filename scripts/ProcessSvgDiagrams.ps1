@@ -26,27 +26,23 @@ $diagramPictures = $xmlContent.SelectNodes('//ns:diagramPictures/ns:diagramPictu
 Write-Host "Found $($diagramPictures.Count) Diagrams."
 Write-Output "Processing $($diagramPictures.Count) diagrams for SVG export"
 
-# Store current branch name before switching to svg branch
-if ([string]::IsNullOrEmpty($OriginalBranch)) {
-    $originalBranch = git branch --show-current
-} else {
+function Invoke-SvgGit {
+    param([Parameter(ValueFromRemainingArguments = $true)][string[]]$Arguments)
+    $result = & git @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "git $($Arguments -join ' ') failed with exit code $LASTEXITCODE"
+    }
+    $result
+}
+
+$ErrorActionPreference = 'Stop'
+$originalCommit = Invoke-SvgGit rev-parse HEAD
+$originalBranch = Invoke-SvgGit branch --show-current
+if (![string]::IsNullOrEmpty($OriginalBranch)) {
+    Invoke-SvgGit rev-parse --verify "$OriginalBranch^{commit}" | Out-Null
     $originalBranch = $OriginalBranch
 }
-Write-Output "Current branch: $originalBranch"
-
-# Configure git user for commits
-git config user.name $GitUserName
-git config user.email $GitUserEmail
-
-# Checkout svg branch before writing SVG files
-git fetch origin
-if (-not (git branch --list svg)) {
-    git checkout --orphan svg
-    git rm -rf .
-} else {
-    git checkout svg
-}
-git pull origin svg || Write-Host "svg branch does not exist remotely yet."
+Write-Output "Original checkout: $originalBranch ($originalCommit)"
 
 $svgFiles = @()
 $svgInfo = @()
@@ -62,25 +58,67 @@ foreach ($diagramPicture in $diagramPictures) {
             $fileGuid = $diagramGuid.Replace('{','').Replace('}','')
             $filename = "$fileGuid.svg"
             Write-Output "$qualifiedName ==> $filename"
-            $cdata_b | %{[Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($_))}|Set-Content -Encoding UTF8 -Path $filename
             $svgFiles += $filename
-            $svgInfo += @{ Name = $qualifiedName; File = $filename }
+            $svgInfo += @{ Name = $qualifiedName; File = $filename; Content = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($cdata_b)) }
         }
     }
 }
 
-# Commit all SVGs together to orphan branch 'svg'
 if ($svgFiles.Count -gt 0) {
-    git add *.svg
-    $commitMsg = "Add SVG files for diagrams"
-    if (![string]::IsNullOrEmpty($PullRequestNumber)) {
-        $commitMsg += " - PR #$PullRequestNumber"
-    }
-    git commit -m $commitMsg
-    $svgCommitId = git rev-parse HEAD
-    git push origin svg
+    $publishError = $null
+    try {
+        Invoke-SvgGit config user.name $GitUserName | Out-Host
+        Invoke-SvgGit config user.email $GitUserEmail | Out-Host
+        Invoke-SvgGit fetch origin | Out-Host
+        $localSvg = Invoke-SvgGit branch --list svg
+        $remoteSvg = Invoke-SvgGit branch --remotes --list origin/svg
+        if ($localSvg) {
+            Invoke-SvgGit checkout svg | Out-Host
+        } elseif ($remoteSvg) {
+            Invoke-SvgGit checkout --track -b svg origin/svg | Out-Host
+        } else {
+            Invoke-SvgGit checkout --orphan svg | Out-Host
+            Invoke-SvgGit rm -rf . | Out-Host
+        }
+        if ($remoteSvg) {
+            Invoke-SvgGit pull --ff-only origin svg | Out-Host
+        }
 
-    Write-Output "Pushed $($svgFiles.Count) SVG files to svg branch (commit: $svgCommitId)"
+        foreach ($svg in $svgInfo) {
+            Set-Content -Encoding UTF8 -LiteralPath $svg.File -Value $svg.Content
+        }
+        Invoke-SvgGit add -- @svgFiles | Out-Host
+        & git diff --cached --quiet
+        $diffExitCode = $LASTEXITCODE
+        if ($diffExitCode -eq 1) {
+            $commitMsg = "Add SVG files for diagrams"
+            if (![string]::IsNullOrEmpty($PullRequestNumber)) {
+                $commitMsg += " - PR #$PullRequestNumber"
+            }
+            Invoke-SvgGit commit -m $commitMsg | Out-Host
+        } elseif ($diffExitCode -ne 0) {
+            throw "git diff failed with exit code $diffExitCode"
+        }
+        $svgCommitId = Invoke-SvgGit rev-parse HEAD
+        Invoke-SvgGit push origin svg | Out-Host
+        Write-Output "Pushed $($svgFiles.Count) SVG files to svg branch (commit: $svgCommitId)"
+    } catch {
+        $publishError = $_
+        throw
+    } finally {
+        try {
+            if (![string]::IsNullOrEmpty($originalBranch)) {
+                Invoke-SvgGit checkout $originalBranch | Out-Host
+            } else {
+                Invoke-SvgGit checkout --detach $originalCommit | Out-Host
+            }
+        } catch {
+            if ($publishError) {
+                throw "SVG publishing failed: $publishError; checkout restoration also failed: $_"
+            }
+            throw
+        }
+    }
 
     # Build GitHub raw links for all SVGs using the same commit id
     foreach ($svg in $svgInfo) {
@@ -94,17 +132,6 @@ if ($svgFiles.Count -gt 0) {
     }
 } else {
     Write-Output "No SVG files to process"
-}
-
-# Return to the original branch
-if (![string]::IsNullOrEmpty($originalBranch)) {
-    Write-Output "Returning to original branch: $originalBranch"
-    git checkout $originalBranch
-    
-    if (Test-Path "*.svg") {
-        Remove-Item "*.svg" -Force
-        Write-Output "Cleaned up SVG files from main branch"
-    }
 }
 
 # Set outputs
