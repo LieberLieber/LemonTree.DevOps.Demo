@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="357" height="150" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="357" height="245" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -432,7 +432,20 @@
       <circle cx="0" cy="0" r="9" stroke="gray" fill="url(#gradNotePin)" />
     </g>
   </defs>
-  <g id="viewport" transform="translate(-108.5,-120.5)">
+  <g id="viewport" transform="translate(-108.5,-25.5)">
+    <g style="" id="{A0D5312D-EEBC-4e2c-9D11-3FAF5E3F75A4}" transform="translate(255, 36)" class="element uml-Class ds-new ds-new diag-highlight" data-diagram-object-guid="{51d995fb-9cf8-fa3c-9dd0-77a8577f8960}">
+      <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
+      <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
+        <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
+          <p class="text-center text-ellipsis text-stereotype" style="margin:0px;"></p>
+          <p class="text-center part-object-name" style="margin-top:0px;margin-bottom:2px;text-decoration:none;">
+            <b>Class1</b>
+          </p>
+          <div class="part-object-sysmlblock"></div>
+          <p class="childdiagram"></p>
+        </div>
+      </foreignObject>
+    </g>
     <g style="" id="{9CDBEDE0-0CDC-AF3A-94B1-0BA6A76DF0FB}" transform="translate(119, 131)" class="element uml-Class ds-unmodified ds-new diag-highlight" data-diagram-object-guid="{b072ded4-7b69-896c-c991-86253b7c60b4}">
       <rect x="0" y="0" width="90" height="128" style="" class="main-shape" />
       <foreignObject width="90" height="128" transform="translate(-0.5,-0.5)">
