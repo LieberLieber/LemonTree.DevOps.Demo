@@ -19,7 +19,7 @@ permissions:
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
   ToolPolarionAutomationURL : https://www.lieberlieber.com/polarion/automation/latest/
-  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session/
+  ReviewSessionURL: https://lieberlieber.nexus/repository/lemontree-session/
   DiffReportFilename: DiffReport.xml
   PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
   GitUserName: 'LemonTree.Automation'
@@ -38,7 +38,7 @@ jobs:
     runs-on: [windows-latest]
     timeout-minutes: 15
     steps:  
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v7.0.1
         with:
           lfs: true
           fetch-depth: 0
@@ -152,14 +152,14 @@ jobs:
           $prNumber = if ('${{ github.event.pull_request.number }}' -eq '') { '' } else { '${{ github.event.pull_request.number }}' }
           & .\scripts\ProcessSvgDiagrams.ps1 -DiffReportFilename "${{env.DiffReportFilename}}" -GitUserName "${{env.GitUserName}}" -GitUserEmail "${{env.GitUserEmail}}" -PullRequestNumber "$prNumber" -RepositoryName "${{github.repository}}"
       - name: Publish DiffReport.xml
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
                 name: DiffReport
                 path: .\*.xml
                 retention-days: 2
 
       - name: Publish SessionFile
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
               name: SessionFile
               path: .\*.ltsfs
@@ -206,7 +206,7 @@ jobs:
 
       - name: Find and validate Pull Request
         id: find-pr
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           result-encoding: string
           script: |
@@ -256,7 +256,7 @@ jobs:
 
       - name: Post Finish message in PR
         if: ${{ steps.find-pr.outputs.pr_exists == 'true' }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
          script: |
            const prNumber = ${{steps.find-pr.outputs.pr_number}};
@@ -317,7 +317,7 @@ jobs:
           Write-Output "${{steps.uploadSession.outputs.SfsFileNameLinks}}" >> $env:GITHUB_STEP_SUMMARY
            
       - name: Publish Model Artifact
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: ModelFiles
           path: .\*.qeax

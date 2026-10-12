@@ -31,7 +31,7 @@ jobs:
     steps:
       - name: Retrieve Rull Request details
         id: pr_details
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           result-encoding: string
           script: |
@@ -54,7 +54,7 @@ jobs:
             core.setOutput('base', triggeredPR.base.ref)
             
       - name: Delete trigger comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             console.log('Comment ID: ' + context.payload.comment.id);
@@ -68,7 +68,7 @@ jobs:
       
       - name: Post rebase in progress comment
         id: progress_comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             const MARKER = '<!-- rebase-run-${{ github.run_id }} -->';
@@ -97,7 +97,7 @@ jobs:
             core.setOutput('comment_id', comment.data.id);
             console.log('Created progress comment #' + comment.data.id);
             
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v7.0.1
         with:
           lfs: true
           fetch-depth: 0
@@ -208,7 +208,7 @@ jobs:
            
       - name: Create Finish Message in PR
         if: always()
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             const MARKER = '<!-- rebase-run-${{ github.run_id }} -->';

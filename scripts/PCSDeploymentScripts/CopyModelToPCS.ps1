@@ -46,7 +46,7 @@ function Get-PCSToggleTool {
     if (-not (Test-Path $ToolPath)) {
         Write-Host "Downloading PCS Toggle Tool..." -ForegroundColor Cyan
         while (Test-Path Alias:curl) { Remove-Item Alias:curl } # Remove the alias binding from curl to Invoke-WebRequest
-        curl "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LieberLieber.Pipeline.Tools.PCS.Toggle.exe" --output "$ToolPath" -k
+        curl "https://lieberlieber.nexus/repository/lemontree-pipeline-tools/LieberLieber.Pipeline.Tools.PCS.Toggle.exe" --output "$ToolPath" -k
         Write-Host "Download complete." -ForegroundColor Green
     }
 }
