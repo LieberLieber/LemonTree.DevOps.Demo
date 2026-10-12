@@ -37,12 +37,12 @@ function Invoke-SvgGit {
 
 $ErrorActionPreference = 'Stop'
 $originalCommit = Invoke-SvgGit rev-parse HEAD
-$originalBranch = Invoke-SvgGit branch --show-current
+$restoreBranch = Invoke-SvgGit branch --show-current
 if (![string]::IsNullOrEmpty($OriginalBranch)) {
     Invoke-SvgGit rev-parse --verify "$OriginalBranch^{commit}" | Out-Null
-    $originalBranch = $OriginalBranch
+    $restoreBranch = $OriginalBranch
 }
-Write-Output "Original checkout: $originalBranch ($originalCommit)"
+Write-Output "Original checkout: $restoreBranch ($originalCommit)"
 
 $svgFiles = @()
 $svgInfo = @()
@@ -107,8 +107,8 @@ if ($svgFiles.Count -gt 0) {
         throw
     } finally {
         try {
-            if (![string]::IsNullOrEmpty($originalBranch)) {
-                Invoke-SvgGit checkout $originalBranch | Out-Host
+            if (![string]::IsNullOrEmpty($restoreBranch)) {
+                Invoke-SvgGit checkout $restoreBranch | Out-Host
             } else {
                 Invoke-SvgGit checkout --detach $originalCommit | Out-Host
             }

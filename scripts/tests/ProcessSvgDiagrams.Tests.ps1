@@ -16,9 +16,9 @@ function Invoke-TestGit {
 }
 
 function Assert-Equal {
-    param($Actual, $Expected, [string]$Message)
+    param([AllowEmptyString()][string]$Actual, [AllowEmptyString()][string]$Expected, [string]$Message)
     if ($Actual -ne $Expected) {
-        throw "$Message - expected '$Expected', got '$Actual'"
+        throw "$Message - expected '$Expected' ($($Expected | ConvertTo-Json -Compress)), got '$Actual' ($($Actual | ConvertTo-Json -Compress))"
     }
 }
 
@@ -75,7 +75,7 @@ try {
             $previousSvgCommit = Invoke-TestGit rev-parse HEAD
             Invoke-TestGit checkout main | Out-Null
             if (!$case.Local) {
-                Invoke-TestGit branch -D svg | Out-Null
+                Invoke-TestGit -Arguments @('branch', '-D', 'svg') | Out-Null
             }
         }
         if ($case.Detached) {
@@ -124,7 +124,7 @@ try {
         if ($case.Override -eq 'main') {
             $expectedBranch = 'main'
         }
-        Assert-Equal ([string](Invoke-TestGit branch --show-current)) $expectedBranch "$($case.Name): checkout mode"
+        Assert-Equal ([string](Invoke-TestGit branch --show-current)) ([string]$expectedBranch) "$($case.Name): checkout mode"
         Assert-Equal (Test-Path $manifest) $true "$($case.Name): local action manifest"
         Assert-Equal ([IO.File]::ReadAllText((Join-Path $repo 'original.svg'))) '<svg>original</svg>' "$($case.Name): original SVG"
         Assert-Equal ([string](Invoke-TestGit status --porcelain)) '' "$($case.Name): clean checkout"
