@@ -19,7 +19,7 @@ permissions:
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
   ToolPolarionAutomationURL : https://www.lieberlieber.com/polarion/automation/latest/
-  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session/
+  ReviewSessionURL: https://lieberlieber.nexus/repository/lemontree-session/
   DiffReportFilename: DiffReport.xml
   PackageGuid: '{DA8C761F-6B8C-4e01-ACD0-54EF6D8272D3}' #this is the package guid of the EA Package maped via LemonTree.Connect to Polarion
   GitUserName: 'LemonTree.Automation'

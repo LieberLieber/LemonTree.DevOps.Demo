@@ -22,7 +22,7 @@ permissions:
 
 env:
   ModelName: LemonTree.DevOps.Demo.qeax
-  ReviewSessionURL: https://nexus.lieberlieber.com/repository/lemontree-session
+  ReviewSessionURL: https://lieberlieber.nexus/repository/lemontree-session
   DiffReportFilename: DiffReport.xml
   GitUserName: 'LemonTree.Automation'
   GitUserEmail: 'support@lieberlieber.com'

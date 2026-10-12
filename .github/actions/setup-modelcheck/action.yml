@@ -30,13 +30,13 @@ runs:
         New-Item -ItemType Directory -Path "./lemontree-modelcheck-cache" -Force | Out-Null
         
         if ('${{ runner.os }}' -eq 'Linux') {
-          $url = "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck"
+          $url = "https://lieberlieber.nexus/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck"
           $output = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck"
           Invoke-WebRequest -Uri $url -OutFile $output
           Write-Output "ModelCheck tool downloaded for Linux"
         }
         elseif ('${{ runner.os }}' -eq 'Windows') {
-          $url = "https://nexus.lieberlieber.com/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck.exe"
+          $url = "https://lieberlieber.nexus/repository/lemontree-pipeline-tools/LemonTree.Pipeline.Tools.ModelCheck.exe"
           $output = "./lemontree-modelcheck-cache/LemonTree.Pipeline.Tools.ModelCheck.exe"
           Invoke-WebRequest -Uri $url -OutFile $output
           Write-Output "ModelCheck tool downloaded for Windows"
