@@ -42,7 +42,7 @@ jobs:
     steps:
       - name: Retrieve Pull Request details
         id: pr_details
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           result-encoding: string
           script: |
@@ -65,7 +65,7 @@ jobs:
             core.setOutput('base', triggeredPR.base.ref)
             
       - name: Delete trigger comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             console.log('Comment ID: ' + context.payload.comment.id);
@@ -79,7 +79,7 @@ jobs:
       
       - name: Post update in progress comment
         id: progress_comment
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
@@ -108,7 +108,7 @@ jobs:
             core.setOutput('comment_id', comment.data.id);
             console.log('Created progress comment #' + comment.data.id);
             
-      - uses: actions/checkout@v6.0.2
+      - uses: actions/checkout@v7.0.1
         with:
           lfs: true
           fetch-depth: 0
@@ -306,14 +306,14 @@ jobs:
           Write-Output "checks_passed=true" >> $env:GITHUB_OUTPUT
 
       - name: Publish DiffReport.xml
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
                 name: DiffReport
                 path: .\*.xml
                 retention-days: 2
 
       - name: Publish SessionFile
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
               name: SessionFile
               path: .\*.ltsfs
@@ -354,7 +354,7 @@ jobs:
           Write-Output "${{steps.uploadSession.outputs.SfsFileNameLinks}}" >> $env:GITHUB_STEP_SUMMARY
            
       - name: Publish Model Artifact
-        uses: actions/upload-artifact@v7.0.0
+        uses: actions/upload-artifact@v7.0.2
         with:
           name: ModelFiles
           path: .\*.qeax
@@ -362,7 +362,7 @@ jobs:
 
       - name: Create Finish Message in PR
         if: always()
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9.0.0
         with:
           script: |
             const MARKER = '<!-- polarion-update-run-${{ github.run_id }} -->';
