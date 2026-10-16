@@ -1,4 +1,4 @@
-<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="677" height="436" xmlns="http://www.w3.org/2000/svg">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" id="mainSvg" width="797" height="436" xmlns="http://www.w3.org/2000/svg">
   <style type="text/css"><![CDATA[
 		
 .diag-highlight.ds-unmodified span { color: darkgray !important; }
@@ -433,8 +433,8 @@
     </g>
   </defs>
   <g id="viewport" transform="translate(0.5,0.5)">
-    <g style="" id="{9C1ABDC1-A2F6-5B1F-B1C0-9CD6E4C57DAF}" transform="translate(10, 10)" class="element uml-Package ds-unmodified diag-highlight" data-diagram-object-guid="{89a8f923-826f-b148-4613-d4b7c16b5848}">
-      <rect x="0" y="0" width="657" height="414" style="fill:none" class="main-shape" />
+    <g style="" id="{9C1ABDC1-A2F6-5B1F-B1C0-9CD6E4C57DAF}" transform="translate(10, 10)" class="element uml-Package ds-subelementmodified diag-highlight" data-diagram-object-guid="{89a8f923-826f-b148-4613-d4b7c16b5848}">
+      <rect x="0" y="0" width="777" height="414" style="fill:none" class="main-shape" />
       <polygon points="0,0 181.02734,0 181.02734,5 168.02734,19 0,19" />
       <text x="3" y="12" style="font-weight: bold; fill:black; stroke:none">[package] High Torque Sensor</text>
     </g>
@@ -532,6 +532,18 @@
         </div>
       </foreignObject>
     </g>
+    <g style="" id="{F1512425-CA3D-4fc2-AA73-6F94EA7BD936}" transform="translate(635, 156)" class="element uml-Comment ds-new ds-new diag-highlight" data-diagram-object-guid="{eed48308-455d-461d-94ba-ecf9e27ee25b}">
+      <polygon points="0,0 102,0 115,13 115,55 0,55" style="; " class="main-shape" />
+      <polygon points="102,0 115,13 102,13" style="fill:rgb(220,220,220); " />
+      <foreignObject width="115" height="55">
+        <div class="fo-body" xmlns="http://www.w3.org/1999/xhtml">
+          <div class="text-center text-ellipsis part-comment-stereotype" style="margin:0px; margin-right:10px;"></div>
+          <div class="part-note" style="padding-top:13px; padding-left:5px; word-wrap:break-word; font-weight:normal;font-style:normal;color:#000;font-family:Arial;text-decoration:none;text-align:inherit">
+						some note here
+					</div>
+        </div>
+      </foreignObject>
+    </g>
     <g id="{84222464-DC30-12B2-A83A-E41C6C66CBAC}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{2773d24b-d968-c809-2ea1-539abc977715}">
       <g class="main-shape">
         <polyline class="connector" style="" points="290,317 293,219" />
@@ -541,6 +553,11 @@
             <tspan class="part-connectorend-name">signalConditioner</tspan>
           </text>
         </g>
+      </g>
+    </g>
+    <g id="{5D15BBBC-D4AC-4bc6-9CC0-0AC62561D418}" class="element uml-Dependency ds-new ds-new diag-highlight" data-diagram-object-guid="{360638de-0951-81f8-cc09-e05eebc3389f}">
+      <g class="main-shape">
+        <polyline class="part-notelink" style="" points="635,175 368,140" />
       </g>
     </g>
     <g id="{A2C8CD58-699C-4635-ACC9-727534171DF4}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{55f60fd1-e3e4-958d-d041-f891bfd5ec8d}">
