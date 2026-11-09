@@ -467,7 +467,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{06f50260-ceda-35b3-68cb-e8c9e9fbd05f}" transform="translate(477, 377)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{3abba9fa-37c6-85dc-d236-bcd24a9428f3}">
+    <g style="" id="{06f50260-ceda-35b3-68cb-e8c9e9fbd05f}" transform="translate(477, 377)" class="element uml-Class base-Requirement ds-moved ds-modified diag-highlight" data-diagram-object-guid="{3abba9fa-37c6-85dc-d236-bcd24a9428f3}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
       <line x1="12" y1="0" x2="12" y2="33" />
