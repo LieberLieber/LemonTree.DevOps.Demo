@@ -445,9 +445,9 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{32890EEE-C0EA-430c-A34B-A346AB7ACB47}" transform="translate(396, 267)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{1332ae74-a919-7734-687d-8a36c65ec40a}">
-      <rect x="0" y="0" width="173" height="76" style="" class="main-shape" />
-      <foreignObject width="173" height="76" transform="translate(-0.5,-0.5)">
+    <g style="" id="{32890EEE-C0EA-430c-A34B-A346AB7ACB47}" transform="translate(384, 258)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{1332ae74-a919-7734-687d-8a36c65ec40a}">
+      <rect x="0" y="0" width="169" height="102" style="" class="main-shape" />
+      <foreignObject width="169" height="102" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
           <p class="text-center text-ellipsis text-stereotype" style="margin:0px;">
             <span class="stereotype part-object-stereotype" xmlns="http://www.w3.org/1999/xhtml">block</span>
@@ -460,14 +460,14 @@
               <p class="text-center" style="margin:0; margin-top:4px;">
                 <i>properties</i>
               </p>
-              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">batteryCapacityInHours:Integer = 8</p>
+              <p class="text-ellipsis" style="text-align:left; margin:0; margin-top:2px; margin-left:6px;">batteryCapInMinutes:Integer = 24</p>
             </div>
           </div>
           <p class="childdiagram"></p>
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{06f50260-ceda-35b3-68cb-e8c9e9fbd05f}" transform="translate(470, 380)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{3abba9fa-37c6-85dc-d236-bcd24a9428f3}">
+    <g style="" id="{06f50260-ceda-35b3-68cb-e8c9e9fbd05f}" transform="translate(477, 377)" class="element uml-Class base-Requirement ds-unmodified diag-highlight" data-diagram-object-guid="{3abba9fa-37c6-85dc-d236-bcd24a9428f3}">
       <rect x="0" y="0" width="160" height="33" class="main-shape" />
       <line x1="10" y1="0" x2="10" y2="33" />
       <line x1="12" y1="0" x2="12" y2="33" />
@@ -479,7 +479,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{C6A6B1B6-CE81-4c84-99AB-9AAA9AC2F8A3}" transform="translate(243, 270)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{97be0b02-60e0-5b3d-372a-0930a1b00a34}">
+    <g style="" id="{C6A6B1B6-CE81-4c84-99AB-9AAA9AC2F8A3}" transform="translate(244, 270)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{97be0b02-60e0-5b3d-372a-0930a1b00a34}">
       <rect x="0" y="0" width="90" height="70" style="" class="main-shape" />
       <foreignObject width="90" height="70" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -494,7 +494,7 @@
         </div>
       </foreignObject>
     </g>
-    <g style="" id="{2178BE8A-1FAF-431d-98FE-3C6836CEF5DD}" transform="translate(329, 120)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{bcfc7a40-6912-ab36-aaa4-8de9e7306f83}">
+    <g style="" id="{2178BE8A-1FAF-431d-98FE-3C6836CEF5DD}" transform="translate(357, 119)" class="element uml-Class ds-unmodified diag-highlight" data-diagram-object-guid="{bcfc7a40-6912-ab36-aaa4-8de9e7306f83}">
       <rect x="0" y="0" width="90" height="89" style="" class="main-shape" />
       <foreignObject width="90" height="89" transform="translate(-0.5,-0.5)">
         <div class="fo-body text-content" xmlns="http://www.w3.org/1999/xhtml">
@@ -519,17 +519,17 @@
     </g>
     <g id="{E21B1DEC-D5AE-464c-AF90-85143D6FBF77}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{2545ccdf-13e9-65e1-904b-7a004d8e4726}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="309,270 346,209" />
-        <use style="" xlink:href="#_EAArrow2" transform="translate(341,209) rotate(31.239,5,0)" />
+        <polyline class="connector" style="" points="316,270 366,208" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(361,208) rotate(38.884,5,0)" />
       </g>
     </g>
     <g id="{823EBEBE-334B-4b5c-933D-0DBC6E45FCD5}" class="element uml-Dependency ds-unmodified diag-highlight" data-diagram-object-guid="{305259e2-c0cd-27db-51cc-3055a9b966ba}">
       <g class="main-shape">
-        <polyline class="connector-dash" style="" points="569,310 611,310 611,380" />
-        <use style="" xlink:href="#_EAArrow" transform="translate(606,380) rotate(180,5,0)" />
+        <polyline class="connector-dash" style="" points="553,296 596,296 596,377" />
+        <use style="" xlink:href="#_EAArrow" transform="translate(591,377) rotate(180,5,0)" />
       </g>
       <g class="part-connector-label">
-        <g transform="translate(612,303)" style="text-anchor:yqe; dominant-baseline:ideographic">
+        <g transform="translate(597,317)" style="text-anchor:yqe; dominant-baseline:ideographic">
           <g>
             <text dy="0em">
               <tspan class="stereotype part-connector-stereotype">«satisfy»</tspan>
@@ -540,8 +540,8 @@
     </g>
     <g id="{8CAD7D70-9ED5-46a0-95AE-FDCA0F38DD6D}" class="element uml-Association ds-unmodified diag-highlight" data-diagram-object-guid="{720fe647-fd4b-2178-36d2-fee7854dd3ac}">
       <g class="main-shape">
-        <polyline class="connector" style="" points="428,267 397,209" />
-        <use style="" xlink:href="#_EAArrow2" transform="translate(392,209) rotate(331.876,5,0)" />
+        <polyline class="connector" style="" points="444,258 422,208" />
+        <use style="" xlink:href="#_EAArrow2" transform="translate(417,208) rotate(336.251,5,0)" />
       </g>
     </g>
   </g>
